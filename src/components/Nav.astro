@@ -1,0 +1,16 @@
+---
+interface Props {
+  current: 'home' | 'sponsors';
+}
+const { current } = Astro.props;
+---
+<nav class="nav">
+  <div class="nav-in">
+    <a class="mark" href="/"><b>812</b><span>Midnight Mechanics</span></a>
+    <a class:list={['link', { on: current === 'home' }]} href="/">Home</a>
+    <a class:list={['link', { on: current === 'sponsors' }]} href="/sponsors">Sponsors</a>
+    <a class="link soon" title="Not in this prototype">Robots</a>
+    <a class="link soon" title="Not in this prototype">Team</a>
+    <a class="btn" href="/sponsors">Sponsor us</a>
+  </div>
+</nav>

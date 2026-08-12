@@ -1,0 +1,30 @@
+# Sponsorship tiers. "order" controls display order (top tier first);
+# the file content loader does not preserve YAML array order on its own.
+- id: "5000"
+  order: 1
+  precede: "Everything at $2,500, plus"
+  amount: "$5,000"
+  top: true
+  items:
+    - "Logo decal <b>on the robot</b>"
+    - "Logo on team shirts"
+    - "Robot demo at your office"
+    - "Logo on this site's homepage"
+- id: "2500"
+  order: 2
+  precede: "Everything at $1,000, plus"
+  amount: "$2,500"
+  top: false
+  items:
+    - "Logo decal <b>on the robot</b>"
+    - "Logo on team shirts"
+    - "Thank-you post on our social accounts"
+- id: "1000"
+  order: 3
+  precede: "Every sponsor gets"
+  amount: "$1,000"
+  top: false
+  items:
+    - "Logo on the pit banner"
+    - "Logo on our sponsors page"
+    - "Thank-you letter from the team"

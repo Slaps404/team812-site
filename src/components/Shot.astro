@@ -1,0 +1,17 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  caption: string;
+  tall?: boolean;
+  style?: string;
+}
+const { src, alt, caption, tall = false, style = 'margin:0' } = Astro.props;
+---
+<figure class:list={['shot', { tall }]} style={style}>
+  <Image src={src} alt={alt} />
+  <figcaption class="mono">{caption}</figcaption>
+</figure>

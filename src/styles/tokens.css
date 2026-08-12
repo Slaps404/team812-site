@@ -1,0 +1,49 @@
+/* ============================================================
+   DESIGN TOKENS
+   This block is the whole design. Every value below is wired to
+   a slider in the tuning panel. Change a token, the whole site
+   changes. Nothing else in this file hardcodes a colour or size.
+   ============================================================ */
+:root{
+  /* colour */
+  --ground:        #0e0f11;   /* page background */
+  --ground-2:      #16181b;   /* raised blocks */
+  --ink:           #f2f1ec;   /* main text, warm not pure white */
+  --ink-dim:       #8f9296;   /* metadata, captions */
+  --accent:        #21c7c1;   /* from your logo. ONE job: the ask. */
+  --panel:         #f7f6ef;   /* light panel behind sponsor logos */
+  --panel-ink:     #1a1a18;
+  --flag:          #e8a33d;   /* marks unconfirmed data */
+
+  /* space */
+  --space:         1rem;      /* everything derives from this */
+  --measure:       68rem;     /* max content width */
+
+  /* type */
+  --font-sans:     'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:     'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --type-base:     17px;
+  --type-scale:    1.24;
+  --display:       4.3vw;     /* hero headline, scales with window */
+
+  /* hero crop. The photo slot is tall, so these pan the frame for real. */
+  --hero-x:        61%;
+  --hero-y:        74%;
+
+  /* form */
+  --radius:        0px;
+  --rule:          rgba(242,241,236,.13);
+  --photo-ratio:   1.30;      /* width / height for photo blocks */
+
+  /* motion */
+  --motion:        180ms;
+  --ease:          cubic-bezier(.165,.84,.44,1);
+
+  /* derived type steps. do not edit, they follow --type-scale */
+  --t-1: calc(var(--type-base) / var(--type-scale));
+  --t-2: calc(var(--t-1) / var(--type-scale));
+  --t1:  calc(var(--type-base) * var(--type-scale));
+  --t2:  calc(var(--t1) * var(--type-scale));
+  --t3:  calc(var(--t2) * var(--type-scale));
+  --t4:  calc(var(--t3) * var(--type-scale));
+}

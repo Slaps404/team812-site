@@ -1,0 +1,18 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const tiers = (await getCollection('tiers')).sort((a, b) => a.data.order - b.data.order);
+---
+<div class="tiers">
+  {tiers.map((t: CollectionEntry<'tiers'>) => (
+    <div class:list={['tier', { top: t.data.top }]}>
+      <p class="mono">{t.data.precede}</p>
+      <div class="amt">{t.data.amount}</div>
+      <ul>
+        {t.data.items.map((item: string) => (
+          <li set:html={item} />
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>

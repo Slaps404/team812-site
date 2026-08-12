@@ -1,0 +1,32 @@
+# Sponsor wall entries. "logo" keys map to the three SVGs in
+# src/assets/logos/ (imports are static in LogoWall.astro). "order"
+# controls display order; the file content loader does not preserve
+# YAML array order on its own.
+- id: "qualcomm"
+  order: 1
+  name: "Qualcomm"
+  tier: "current"
+  logo: "qualcomm"
+  widthClass: "w-qualcomm"
+- id: "nordson"
+  order: 2
+  name: "Nordson"
+  tier: "current"
+  logo: "nordson"
+  widthClass: "w-nordson"
+- id: "leidos"
+  order: 3
+  name: "Leidos"
+  tier: "current"
+  logo: "leidos"
+  widthClass: "w-leidos"
+- id: "cluely"
+  order: 4
+  name: "Cluely"
+  tier: "past"
+- id: "supporters-placeholder"
+  order: 5
+  name: "Names of individual supporters go here as plain text, no logos."
+  tier: "supporter"
+  flagged: true
+  tag: "need names"

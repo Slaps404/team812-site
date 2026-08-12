@@ -1,0 +1,20 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const stats = (await getCollection('stats')).sort((a, b) => a.data.order - b.data.order);
+---
+<div class="stats">
+  {stats.map((s: CollectionEntry<'stats'>) => (
+    <div class="stat">
+      <div class="n">
+        {s.data.flagged ? (
+          <span class="vf">{s.data.value}</span>
+        ) : (
+          <Fragment>{s.data.value}</Fragment>
+        )}
+        {s.data.suffix && <span style="font-size:.5em;vertical-align:.55em">{s.data.suffix}</span>}
+      </div>
+      <div class="k mono">{s.data.label}</div>
+    </div>
+  ))}
+</div>

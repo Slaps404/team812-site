@@ -1,0 +1,20 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import qualcomm from '../assets/logos/qualcomm.svg?url';
+import nordson from '../assets/logos/nordson.svg?url';
+import leidos from '../assets/logos/leidos.svg?url';
+
+const LOGO_SRC: Record<string, string> = { qualcomm, nordson, leidos };
+
+const all = await getCollection('sponsors');
+const current = all
+  .filter((s: CollectionEntry<'sponsors'>) => s.data.tier === 'current')
+  .sort((a, b) => a.data.order - b.data.order);
+---
+<div class="wall">
+  {current.map((s: CollectionEntry<'sponsors'>) => (
+    <div class:list={['logo', s.data.widthClass]}>
+      <img src={LOGO_SRC[s.data.logo ?? '']} alt={s.data.name} />
+    </div>
+  ))}
+</div>

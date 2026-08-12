@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+# The photos/ folder is a LOCAL working archive: HEIC originals and intermediate
+# passes. Git keeps every version of a binary forever, so none of it goes in.
+# The site-ready copies live in src/assets/photos/ and those ARE committed.
+photos/*
+!photos/INDEX.md
+.DS_Store

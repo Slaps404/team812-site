@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import heroImg from '../assets/photos/2026-states-IMG_1045.jpg';
+---
+<header class="hero">
+  <div class="hero-text">
+    <div>
+      <p class="mono">FRC 812 &nbsp;/&nbsp; The Preuss School UC San Diego</p>
+      <h1>25 seasons of first-generation engineers.</h1>
+      <p class="lede">San Diego's first FRC team, built by students who will be the first in their families to finish college.</p>
+      <div class="cta">
+        <a class="btn solid" href="/sponsors">Sponsor the 2027 season</a>
+        <a class="btn ghost" href="https://github.com/preuss812" target="_blank" rel="noopener">Read our robot code</a>
+      </div>
+    </div>
+  </div>
+  <figure class="hero-shot">
+    <Image src={heroImg} alt="Team 812 students and mentors working around their robot in the pit at the 2026 state championship." />
+    <figcaption class="credit mono">Pit crew / State championship / 2026 <span class="ph-tag">verify event</span></figcaption>
+  </figure>
+</header>

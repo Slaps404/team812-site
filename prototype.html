@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team 812 site prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   This block is the whole design. Every value below is wired to
+   a slider in the tuning panel. Change a token, the whole site
+   changes. Nothing else in this file hardcodes a colour or size.
+   ============================================================ */
+:root{
+  /* colour */
+  --ground:        #0e0f11;   /* page background */
+  --ground-2:      #16181b;   /* raised blocks */
+  --ink:           #f2f1ec;   /* main text, warm not pure white */
+  --ink-dim:       #8f9296;   /* metadata, captions */
+  --accent:        #21c7c1;   /* from your logo. ONE job: the ask. */
+  --panel:         #f7f6ef;   /* light panel behind sponsor logos */
+  --panel-ink:     #1a1a18;
+  --flag:          #e8a33d;   /* marks unconfirmed data */
+
+  /* space */
+  --space:         1rem;      /* everything derives from this */
+  --measure:       68rem;     /* max content width */
+
+  /* type */
+  --font-sans:     'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:     'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --type-base:     17px;
+  --type-scale:    1.24;
+  --display:       4.3vw;     /* hero headline, scales with window */
+
+  /* hero crop. The photo slot is tall, so these pan the frame for real. */
+  --hero-x:        61%;
+  --hero-y:        74%;
+
+  /* form */
+  --radius:        0px;
+  --rule:          rgba(242,241,236,.13);
+  --photo-ratio:   1.30;      /* width / height for photo blocks */
+
+  /* motion */
+  --motion:        180ms;
+  --ease:          cubic-bezier(.165,.84,.44,1);
+
+  /* derived type steps. do not edit, they follow --type-scale */
+  --t-1: calc(var(--type-base) / var(--type-scale));
+  --t-2: calc(var(--t-1) / var(--type-scale));
+  --t1:  calc(var(--type-base) * var(--type-scale));
+  --t2:  calc(var(--t1) * var(--type-scale));
+  --t3:  calc(var(--t2) * var(--type-scale));
+  --t4:  calc(var(--t3) * var(--type-scale));
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  overflow-x:clip;          /* a single wide child must not widen the document */
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--font-sans);
+  font-size:var(--type-base);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0;font-weight:500;line-height:1.02;letter-spacing:-.022em}
+p{margin:0}
+
+/* mono label. used for all metadata, nav, numbers, captions. */
+.mono{
+  font-family:var(--font-mono);
+  font-size:var(--t-2);
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+}
+
+.wrap{max-width:var(--measure);margin:0 auto;padding:0 calc(var(--space) * 1.5)}
+.rule{border:0;border-top:1px solid var(--rule);margin:0}
+
+/* ============================================================
+   NAV
+   4 items, because the best team sites run 4 to 6 and the worst run 11.
+   ============================================================ */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
+}
+.nav-in{
+  max-width:var(--measure);margin:0 auto;
+  padding:calc(var(--space) * .8) calc(var(--space) * 1.5);
+  display:flex;align-items:center;gap:calc(var(--space) * 1.6);
+}
+.mark{display:flex;align-items:baseline;gap:.5em;margin-right:auto}
+.mark b{font-family:var(--font-mono);font-size:var(--t1);font-weight:500;letter-spacing:-.03em}
+.mark span{font-family:var(--font-mono);font-size:var(--t-2);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)}
+.nav a.link{
+  font-family:var(--font-mono);font-size:var(--t-2);
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-dim);
+  transition:color var(--motion) var(--ease);
+}
+.nav a.link:hover{color:var(--ink)}
+.nav a.link.on{color:var(--ink)}
+.nav a.link.soon{opacity:.32;cursor:not-allowed}
+.btn{
+  display:inline-block;
+  font-family:var(--font-mono);font-size:var(--t-2);
+  letter-spacing:.11em;text-transform:uppercase;
+  padding:calc(var(--space) * .55) calc(var(--space) * .95);
+  border:1px solid var(--accent);color:var(--accent);
+  border-radius:var(--radius);
+  transition:background var(--motion) var(--ease), color var(--motion) var(--ease);
+}
+.btn:hover{background:var(--accent);color:var(--ground)}
+.btn.solid{background:var(--accent);color:var(--ground)}
+.btn.solid:hover{background:transparent;color:var(--accent)}
+.btn.ghost{border-color:var(--rule);color:var(--ink-dim)}
+.btn.ghost:hover{background:transparent;border-color:var(--ink);color:var(--ink)}
+
+/* ============================================================
+   HERO
+   Full bleed photo. Your real States pit shot, not stock.
+   ============================================================ */
+/* A full-bleed photo hero was the first instinct and it failed on the evidence.
+   This photo's subject (robot + leidos decal + students) sits in a roughly
+   SQUARE region, with a rival team's sponsor banner immediately left of it.
+   No 1.9:1 crop contains the subject and excludes the banner. A tall slot can.
+   Side effect: the headline now sits on solid ground, so legibility is
+   guaranteed for every future photo too. */
+.hero{
+  display:grid;grid-template-columns:1fr .84fr;
+  min-height:min(84vh, 880px);overflow:hidden;
+}
+.hero-text{
+  display:flex;align-items:center;
+  padding:calc(var(--space) * 4) calc(var(--space) * 3) calc(var(--space) * 4)
+          max(calc(var(--space) * 1.5), calc((100vw - var(--measure)) / 2 + var(--space) * 1.5));
+}
+.hero h1{font-size:var(--display);margin:calc(var(--space) * .7) 0}
+.hero .lede{font-size:var(--t1);color:var(--ink);max-width:30em;opacity:.82}
+.hero .cta{display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.8);flex-wrap:wrap}
+
+/* The photo slot is taller than the photo is, so `cover` crops the WIDTH.
+   That is what makes --hero-x actually pan. It could not in a wide slot. */
+.hero-shot{position:relative;margin:0;overflow:hidden}
+.hero-shot img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:var(--hero-x) var(--hero-y);
+}
+.hero-shot::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,
+      var(--ground) 0%,
+      color-mix(in srgb, var(--ground) 35%, transparent) 12%,
+      transparent 34%),
+    linear-gradient(0deg,
+      color-mix(in srgb, var(--ground) 80%, transparent) 0%,
+      transparent calc(var(--space) * 4));
+}
+.credit{
+  position:absolute;right:calc(var(--space) * 1.2);bottom:calc(var(--space) * .7);
+  z-index:2;text-align:right;
+  color:color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+/* ============================================================
+   STAT BAND
+   Specific numbers, not marketing adjectives.
+   ============================================================ */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid var(--rule);
+}
+.stat{padding:calc(var(--space) * 2) calc(var(--space) * 1.2);border-left:1px solid var(--rule)}
+.stat:first-child{border-left:0}
+.stat .n{
+  font-family:var(--font-mono);font-size:var(--t3);font-weight:500;
+  line-height:1;letter-spacing:-.04em;color:var(--ink);
+}
+.stat .k{margin-top:calc(var(--space) * .5)}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+section{padding:calc(var(--space) * 5) 0}
+.label{
+  font-family:var(--font-mono);
+  font-size:var(--t-2);
+  font-weight:400;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  margin:0 0 calc(var(--space) * 1.1);
+}
+h2{font-size:var(--t3);max-width:26em}
+h3{font-size:var(--t1)}
+.body{font-size:var(--type-base);color:var(--ink);opacity:.82;max-width:36em}
+.body + .body{margin-top:calc(var(--space) * .9)}
+
+/* asymmetric split. thirds-based, so the page never reads as a spreadsheet. */
+.split{display:grid;grid-template-columns:6fr 4fr;gap:calc(var(--space) * 3);align-items:start}
+.split.flip{grid-template-columns:4fr 6fr}
+
+/* photo blocks. one enforced ratio, object-fit cover, no frames or shadows. */
+.shot{position:relative}
+.shot img{width:100%;aspect-ratio:var(--photo-ratio);object-fit:cover;border-radius:var(--radius)}
+.shot figcaption{margin-top:calc(var(--space) * .55)}
+.shot.tall img{aspect-ratio:calc(var(--photo-ratio) * .52)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--space) * 1.2)}
+
+/* year chips for the code archive */
+.years{display:flex;flex-wrap:wrap;gap:calc(var(--space) * .4);margin-top:calc(var(--space) * 1.4)}
+.years a{
+  font-family:var(--font-mono);font-size:var(--t-2);
+  padding:calc(var(--space) * .3) calc(var(--space) * .55);
+  border:1px solid var(--rule);border-radius:var(--radius);
+  color:var(--ink-dim);
+  transition:border-color var(--motion) var(--ease), color var(--motion) var(--ease);
+}
+.years a:hover{border-color:var(--accent);color:var(--accent)}
+.years a.hi{color:var(--ink);border-color:var(--ink-dim)}
+
+/* ============================================================
+   SPONSOR WALL
+   Light panel, because corporate blues cannot sit on a dark ground.
+   Equal cells, heavy padding, no card backgrounds, no dividers.
+   ============================================================ */
+.panel{background:var(--panel);color:var(--panel-ink);padding:calc(var(--space) * 4) 0}
+.panel .mono,
+.panel .label{color:color-mix(in srgb, var(--panel-ink) 55%, transparent)}
+.panel h2{color:var(--panel-ink)}
+.wall{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:color-mix(in srgb, var(--panel-ink) 12%, transparent);
+  margin-top:calc(var(--space) * 2);
+}
+.logo{
+  background:var(--panel);
+  aspect-ratio:2.6;
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(var(--space) * 2.2);
+}
+/* Optical size matching. Widths are sqrt(aspect-ratio), normalised, so every
+   logo occupies the same ink AREA. Equal widths would make the chunky Nordson
+   mark read twice as large as the wide Qualcomm wordmark. */
+.logo img{width:100%;max-height:100%;object-fit:contain}
+.logo.w-qualcomm img{max-width:100%}
+.logo.w-leidos   img{max-width:88%}
+.logo.w-nordson  img{max-width:73%}
+.logo .wordmark{
+  font-size:var(--t1);font-weight:600;letter-spacing:-.02em;
+  color:color-mix(in srgb, var(--panel-ink) 78%, transparent);
+  text-align:center;
+}
+.logo.past .wordmark{font-size:var(--type-base);opacity:.45}
+
+/* ============================================================
+   TIERS
+   Amounts only, no cute names. Tier by placement, not decoration.
+   No badges, no ribbons, no gold borders.
+   ============================================================ */
+/* Read right to left: the $1,000 column is the base every sponsor gets, and
+   each column to its left adds to it. Tiers stack, so nothing is ever crossed
+   out. Hierarchy comes from amount size and rule weight, never from badges. */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--space) * 1.5);margin-top:calc(var(--space) * 2.4)}
+.tier{border-top:1px solid var(--rule);padding-top:calc(var(--space) * .9);align-self:start}
+.tier .mono{display:block;margin-bottom:calc(var(--space) * .7);font-size:9px}
+.tier .amt{font-family:var(--font-mono);font-size:var(--t1);letter-spacing:-.03em;color:var(--ink);line-height:1}
+.tier.top{border-top-width:3px;border-top-color:var(--accent)}
+.tier.top .amt{font-size:var(--t3);color:var(--accent)}
+.tier ul{list-style:none;margin:calc(var(--space) * 1.1) 0 0;padding:0}
+.tier li{
+  font-size:var(--t-1);padding:calc(var(--space) * .5) 0;
+  border-bottom:1px solid var(--rule);opacity:.85;
+}
+.tier li:last-child{border-bottom:0}
+.tier li b{color:var(--ink);font-weight:500}
+
+/* use of funds */
+.funds{margin-top:calc(var(--space) * 2);border-top:1px solid var(--rule)}
+.fund{
+  display:grid;grid-template-columns:1fr auto;gap:var(--space);
+  padding:calc(var(--space) * .85) 0;border-bottom:1px solid var(--rule);
+  align-items:baseline;
+}
+.fund .amt{font-family:var(--font-mono);font-size:var(--type-base);color:var(--ink)}
+.fund.total .amt,.fund.total .lab{color:var(--accent);font-weight:500}
+
+/* numbered reasons. deliberately NOT three cards with stock icons. */
+.reasons{margin-top:calc(var(--space) * 2);border-top:1px solid var(--rule)}
+.reason{
+  display:grid;grid-template-columns:auto 1fr;gap:calc(var(--space) * 1.6);
+  padding:calc(var(--space) * 1.6) 0;border-bottom:1px solid var(--rule);
+}
+.reason .num{font-family:var(--font-mono);font-size:var(--t-1);color:var(--accent)}
+
+footer{padding:calc(var(--space) * 3) 0;border-top:1px solid var(--rule)}
+.foot{display:flex;gap:calc(var(--space) * 2);flex-wrap:wrap;align-items:baseline}
+.foot .chant{
+  flex-basis:100%;margin-top:calc(var(--space) * 1.6);
+  padding-top:calc(var(--space) * 1.2);border-top:1px solid var(--rule);
+  font-family:var(--font-mono);font-size:var(--t-1);color:var(--accent);letter-spacing:.04em;
+}
+
+/* ============================================================
+   PLACEHOLDER FLAGGING
+   Your live site currently serves unedited Squarespace stubs,
+   including tax-advisory pricing. So every unconfirmed value here
+   is machine-flagged. Toggle is ON by default. Do not ship with
+   any flag still visible.
+   ============================================================ */
+body.flags .ph{outline:1px dashed var(--flag);outline-offset:3px}
+body.flags .ph:not(.btn){background:color-mix(in srgb, var(--flag) 11%, transparent)}
+body.flags .vf{position:relative}
+body.flags .vf::after{
+  content:"?";position:absolute;top:-.15em;right:-.85em;
+  font-family:var(--font-mono);font-size:.5em;color:var(--flag);
+}
+.ph-tag{display:none}
+body.flags .ph-tag{
+  display:inline-block;font-family:var(--font-mono);font-size:9px;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ground);background:var(--flag);
+  padding:1px 5px;margin-left:.5em;vertical-align:2px;border-radius:2px;
+}
+
+/* views */
+.view{display:none}
+.view.on{display:block}
+
+/* ============================================================
+   TUNING PANEL
+   Not part of the site. Drag values, download tokens.css, and this
+   whole block gets deleted at build time.
+   ============================================================ */
+#tune{
+  position:fixed;top:0;right:0;bottom:0;z-index:100;width:300px;
+  background:#0a0b0c;border-left:1px solid rgba(255,255,255,.14);
+  font-family:var(--font-mono);font-size:11px;color:#cfd2d4;
+  overflow-y:auto;padding:14px;
+  transform:translateX(100%);transition:transform 220ms var(--ease);
+}
+#tune.open{transform:translateX(0)}
+#tune h4{margin:16px 0 8px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#6e7276;font-weight:500}
+#tune h4:first-child{margin-top:0}
+#tune .row{margin-bottom:9px}
+#tune .lab{display:flex;justify-content:space-between;margin-bottom:3px;font-size:10px}
+#tune .lab i{color:#6e7276;font-style:normal}
+#tune input[type=range]{width:100%;height:14px;accent-color:#21c7c1}
+#tune input[type=color]{width:100%;height:24px;padding:0;border:1px solid rgba(255,255,255,.14);background:none}
+#tune select{width:100%;background:#16181b;color:#cfd2d4;border:1px solid rgba(255,255,255,.14);font-family:inherit;font-size:11px;padding:4px}
+#tune button{
+  width:100%;margin-top:6px;padding:7px;background:none;
+  border:1px solid rgba(255,255,255,.2);color:#cfd2d4;
+  font-family:inherit;font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+}
+#tune button:hover{border-color:#21c7c1;color:#21c7c1}
+#tune button.go{border-color:#21c7c1;color:#21c7c1}
+#tune label.tog{display:flex;gap:7px;align-items:center;font-size:10px;cursor:pointer;margin-bottom:6px}
+#tune .note{font-size:9px;line-height:1.5;color:#6e7276;margin-top:10px}
+#tuneBtn{
+  position:fixed;right:14px;bottom:14px;z-index:101;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  background:#0a0b0c;color:#21c7c1;border:1px solid #21c7c1;
+  padding:9px 13px;cursor:pointer;
+}
+
+@media (max-width:820px){
+  :root{--display:8.4vw}
+  .nav-in{flex-wrap:wrap;row-gap:calc(var(--space) * .55);column-gap:calc(var(--space) * 1.2)}
+  .mark{flex:1 0 100%;margin-right:0}
+  .nav a.link.soon{display:none}
+  .nav .btn{margin-left:auto}
+  .hero h1{overflow-wrap:break-word}
+  .credit{position:static;text-align:left;padding:calc(var(--space) * .6) calc(var(--space) * 1.5) 0}
+  .hero-shot::after{background:linear-gradient(0deg, color-mix(in srgb, var(--ground) 55%, transparent) 0%, transparent calc(var(--space) * 5))}
+  .hero{grid-template-columns:1fr;min-height:0}
+  .hero-text{padding:calc(var(--space) * 3) calc(var(--space) * 1.5)}
+  /* A portrait slot on purpose. Wider than 0.95 and `cover` stops cropping the
+     width, so --hero-x goes dead and the rival team's banner comes back in. */
+  .hero-shot{aspect-ratio:.95}
+  .stats{grid-template-columns:1fr 1fr}
+  .split,.split.flip{grid-template-columns:1fr;gap:calc(var(--space) * 2)}
+  .wall,.tiers{grid-template-columns:1fr}
+  .logo{aspect-ratio:3.4}
+  .pair{grid-template-columns:1fr}
+  #tune{width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body class="flags">
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="mark" href="#home"><b>812</b><span>Midnight Mechanics</span></a>
+    <a class="link on" href="#home" data-view="home">Home</a>
+    <a class="link" href="#sponsors" data-view="sponsors">Sponsors</a>
+    <a class="link soon" title="Not in this prototype">Robots</a>
+    <a class="link soon" title="Not in this prototype">Team</a>
+    <a class="btn" href="#sponsors" data-view="sponsors">Sponsor us</a>
+  </div>
+</nav>
+
+<!-- ==================== HOME ==================== -->
+<div class="view on" id="v-home">
+
+  <header class="hero">
+    <div class="hero-text">
+      <div>
+        <p class="mono">FRC 812 &nbsp;/&nbsp; The Preuss School UC San Diego</p>
+        <h1>25 seasons of first-generation engineers.</h1>
+        <p class="lede">San Diego's first FRC team, built by students who will be the first in their families to finish college.</p>
+        <div class="cta">
+          <a class="btn solid" href="#sponsors" data-view="sponsors">Sponsor the 2027 season</a>
+          <a class="btn ghost" href="https://github.com/preuss812" target="_blank" rel="noopener">Read our robot code</a>
+        </div>
+      </div>
+    </div>
+    <figure class="hero-shot">
+      <img src="photos/final/2026-states-IMG_1045.jpg" alt="Team 812 students and mentors working around their robot in the pit at the 2026 state championship.">
+      <figcaption class="credit mono">Pit crew / State championship / 2026 <span class="ph-tag">verify event</span></figcaption>
+    </figure>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="n"><span class="vf">25</span></div><div class="k mono">Seasons since 2001</div></div>
+    <div class="stat"><div class="n"><span class="vf">51</span></div><div class="k mono">Events competed</div></div>
+    <div class="stat"><div class="n"><span class="vf">5</span></div><div class="k mono">Championship trips</div></div>
+    <div class="stat"><div class="n">1<span style="font-size:.5em;vertical-align:.55em">st</span></div><div class="k mono">FRC team in San Diego</div></div>
+  </div>
+
+  <!-- The code archive. This is the block I added after finding your GitHub org.
+       It is the strongest engineering proof you have, and your current site
+       does not mention it once. -->
+  <section>
+    <div class="wrap split">
+      <div>
+        <h2>We have published every line of our robot code since 2011.</h2>
+        <p class="body" style="margin-top:calc(var(--space) * 1.2)">Sixteen consecutive seasons, in the open, on GitHub. C++ through 2015, Java since. One season in D, because a student wanted to try it.</p>
+        <p class="body">We also ship our own tools. <b>ShooterTargeting</b> solves launch coefficients for a given shooter geometry. <b>ArmSim</b> listens on NetworkTables to simulate arm motion before the arm exists.</p>
+        <p class="body" style="opacity:.6;font-size:var(--t-1)">If you employ engineers, hand them this link. It is the fastest way to judge whether we are worth funding.</p>
+        <div class="years">
+          <a class="hi" href="https://github.com/preuss812/FRC_2026" target="_blank" rel="noopener">2026</a>
+          <a href="https://github.com/preuss812/FRC_2025" target="_blank" rel="noopener">2025</a>
+          <a href="https://github.com/preuss812/FRC_2024" target="_blank" rel="noopener">2024</a>
+          <a href="https://github.com/preuss812/FRC_2023" target="_blank" rel="noopener">2023</a>
+          <a href="https://github.com/preuss812/FRC_2022" target="_blank" rel="noopener">2022</a>
+          <a href="https://github.com/preuss812/FRC_2020" target="_blank" rel="noopener">2020</a>
+          <a href="https://github.com/preuss812/FRC_2019" target="_blank" rel="noopener">2019</a>
+          <a href="https://github.com/preuss812/FRC_2018" target="_blank" rel="noopener">2018</a>
+          <a href="https://github.com/preuss812/FRC_2017" target="_blank" rel="noopener">2017</a>
+          <a href="https://github.com/preuss812/FRC_2016" target="_blank" rel="noopener">2016</a>
+          <a href="https://github.com/preuss812/FRC_2015" target="_blank" rel="noopener">2015</a>
+          <a href="https://github.com/preuss812/FRC_2014" target="_blank" rel="noopener">2014</a>
+          <a href="https://github.com/preuss812/FRC_2013" target="_blank" rel="noopener">2013</a>
+          <a href="https://github.com/preuss812/FRC_2012" target="_blank" rel="noopener">2012</a>
+          <a href="https://github.com/preuss812/FRC_2011" target="_blank" rel="noopener">2011</a>
+        </div>
+      </div>
+      <figure class="shot tall" style="margin:0">
+        <img src="photos/final/2026-states-IMG_1026.jpg" alt="A mentor and two students working on the robot's shooter mechanism in the pit.">
+        <figcaption class="mono">Shooter tuning between matches / 2026</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <div class="wrap">
+      <h2>Built at a school where nearly every student will be the first in their family to earn a degree.</h2>
+      <p class="body" style="margin-top:calc(var(--space) * 1.2)">The Preuss School UC San Diego is a charter school for low-income students. Our team is where they meet CAD, motor controllers, version control, and a hard deadline for the first time.</p>
+      <div class="pair" style="margin-top:calc(var(--space) * 2.5)">
+        <figure class="shot" style="margin:0">
+          <img src="photos/final/2026-states-IMG_1033.jpg" alt="Students and a mentor working on the robot, with TEAM 812 on the bumper.">
+          <figcaption class="mono">Drivetrain repair, 30 minutes to queue / 2026</figcaption>
+        </figure>
+        <figure class="shot" style="margin:0">
+          <img src="photos/final/2026-states-IMG_0935.jpg" alt="Team members at The Preuss School UC San Diego entrance sign.">
+          <figcaption class="mono">The Preuss School UC San Diego / 2026</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Light panel. Corporate logos cannot sit on a dark ground. -->
+  <div class="panel">
+    <div class="wrap">
+      <h2 style="font-size:var(--t2)">Our sponsors are on the robot, the shirts, and the pit banner.</h2>
+      <div class="wall">
+        <div class="logo w-qualcomm"><img src="logos/qualcomm.svg" alt="Qualcomm"></div>
+        <div class="logo w-nordson"><img src="logos/nordson.svg" alt="Nordson"></div>
+        <div class="logo w-leidos"><img src="logos/leidos.svg" alt="Leidos"></div>
+      </div>
+      <p class="mono" style="margin-top:calc(var(--space) * 1.4)">Past support: Cluely</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap split flip">
+      <div>
+        <h3 class="label">The 2027 ask</h3>
+        <div style="font-family:var(--font-mono);font-size:var(--t4);line-height:1;letter-spacing:-.05em;color:var(--accent)">$10,000</div>
+        <p class="body" style="margin-top:calc(var(--space) * 1.2)">That is the gap between the season we can run and the season we planned. Gifts go to the team's gift fund, held in the school's robotics account.</p>
+        <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6)">
+          <a class="btn solid" href="#sponsors" data-view="sponsors">See tiers and benefits</a>
+        </div>
+      </div>
+      <div>
+        <h3 class="label">Where it goes</h3>
+        <div class="funds">
+          <div class="fund ph"><div class="lab">Registration and event fees</div><div class="amt">$0,000<span class="ph-tag">need real</span></div></div>
+          <div class="fund ph"><div class="lab">Robot parts and materials</div><div class="amt">$0,000<span class="ph-tag">need real</span></div></div>
+          <div class="fund ph"><div class="lab">Travel to competitions</div><div class="amt">$0,000<span class="ph-tag">need real</span></div></div>
+          <div class="fund ph"><div class="lab">Tools and shop equipment</div><div class="amt">$0,000<span class="ph-tag">need real</span></div></div>
+          <div class="fund total"><div class="lab">Total</div><div class="amt">$10,000</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ==================== SPONSORS ==================== -->
+<div class="view" id="v-sponsors">
+
+  <section style="padding-top:calc(var(--space) * 3.5)">
+    <div class="wrap split" style="align-items:end">
+      <div>
+        <h1 style="font-size:var(--t4);max-width:22em">Put your name on a robot built by students who need it most.</h1>
+        <p class="body" style="font-size:var(--t1);margin-top:calc(var(--space) * 1.4)">We need <b style="color:var(--accent)">$10,000</b> for the 2027 season. Here is exactly what you get, and exactly where the money goes.</p>
+      </div>
+      <figure class="shot" style="margin:0">
+        <img src="photos/final/2026-states-IMG_1011.jpg" alt="The 2026 Team 812 roster in team shirts.">
+        <figcaption class="mono">The people you would be funding / 2026</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h3 class="label">Why team 812</h3>
+      <div class="reasons">
+        <div class="reason">
+          <div class="num">01</div>
+          <div>
+            <h3>Your money reaches students with no other route in.</h3>
+            <p class="body" style="margin-top:calc(var(--space) * .55)">The Preuss School serves low-income students who will be first in their families to finish college. There is no home workshop and no family engineer. This team is the entire pipeline.</p>
+          </div>
+        </div>
+        <div class="reason">
+          <div class="num">02</div>
+          <div>
+            <h3>Our work is public and auditable.</h3>
+            <p class="body" style="margin-top:calc(var(--space) * .55)">Sixteen seasons of robot code on <a href="https://github.com/preuss812" target="_blank" rel="noopener" style="color:var(--accent)">GitHub</a>, plus two tools we wrote ourselves. Ask an engineer on your team to look. Most sponsorship requests cannot offer that.</p>
+          </div>
+        </div>
+        <div class="reason">
+          <div class="num">03</div>
+          <div>
+            <h3>25 years means we will still be here.</h3>
+            <p class="body" style="margin-top:calc(var(--space) * .55)">San Diego's first FRC team, competing since 2001, with <span class="vf">51 events</span> and <span class="vf">5 trips to the World Championship</span>. Your logo goes on a program with a record, not a startup.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>What each level gets.</h2>
+      <div class="tiers">
+        <div class="tier top">
+          <p class="mono">Everything at $2,500, plus</p>
+          <div class="amt">$5,000</div>
+          <ul>
+            <li>Logo decal <b>on the robot</b></li>
+            <li>Logo on team shirts</li>
+            <li>Robot demo at your office</li>
+            <li>Logo on this site's homepage</li>
+          </ul>
+        </div>
+        <div class="tier">
+          <p class="mono">Everything at $1,000, plus</p>
+          <div class="amt">$2,500</div>
+          <ul>
+            <li>Logo decal <b>on the robot</b></li>
+            <li>Logo on team shirts</li>
+            <li>Thank-you post on our social accounts</li>
+          </ul>
+        </div>
+        <div class="tier">
+          <p class="mono">Every sponsor gets</p>
+          <div class="amt">$1,000</div>
+          <ul>
+            <li>Logo on the pit banner</li>
+            <li>Logo on our sponsors page</li>
+            <li>Thank-you letter from the team</li>
+          </ul>
+        </div>
+      </div>
+      <p class="body" style="margin-top:calc(var(--space) * 2);opacity:.62;font-size:var(--t-1)">Tiers stack, so a $5,000 sponsor gets all ten items. Under $1,000, we list your name on this page as a Supporter. Every benefit here is something the team controls directly, so we can actually deliver it.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <div class="wrap split">
+      <div>
+        <h3 class="label">Where it goes</h3>
+        <div class="funds">
+          <div class="fund ph"><div class="lab">Registration and event fees</div><div class="amt">$0,000<span class="ph-tag">need real</span></div></div>
+          <div class="fund ph"><div class="lab">Robot parts and materials</div><div class="amt">$0,000<span class="ph-tag">need real</span></div></div>
+          <div class="fund ph"><div class="lab">Travel to competitions</div><div class="amt">$0,000<span class="ph-tag">need real</span></div></div>
+          <div class="fund ph"><div class="lab">Tools and shop equipment</div><div class="amt">$0,000<span class="ph-tag">need real</span></div></div>
+          <div class="fund total"><div class="lab">Total</div><div class="amt">$10,000</div></div>
+        </div>
+      </div>
+      <div>
+        <h3 class="label">How to give</h3>
+        <p class="body">Team 812's money sits in a robotics account held by The Preuss School UC San Diego. The account has a class fund and a gift fund. <b>Sponsorship and donations go to the gift fund.</b></p>
+        <p class="body">Corporate sponsors: email us and we will send an invoice and a W-9.</p>
+        <p class="body ph">Contact: <b>sponsors@themidnightmechanics.com</b><span class="ph-tag">need real address</span></p>
+        <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6)">
+          <a class="btn solid ph" href="#">Give to the gift fund<span class="ph-tag">need link</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="panel">
+    <div class="wrap">
+      <h3 class="label">Current sponsors</h3>
+      <div class="wall">
+        <div class="logo w-qualcomm"><img src="logos/qualcomm.svg" alt="Qualcomm"></div>
+        <div class="logo w-nordson"><img src="logos/nordson.svg" alt="Nordson"></div>
+        <div class="logo w-leidos"><img src="logos/leidos.svg" alt="Leidos"></div>
+      </div>
+      <h3 class="label" style="margin-top:calc(var(--space) * 2.6)">Past support</h3>
+      <p style="color:color-mix(in srgb, var(--panel-ink) 70%, transparent);max-width:36em">Cluely</p>
+      <h3 class="label" style="margin-top:calc(var(--space) * 2.6)">Supporters</h3>
+      <p class="ph" style="color:color-mix(in srgb, var(--panel-ink) 70%, transparent);max-width:36em">Names of individual supporters go here as plain text, no logos.<span class="ph-tag">need names</span></p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <p class="mono">FRC 812 &nbsp;/&nbsp; The Preuss School UC San Diego</p>
+    <a class="mono" href="https://github.com/preuss812" target="_blank" rel="noopener" style="color:var(--ink)">GitHub</a>
+    <a class="mono" href="#sponsors" data-view="sponsors" style="color:var(--ink)">Sponsor us</a>
+    <a class="mono ph" href="#" style="color:var(--ink)">Join the team<span class="ph-tag">need link</span></a>
+    <p class="chant vf">What time is it? Midnight.</p>
+  </div>
+</footer>
+
+<button id="tuneBtn">Tune</button>
+<aside id="tune"></aside>
+
+<script>
+/* ============================================================
+   VIEW SWITCH
+   Two pages in one file, so the prototype opens with a double-click.
+   In the real Astro build these become separate URLs.
+   ============================================================ */
+function show(view){
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('on', v.id === 'v-' + view));
+  document.querySelectorAll('.nav a.link').forEach(a => a.classList.toggle('on', a.dataset.view === view));
+  window.scrollTo(0,0);
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('[data-view]');
+  if(!a) return;
+  e.preventDefault();
+  location.hash = a.dataset.view;
+  show(a.dataset.view);
+});
+show(location.hash.replace('#','') === 'sponsors' ? 'sponsors' : 'home');
+
+/* ============================================================
+   TUNING PANEL
+   Every control writes one CSS custom property on :root.
+   That is the whole mechanism. Nothing here touches layout code.
+   ============================================================ */
+const CONTROLS = [
+  {g:'Colour'},
+  {v:'--accent',     l:'Accent',        t:'color'},
+  {v:'--ground',     l:'Ground',        t:'color'},
+  {v:'--ink',        l:'Ink',           t:'color'},
+  {v:'--ink-dim',    l:'Dim ink',       t:'color'},
+  {v:'--panel',      l:'Sponsor panel', t:'color'},
+
+  {g:'Space'},
+  {v:'--space',      l:'Spacing unit',  t:'range', min:.5,  max:2.2, step:.05, u:'rem'},
+  {v:'--measure',    l:'Content width', t:'range', min:44,  max:104, step:1,   u:'rem'},
+
+  {g:'Type'},
+  {v:'--type-base',  l:'Body size',     t:'range', min:14,  max:22,  step:.5,  u:'px'},
+  {v:'--type-scale', l:'Type scale',    t:'range', min:1.10,max:1.50,step:.01, u:''},
+  {v:'--display',    l:'Headline size', t:'range', min:3,   max:11,  step:.1,  u:'vw'},
+
+  {g:'Hero crop'},
+  {v:'--hero-x',     l:'Pan left/right',t:'range', min:0,   max:100, step:1,   u:'%'},
+  {v:'--hero-y',     l:'Pan up/down',   t:'range', min:0,   max:100, step:1,   u:'%'},
+
+  {g:'Form'},
+  {v:'--photo-ratio',l:'Photo ratio',   t:'range', min:.65, max:1.9, step:.02, u:''},
+  {v:'--radius',     l:'Corner radius', t:'range', min:0,   max:28,  step:1,   u:'px'},
+
+  {g:'Motion'},
+  {v:'--motion',     l:'Speed',         t:'range', min:0,   max:600, step:10,  u:'ms'},
+];
+
+const FONTS = {
+  'Inter + JetBrains Mono': ["'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif", "'JetBrains Mono', ui-monospace, Menlo, monospace"],
+  'System (no webfonts)':   ["-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", "ui-monospace, 'SF Mono', Menlo, monospace"],
+  'Helvetica + Courier':    ["'Helvetica Neue', Helvetica, Arial, sans-serif", "'Courier New', Courier, monospace"],
+  'Georgia + JetBrains':    ["Georgia, 'Times New Roman', serif", "'JetBrains Mono', ui-monospace, Menlo, monospace"],
+};
+
+const root = document.documentElement;
+const num  = s => parseFloat(s);
+
+function build(){
+  const el = document.getElementById('tune');
+  let h = '';
+  CONTROLS.forEach(c => {
+    if(c.g){ h += `<h4>${c.g}</h4>`; return; }
+    const cur = getComputedStyle(root).getPropertyValue(c.v).trim();
+    if(c.t === 'color'){
+      h += `<div class="row"><div class="lab"><span>${c.l}</span><i>${cur}</i></div>
+            <input type="color" data-v="${c.v}" value="${cur}"></div>`;
+    } else {
+      h += `<div class="row"><div class="lab"><span>${c.l}</span><i>${cur}</i></div>
+            <input type="range" data-v="${c.v}" data-u="${c.u}"
+              min="${c.min}" max="${c.max}" step="${c.step}" value="${num(cur)}"></div>`;
+    }
+  });
+
+  h += `<h4>Typefaces</h4><select id="fontSel">`;
+  Object.keys(FONTS).forEach(k => h += `<option>${k}</option>`);
+  h += `</select>`;
+
+  h += `<h4>Review</h4>
+        <label class="tog"><input type="checkbox" id="flagTog" checked> Highlight unconfirmed data</label>
+        <label class="tog"><input type="checkbox" id="gridTog"> Show layout rhythm</label>
+        <div class="note" id="flagCount"></div>
+
+        <h4>Export</h4>
+        <button class="go" id="dl">Download tokens.css</button>
+        <button id="reset">Reset to defaults</button>
+        <div class="note">Drag until you like it, then download. Hand me the file and I bake the values in. You never open an editor.<br><br>Press <b>T</b> to hide this panel. It is deleted from the real site.</div>`;
+
+  el.innerHTML = h;
+
+  el.addEventListener('input', e => {
+    const i = e.target;
+    if(!i.dataset.v) return;
+    const val = i.type === 'color' ? i.value : i.value + (i.dataset.u || '');
+    root.style.setProperty(i.dataset.v, val);
+    i.closest('.row').querySelector('i').textContent = val;
+    save();
+  });
+
+  document.getElementById('fontSel').addEventListener('change', e => {
+    const [s,m] = FONTS[e.target.value];
+    root.style.setProperty('--font-sans', s);
+    root.style.setProperty('--font-mono', m);
+    save();
+  });
+
+  document.getElementById('flagTog').addEventListener('change', e =>
+    document.body.classList.toggle('flags', e.target.checked));
+
+  document.getElementById('gridTog').addEventListener('change', e =>
+    document.body.style.backgroundImage = e.target.checked
+      ? 'repeating-linear-gradient(to bottom, rgba(33,199,193,.11) 0 1px, transparent 1px var(--space))'
+      : 'none');
+
+  const n = document.querySelectorAll('.ph').length;
+  document.getElementById('flagCount').innerHTML =
+    `<b style="color:#e8a33d">${n} items still need real data.</b> Do not publish while any flag is visible.`;
+
+  document.getElementById('dl').addEventListener('click', download);
+  document.getElementById('reset').addEventListener('click', () => {
+    root.removeAttribute('style');
+    localStorage.removeItem('t812');
+    build();
+  });
+}
+
+/* Writes the token block as a real CSS file. This is the handoff. */
+function download(){
+  const cs = getComputedStyle(root);
+  let out = '/* Team 812 design tokens. Generated from the tuning panel. */\n:root{\n';
+  CONTROLS.filter(c => c.v).forEach(c =>
+    out += `  ${c.v}: ${cs.getPropertyValue(c.v).trim()};\n`);
+  out += `  --font-sans: ${cs.getPropertyValue('--font-sans').trim()};\n`;
+  out += `  --font-mono: ${cs.getPropertyValue('--font-mono').trim()};\n}\n`;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([out], {type:'text/css'}));
+  a.download = 'tokens.css';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* Your drags survive a page reload. */
+function save(){ localStorage.setItem('t812', root.getAttribute('style') || ''); }
+const saved = localStorage.getItem('t812');
+if(saved) root.setAttribute('style', saved);
+
+build();
+
+const panel = document.getElementById('tune');
+const toggle = () => panel.classList.toggle('open');
+document.getElementById('tuneBtn').addEventListener('click', toggle);
+document.addEventListener('keydown', e => {
+  if(e.key.toLowerCase() === 't' && !/input|select|textarea/i.test(e.target.tagName)) toggle();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+# "Where it goes" breakdown, used on both the home page and the sponsors
+# page. "order" controls display order; the file content loader does not
+# preserve YAML array order on its own. The four line items are placeholder
+# amounts ($0,000) pending real numbers; the total is confirmed as the ask.
+- id: "registration"
+  order: 1
+  label: "Registration and event fees"
+  amount: "$0,000"
+  flagged: true
+  tag: "need real"
+  total: false
+- id: "parts"
+  order: 2
+  label: "Robot parts and materials"
+  amount: "$0,000"
+  flagged: true
+  tag: "need real"
+  total: false
+- id: "travel"
+  order: 3
+  label: "Travel to competitions"
+  amount: "$0,000"
+  flagged: true
+  tag: "need real"
+  total: false
+- id: "tools"
+  order: 4
+  label: "Tools and shop equipment"
+  amount: "$0,000"
+  flagged: true
+  tag: "need real"
+  total: false
+- id: "total"
+  order: 5
+  label: "Total"
+  amount: "$10,000"
+  flagged: false
+  tag: ""
+  total: true

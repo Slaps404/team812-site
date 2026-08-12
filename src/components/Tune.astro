@@ -1,0 +1,157 @@
+---
+/* ============================================================
+   TUNING PANEL
+   Not part of the site. Renders only in dev, or in production when
+   the URL carries ?tune. The query string is read client-side so a
+   static production build can still support it per-request.
+   ============================================================ */
+---
+<script>
+  const shouldRun =
+    import.meta.env.DEV || new URLSearchParams(window.location.search).has('tune');
+
+  if (shouldRun) {
+    const CONTROLS = [
+      {g:'Colour'},
+      {v:'--accent',     l:'Accent',        t:'color'},
+      {v:'--ground',     l:'Ground',        t:'color'},
+      {v:'--ink',        l:'Ink',           t:'color'},
+      {v:'--ink-dim',    l:'Dim ink',       t:'color'},
+      {v:'--panel',      l:'Sponsor panel', t:'color'},
+
+      {g:'Space'},
+      {v:'--space',      l:'Spacing unit',  t:'range', min:.5,  max:2.2, step:.05, u:'rem'},
+      {v:'--measure',    l:'Content width', t:'range', min:44,  max:104, step:1,   u:'rem'},
+
+      {g:'Type'},
+      {v:'--type-base',  l:'Body size',     t:'range', min:14,  max:22,  step:.5,  u:'px'},
+      {v:'--type-scale', l:'Type scale',    t:'range', min:1.10,max:1.50,step:.01, u:''},
+      {v:'--display',    l:'Headline size', t:'range', min:3,   max:11,  step:.1,  u:'vw'},
+
+      {g:'Hero crop'},
+      {v:'--hero-x',     l:'Pan left/right',t:'range', min:0,   max:100, step:1,   u:'%'},
+      {v:'--hero-y',     l:'Pan up/down',   t:'range', min:0,   max:100, step:1,   u:'%'},
+
+      {g:'Form'},
+      {v:'--photo-ratio',l:'Photo ratio',   t:'range', min:.65, max:1.9, step:.02, u:''},
+      {v:'--radius',     l:'Corner radius', t:'range', min:0,   max:28,  step:1,   u:'px'},
+
+      {g:'Motion'},
+      {v:'--motion',     l:'Speed',         t:'range', min:0,   max:600, step:10,  u:'ms'},
+    ];
+
+    const FONTS: Record<string, [string, string]> = {
+      'Inter + JetBrains Mono': ["'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif", "'JetBrains Mono', ui-monospace, Menlo, monospace"],
+      'System (no webfonts)':   ["-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", "ui-monospace, 'SF Mono', Menlo, monospace"],
+      'Helvetica + Courier':    ["'Helvetica Neue', Helvetica, Arial, sans-serif", "'Courier New', Courier, monospace"],
+      'Georgia + JetBrains':    ["Georgia, 'Times New Roman', serif", "'JetBrains Mono', ui-monospace, Menlo, monospace"],
+    };
+
+    const root = document.documentElement;
+    const num = (s: string) => parseFloat(s);
+
+    const tuneBtn = document.createElement('button');
+    tuneBtn.id = 'tuneBtn';
+    tuneBtn.textContent = 'Tune';
+    document.body.appendChild(tuneBtn);
+
+    const panel = document.createElement('aside');
+    panel.id = 'tune';
+    document.body.appendChild(panel);
+
+    function build() {
+      let h = '';
+      CONTROLS.forEach(c => {
+        if ('g' in c) { h += `<h4>${c.g}</h4>`; return; }
+        const cur = getComputedStyle(root).getPropertyValue(c.v!).trim();
+        if (c.t === 'color') {
+          h += `<div class="row"><div class="lab"><span>${c.l}</span><i>${cur}</i></div>
+                <input type="color" data-v="${c.v}" value="${cur}"></div>`;
+        } else {
+          h += `<div class="row"><div class="lab"><span>${c.l}</span><i>${cur}</i></div>
+                <input type="range" data-v="${c.v}" data-u="${c.u}"
+                  min="${c.min}" max="${c.max}" step="${c.step}" value="${num(cur)}"></div>`;
+        }
+      });
+
+      h += `<h4>Typefaces</h4><select id="fontSel">`;
+      Object.keys(FONTS).forEach(k => h += `<option>${k}</option>`);
+      h += `</select>`;
+
+      h += `<h4>Review</h4>
+            <label class="tog"><input type="checkbox" id="flagTog" checked> Highlight unconfirmed data</label>
+            <label class="tog"><input type="checkbox" id="gridTog"> Show layout rhythm</label>
+            <div class="note" id="flagCount"></div>
+
+            <h4>Export</h4>
+            <button class="go" id="dl">Download tokens.css</button>
+            <button id="reset">Reset to defaults</button>
+            <div class="note">Drag until you like it, then download. Hand me the file and I bake the values in. You never open an editor.<br><br>Press <b>T</b> to hide this panel. It is deleted from the real site.</div>`;
+
+      panel.innerHTML = h;
+
+      panel.addEventListener('input', e => {
+        const i = e.target as HTMLInputElement;
+        if (!i.dataset.v) return;
+        const val = i.type === 'color' ? i.value : i.value + (i.dataset.u || '');
+        root.style.setProperty(i.dataset.v, val);
+        i.closest('.row')!.querySelector('i')!.textContent = val;
+        save();
+      });
+
+      panel.querySelector<HTMLSelectElement>('#fontSel')!.addEventListener('change', e => {
+        const [s, m] = FONTS[(e.target as HTMLSelectElement).value];
+        root.style.setProperty('--font-sans', s);
+        root.style.setProperty('--font-mono', m);
+        save();
+      });
+
+      panel.querySelector<HTMLInputElement>('#flagTog')!.addEventListener('change', e =>
+        document.body.classList.toggle('flags', (e.target as HTMLInputElement).checked));
+
+      panel.querySelector<HTMLInputElement>('#gridTog')!.addEventListener('change', e =>
+        (document.body.style.backgroundImage = (e.target as HTMLInputElement).checked
+          ? 'repeating-linear-gradient(to bottom, rgba(33,199,193,.11) 0 1px, transparent 1px var(--space))'
+          : 'none'));
+
+      const n = document.querySelectorAll('.ph').length;
+      panel.querySelector('#flagCount')!.innerHTML =
+        `<b style="color:#e8a33d">${n} items still need real data.</b> Do not publish while any flag is visible.`;
+
+      panel.querySelector('#dl')!.addEventListener('click', download);
+      panel.querySelector('#reset')!.addEventListener('click', () => {
+        root.removeAttribute('style');
+        localStorage.removeItem('t812');
+        build();
+      });
+    }
+
+    /* Writes the token block as a real CSS file. This is the handoff. */
+    function download() {
+      const cs = getComputedStyle(root);
+      let out = '/* Team 812 design tokens. Generated from the tuning panel. */\n:root{\n';
+      CONTROLS.filter(c => c.v).forEach(c =>
+        out += `  ${c.v}: ${cs.getPropertyValue(c.v!).trim()};\n`);
+      out += `  --font-sans: ${cs.getPropertyValue('--font-sans').trim()};\n`;
+      out += `  --font-mono: ${cs.getPropertyValue('--font-mono').trim()};\n}\n`;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([out], { type: 'text/css' }));
+      a.download = 'tokens.css';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    /* Your drags survive a page reload. */
+    function save() { localStorage.setItem('t812', root.getAttribute('style') || ''); }
+    const saved = localStorage.getItem('t812');
+    if (saved) root.setAttribute('style', saved);
+
+    build();
+
+    const toggle = () => panel.classList.toggle('open');
+    tuneBtn.addEventListener('click', toggle);
+    document.addEventListener('keydown', e => {
+      if (e.key.toLowerCase() === 't' && !/input|select|textarea/i.test((e.target as HTMLElement).tagName)) toggle();
+    });
+  }
+</script>

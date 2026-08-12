@@ -1,0 +1,12 @@
+---
+interface Props {
+  flip?: boolean;
+  class?: string;
+  style?: string;
+}
+const { flip = false, class: className = '', style = '' } = Astro.props;
+---
+<div class:list={['wrap', 'split', { flip }, className]} style={style}>
+  <div><slot name="left" /></div>
+  <div><slot name="right" /></div>
+</div>

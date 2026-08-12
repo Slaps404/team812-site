@@ -1,0 +1,16 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const reasons = (await getCollection('reasons')).sort((a, b) => a.data.order - b.data.order);
+---
+<div class="reasons">
+  {reasons.map((r: CollectionEntry<'reasons'>) => (
+    <div class="reason">
+      <div class="num">{r.data.num}</div>
+      <div>
+        <h3>{r.data.title}</h3>
+        <p class="body" style="margin-top:calc(var(--space) * .55)" set:html={r.data.body} />
+      </div>
+    </div>
+  ))}
+</div>

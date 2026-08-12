@@ -1,0 +1,26 @@
+# Stat band on the homepage. "order" controls left-to-right position;
+# the file content loader does not preserve YAML array order on its own.
+- id: "seasons"
+  order: 1
+  value: "25"
+  suffix: ""
+  label: "Seasons since 2001"
+  flagged: true
+- id: "events"
+  order: 2
+  value: "51"
+  suffix: ""
+  label: "Events competed"
+  flagged: true
+- id: "championships"
+  order: 3
+  value: "5"
+  suffix: ""
+  label: "Championship trips"
+  flagged: true
+- id: "first"
+  order: 4
+  value: "1"
+  suffix: "st"
+  label: "FRC team in San Diego"
+  flagged: false

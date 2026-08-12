@@ -1,0 +1,16 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const funds = (await getCollection('funds')).sort((a, b) => a.data.order - b.data.order);
+---
+<div class="funds">
+  {funds.map((f: CollectionEntry<'funds'>) => (
+    <div class:list={['fund', { ph: f.data.flagged, total: f.data.total }]}>
+      <div class="lab">{f.data.label}</div>
+      <div class="amt">
+        {f.data.amount}
+        {f.data.flagged && <span class="ph-tag">{f.data.tag}</span>}
+      </div>
+    </div>
+  ))}
+</div>
