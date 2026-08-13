@@ -10,6 +10,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "typecheck": "astro check",
     "test:site-output": "npm run build && node --test tests/site-output.test.mjs",
     "preview": "astro preview",
     "test": "playwright test",
@@ -23,7 +24,9 @@
     "sharp": "^0.35.3"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@axe-core/playwright": "^4.13.0",
-    "@playwright/test": "^1.62.1"
+    "@playwright/test": "^1.62.1",
+    "typescript": "^6.0.3"
   }
 }
