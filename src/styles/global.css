@@ -159,7 +159,7 @@ h3{font-size:var(--t1)}
 
 /* photo blocks. one enforced ratio, object-fit cover, no frames or shadows. */
 .shot{position:relative}
-.shot img{width:100%;aspect-ratio:var(--photo-ratio);object-fit:cover;border-radius:var(--radius)}
+.shot img{width:100%;height:auto;aspect-ratio:var(--photo-ratio);object-fit:cover;border-radius:var(--radius)}
 .shot figcaption{margin-top:calc(var(--space) * .55)}
 .shot.tall img{aspect-ratio:calc(var(--photo-ratio) * .52)}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--space) * 1.2)}
