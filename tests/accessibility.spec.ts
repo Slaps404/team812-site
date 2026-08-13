@@ -56,11 +56,10 @@ for (const route of routes) {
       expect(structureViolations).toEqual([]);
     });
 
-    test('keeps sponsor-panel text at WCAG AA contrast', async ({ page }) => {
+    test('keeps normal text at WCAG AA contrast', async ({ page }) => {
       await page.goto(route.path);
 
       const results = await new AxeBuilder({ page })
-        .include('.panel')
         .withRules(['color-contrast'])
         .analyze();
 

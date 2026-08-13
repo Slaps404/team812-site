@@ -31,6 +31,11 @@ You do not need a local setup to change text. Edit the file on github.com.
 Every colour, size, and spacing value is one CSS custom property in
 `src/styles/tokens.css`. Nothing else hardcodes them.
 
+Two browser formats cannot consume those custom properties. Responsive image
+`sizes` hints live together in `src/lib/imageLayout.ts`, with rendered tests
+checking the browser's selected resource. `public/favicon.svg` repeats the
+ground and accent colours because a standalone favicon cannot inherit page CSS.
+
 Press **T** on the dev server to open a tuning panel. Drag the sliders, click
 Download, replace `tokens.css`. That is the whole theming workflow.
 

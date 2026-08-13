@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { CONTENT_IMAGE_WIDTHS, SPLIT_IMAGE_SIZES } from '../lib/imageLayout';
 
 interface Props {
   src: ImageMetadata;
@@ -10,15 +11,13 @@ interface Props {
   sizes?: string;
   style?: string;
 }
-const splitSizes = '(max-width: 820px) calc(100vw - 3rem), calc((min(100vw, 68rem) - 6rem) * 0.4)';
-const responsiveWidths = [320, 360, 480, 640, 800, 1024, 1280, 1500];
 const {
   src,
   alt,
   caption,
   tall = false,
   priority = false,
-  sizes = splitSizes,
+  sizes = SPLIT_IMAGE_SIZES,
   style = 'margin:0',
 } = Astro.props;
 ---
@@ -26,7 +25,7 @@ const {
   <Image
     src={src}
     alt={alt}
-    widths={responsiveWidths}
+    widths={CONTENT_IMAGE_WIDTHS}
     sizes={sizes}
     loading={priority ? 'eager' : 'lazy'}
     fetchpriority={priority ? 'high' : undefined}

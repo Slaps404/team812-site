@@ -40,6 +40,13 @@
   --radius:        0px;
   --rule:          rgba(242,241,236,.13);
   --photo-ratio:   1.30;      /* width / height for photo blocks */
+  --link-underline:        .08em;
+  --link-underline-active: .16em;
+  --link-underline-offset: .18em;
+  --focus-ring:            2px;
+  --focus-ring-offset:     3px;
+  --panel-label-mix:       65%;
+  --disabled-opacity:      .85;
 
   /* motion */
   --motion:        180ms;

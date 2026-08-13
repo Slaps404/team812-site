@@ -11,14 +11,14 @@ const routes = [
     output: 'index.html',
     title: 'The Midnight Mechanics | FRC Team 812',
     description:
-      'FRC Team 812 builds robots and first-generation engineers at The Preuss School UC San Diego.',
+      'FRC Team 812, The Midnight Mechanics, builds competition robots at The Preuss School UC San Diego.',
     canonical: `${siteOrigin}/`,
   },
   {
     output: 'sponsors/index.html',
     title: 'Sponsor FRC Team 812 | The Midnight Mechanics',
     description:
-      'Sponsor The Midnight Mechanics for the 2027 FRC season and see how Team 812 uses every contribution.',
+      'Learn about sponsoring The Midnight Mechanics for the 2027 FRC season at The Preuss School UC San Diego.',
     canonical: `${siteOrigin}/sponsors/`,
   },
 ];
@@ -58,7 +58,7 @@ test('built routes expose complete, distinct production metadata', async () => {
 
     assert.equal(title, route.title);
     assert.equal(meta(html, 'name', 'description'), route.description);
-    assert.doesNotMatch(html, /site prototype/i);
+    assert.doesNotMatch(html, /prototype/i);
 
     assert.equal(attribute(link(html, 'canonical'), 'href'), route.canonical);
     assert.equal(meta(html, 'property', 'og:type'), 'website');

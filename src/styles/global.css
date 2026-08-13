@@ -56,7 +56,7 @@ p{margin:0}
 }
 .nav a.link:hover{color:var(--ink)}
 .nav a.link.on{color:var(--ink)}
-.nav a.link.soon{opacity:.32;cursor:not-allowed}
+.nav a.link.soon{opacity:var(--disabled-opacity);cursor:not-allowed}
 .btn{
   display:inline-block;
   font-family:var(--font-chrome);font-size:var(--t-2);
@@ -154,14 +154,14 @@ h3{font-size:var(--t1)}
 .body + .body{margin-top:calc(var(--space) * .9)}
 .body a{
   text-decoration-line:underline;
-  text-decoration-thickness:.08em;
-  text-underline-offset:.18em;
+  text-decoration-thickness:var(--link-underline);
+  text-underline-offset:var(--link-underline-offset);
 }
-.body a:hover{ text-decoration-thickness:.16em }
+.body a:hover{ text-decoration-thickness:var(--link-underline-active) }
 .body a:focus{
-  outline:2px solid var(--accent);
-  outline-offset:3px;
-  text-decoration-thickness:.16em;
+  outline:var(--focus-ring) solid var(--accent);
+  outline-offset:var(--focus-ring-offset);
+  text-decoration-thickness:var(--link-underline-active);
 }
 
 /* asymmetric split. thirds-based, so the page never reads as a spreadsheet. */
@@ -194,7 +194,7 @@ h3{font-size:var(--t1)}
    ============================================================ */
 .panel{background:var(--panel);color:var(--panel-ink);padding:calc(var(--space) * 4) 0}
 .panel .mono,
-.panel .label{color:color-mix(in srgb, var(--panel-ink) 65%, transparent)}
+.panel .label{color:color-mix(in srgb, var(--panel-ink) var(--panel-label-mix), transparent)}
 .panel h2{color:var(--panel-ink)}
 .wall{
   display:grid;grid-template-columns:repeat(3,1fr);

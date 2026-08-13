@@ -1,8 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import heroImg from '../assets/photos/2026-states-IMG_1045.jpg';
-
-const heroWidths = [480, 768, 960, 1280, 1600, 2000];
+import { HERO_IMAGE_SIZES, HERO_IMAGE_WIDTHS } from '../lib/imageLayout';
 ---
 <header class="hero">
   <div class="hero-text">
@@ -20,8 +19,8 @@ const heroWidths = [480, 768, 960, 1280, 1600, 2000];
     <Image
       src={heroImg}
       alt="Team 812 students and mentors working around their robot in the pit at the 2026 state championship."
-      widths={heroWidths}
-      sizes="(max-width: 820px) 100vw, 46vw"
+      widths={HERO_IMAGE_WIDTHS}
+      sizes={HERO_IMAGE_SIZES}
       loading="eager"
       fetchpriority="high"
     />
