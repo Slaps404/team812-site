@@ -13,6 +13,8 @@ import Tune from '../components/Tune.astro';
 import shooterImg from '../assets/photos/2026-states-IMG_1026.jpg';
 import drivetrainImg from '../assets/photos/2026-states-IMG_1033.jpg';
 import preussImg from '../assets/photos/2026-states-IMG_0935.jpg';
+
+const pairImageSizes = '(max-width: 820px) calc(100vw - 3rem), calc((min(100vw, 68rem) - 4.2rem) / 2)';
 ---
 <Base>
 
@@ -65,8 +67,8 @@ import preussImg from '../assets/photos/2026-states-IMG_0935.jpg';
       <h2>Built at a school where nearly every student will be the first in their family to earn a degree.</h2>
       <p class="body" style="margin-top:calc(var(--space) * 1.2)">The Preuss School UC San Diego is a charter school for low-income students. Our team is where they meet CAD, motor controllers, version control, and a hard deadline for the first time.</p>
       <div class="pair" style="margin-top:calc(var(--space) * 2.5)">
-        <Shot src={drivetrainImg} alt="Students and a mentor working on the robot, with TEAM 812 on the bumper." caption="Drivetrain repair, 30 minutes to queue / 2026" />
-        <Shot src={preussImg} alt="Team members at The Preuss School UC San Diego entrance sign." caption="The Preuss School UC San Diego / 2026" />
+        <Shot src={drivetrainImg} alt="Students and a mentor working on the robot, with TEAM 812 on the bumper." caption="Drivetrain repair, 30 minutes to queue / 2026" sizes={pairImageSizes} />
+        <Shot src={preussImg} alt="Team members at The Preuss School UC San Diego entrance sign." caption="The Preuss School UC San Diego / 2026" sizes={pairImageSizes} />
       </div>
     </div>
   </section>

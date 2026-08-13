@@ -1,17 +1,35 @@
 ---
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro:assets';
 
 interface Props {
   src: ImageMetadata;
   alt: string;
   caption: string;
   tall?: boolean;
+  priority?: boolean;
+  sizes?: string;
   style?: string;
 }
-const { src, alt, caption, tall = false, style = 'margin:0' } = Astro.props;
+const splitSizes = '(max-width: 820px) calc(100vw - 3rem), calc((min(100vw, 68rem) - 6rem) * 0.4)';
+const responsiveWidths = [320, 360, 480, 640, 800, 1024, 1280, 1500];
+const {
+  src,
+  alt,
+  caption,
+  tall = false,
+  priority = false,
+  sizes = splitSizes,
+  style = 'margin:0',
+} = Astro.props;
 ---
 <figure class:list={['shot', { tall }]} style={style}>
-  <Image src={src} alt={alt} />
+  <Image
+    src={src}
+    alt={alt}
+    widths={responsiveWidths}
+    sizes={sizes}
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : undefined}
+  />
   <figcaption class="mono">{caption}</figcaption>
 </figure>
