@@ -22,6 +22,14 @@
   /* type */
   --font-sans:     'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   --font-mono:     'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --mono-weight:   400;      /* the mono carries most of the site's voice */
+
+  /* THE MONO DOSE. This one line decides how technical the site reads.
+     var(--font-sans) = mono only on figures. Reads like an organisation.
+     var(--font-mono) = mono on nav, buttons and every label too. Reads like a
+     developer tool. Numbers stay mono either way, they have their own rules. */
+  --font-chrome:   var(--font-sans);
+  --chrome-track:  .07em;    /* .11em suits mono, .07em suits sans */
   --type-base:     17px;
   --type-scale:    1.24;
   --display:       4.3vw;     /* hero headline, scales with window */
