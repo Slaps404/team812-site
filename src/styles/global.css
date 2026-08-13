@@ -152,6 +152,17 @@ h2{font-size:var(--t3);max-width:26em}
 h3{font-size:var(--t1)}
 .body{font-size:var(--type-base);color:var(--ink);opacity:.82;max-width:36em}
 .body + .body{margin-top:calc(var(--space) * .9)}
+.body a{
+  text-decoration-line:underline;
+  text-decoration-thickness:.08em;
+  text-underline-offset:.18em;
+}
+.body a:hover{ text-decoration-thickness:.16em }
+.body a:focus{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  text-decoration-thickness:.16em;
+}
 
 /* asymmetric split. thirds-based, so the page never reads as a spreadsheet. */
 .split{display:grid;grid-template-columns:6fr 4fr;gap:calc(var(--space) * 3);align-items:start}
@@ -183,7 +194,7 @@ h3{font-size:var(--t1)}
    ============================================================ */
 .panel{background:var(--panel);color:var(--panel-ink);padding:calc(var(--space) * 4) 0}
 .panel .mono,
-.panel .label{color:color-mix(in srgb, var(--panel-ink) 55%, transparent)}
+.panel .label{color:color-mix(in srgb, var(--panel-ink) 65%, transparent)}
 .panel h2{color:var(--panel-ink)}
 .wall{
   display:grid;grid-template-columns:repeat(3,1fr);

@@ -24,7 +24,7 @@ const supporter = sponsors.find((s: CollectionEntry<'sponsors'>) => s.data.tier 
 
 <Nav current="sponsors" />
 
-<div class="view on" id="v-sponsors">
+<main class="view on" id="v-sponsors">
 
   <section style="padding-top:calc(var(--space) * 3.5)">
     <Split style="align-items:end">
@@ -40,7 +40,7 @@ const supporter = sponsors.find((s: CollectionEntry<'sponsors'>) => s.data.tier 
 
   <section style="padding-top:0">
     <div class="wrap">
-      <h3 class="label">Why team 812</h3>
+      <h2 class="label">Why team 812</h2>
       <Reasons />
     </div>
   </section>
@@ -58,11 +58,11 @@ const supporter = sponsors.find((s: CollectionEntry<'sponsors'>) => s.data.tier 
   <section>
     <Split>
       <Fragment slot="left">
-        <h3 class="label">Where it goes</h3>
+        <h2 class="label">Where it goes</h2>
         <Funds />
       </Fragment>
       <Fragment slot="right">
-        <h3 class="label">How to give</h3>
+        <h2 class="label">How to give</h2>
         <p class="body">Team 812's money sits in a robotics account held by The Preuss School UC San Diego. The account has a class fund and a gift fund. <b>Sponsorship and donations go to the gift fund.</b></p>
         <p class="body">Corporate sponsors: email us and we will send an invoice and a W-9.</p>
         <p class="body">Contact: <b><a href="mailto:team812@preuss.ucsd.edu">team812@preuss.ucsd.edu</a></b></p>
@@ -75,16 +75,16 @@ const supporter = sponsors.find((s: CollectionEntry<'sponsors'>) => s.data.tier 
 
   <div class="panel">
     <div class="wrap">
-      <h3 class="label">Current sponsors</h3>
+      <h2 class="label">Current sponsors</h2>
       <LogoWall />
-      <h3 class="label" style="margin-top:calc(var(--space) * 2.6)">Past support</h3>
+      <h2 class="label" style="margin-top:calc(var(--space) * 2.6)">Past support</h2>
       <p style="color:color-mix(in srgb, var(--panel-ink) 70%, transparent);max-width:36em">{past?.data.name}</p>
-      <h3 class="label" style="margin-top:calc(var(--space) * 2.6)">Supporters</h3>
+      <h2 class="label" style="margin-top:calc(var(--space) * 2.6)">Supporters</h2>
       <p class="ph" style="color:color-mix(in srgb, var(--panel-ink) 70%, transparent);max-width:36em">{supporter?.data.name}<span class="ph-tag">{supporter?.data.tag}</span></p>
     </div>
   </div>
 
-</div>
+</main>
 
 <Footer />
 

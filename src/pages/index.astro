@@ -23,7 +23,7 @@ const pairImageSizes = '(max-width: 820px) calc(100vw - 3rem), calc((min(100vw, 
 
 <Nav current="home" />
 
-<div class="view on" id="v-home">
+<main class="view on" id="v-home">
 
   <Hero />
 
@@ -88,7 +88,7 @@ const pairImageSizes = '(max-width: 820px) calc(100vw - 3rem), calc((min(100vw, 
   <section>
     <Split flip={true}>
       <Fragment slot="left">
-        <h3 class="label">The 2027 ask</h3>
+        <h2 class="label">The 2027 ask</h2>
         <div style="font-family:var(--font-mono);font-size:var(--t4);line-height:1;letter-spacing:-.05em;color:var(--accent)">$10,000</div>
         <p class="body" style="margin-top:calc(var(--space) * 1.2)">That is the gap between the season we can run and the season we planned. Gifts go to the team's gift fund, held in the school's robotics account.</p>
         <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6)">
@@ -96,13 +96,13 @@ const pairImageSizes = '(max-width: 820px) calc(100vw - 3rem), calc((min(100vw, 
         </div>
       </Fragment>
       <Fragment slot="right">
-        <h3 class="label">Where it goes</h3>
+        <h2 class="label">Where it goes</h2>
         <Funds />
       </Fragment>
     </Split>
   </section>
 
-</div>
+</main>
 
 <Footer />
 
