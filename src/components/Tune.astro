@@ -40,13 +40,12 @@
       {v:'--motion',     l:'Speed',         t:'range', min:0,   max:600, step:10,  u:'ms'},
     ];
 
-    /* Each entry: [label, css stack, google fonts spec or null for no webfont].
-       The spec is loaded only when you pick it, so opening the panel does not
-       pull twenty families over the wire. */
+    /* Each entry: [label, css stack, Google Fonts spec or null for a locally
+       available face]. Remote experiments load only when explicitly picked. */
     type Face = [string, string, string | null];
 
     const MONOS: Face[] = [
-      ['DM Sans (current)',        "'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", 'DM+Sans:wght@400..700'],
+      ['DM Sans (current)',        "'DM Sans Variable', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", null],
       ['JetBrains Mono',           "'JetBrains Mono', ui-monospace, Menlo, monospace", 'JetBrains+Mono:wght@400;500;600;700'],
       ['IBM Plex Mono',            "'IBM Plex Mono', ui-monospace, Menlo, monospace",  'IBM+Plex+Mono:wght@400;500;600;700'],
       ['Azeret Mono',              "'Azeret Mono', ui-monospace, Menlo, monospace",    'Azeret+Mono:wght@300..700'],
@@ -64,14 +63,13 @@
     ];
 
     const SANS: Face[] = [
-      ['DM Sans (current)',    "'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", 'DM+Sans:wght@400..700'],
+      ['DM Sans (current)',    "'DM Sans Variable', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", null],
       ['Inter',               "'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif", 'Inter:wght@400;500;600;700'],
       ['Geist',                "'Geist', -apple-system, Arial, sans-serif",          'Geist:wght@400;500;600;700'],
       ['Instrument Sans',      "'Instrument Sans', -apple-system, Arial, sans-serif",'Instrument+Sans:wght@400;500;600;700'],
       ['Schibsted Grotesk',    "'Schibsted Grotesk', -apple-system, Arial, sans-serif",'Schibsted+Grotesk:wght@400..700'],
       ['Manrope',              "'Manrope', -apple-system, Arial, sans-serif",        'Manrope:wght@400..700'],
       ['Archivo',              "'Archivo', -apple-system, Arial, sans-serif",        'Archivo:wght@400..700'],
-      ['DM Sans',              "'DM Sans', -apple-system, Arial, sans-serif",        'DM+Sans:wght@400..700'],
       ['Figtree',              "'Figtree', -apple-system, Arial, sans-serif",        'Figtree:wght@400..700'],
       ['Plus Jakarta Sans',    "'Plus Jakarta Sans', -apple-system, Arial, sans-serif",'Plus+Jakarta+Sans:wght@400..700'],
       ['Public Sans',          "'Public Sans', -apple-system, Arial, sans-serif",    'Public+Sans:wght@400..700'],

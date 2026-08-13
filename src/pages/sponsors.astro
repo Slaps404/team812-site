@@ -17,7 +17,10 @@ const sponsors = await getCollection('sponsors');
 const past = sponsors.find((s: CollectionEntry<'sponsors'>) => s.data.tier === 'past');
 const supporter = sponsors.find((s: CollectionEntry<'sponsors'>) => s.data.tier === 'supporter');
 ---
-<Base title="Team 812 site prototype">
+<Base
+  title="Sponsor FRC Team 812 | The Midnight Mechanics"
+  description="Sponsor The Midnight Mechanics for the 2027 FRC season and see how Team 812 uses every contribution."
+>
 
 <Nav current="sponsors" />
 

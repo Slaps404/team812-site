@@ -20,8 +20,8 @@
   --measure:       68rem;     /* max content width */
 
   /* type */
-  --font-sans:     'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono:     'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --font-sans:     'DM Sans Variable', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:     'DM Sans Variable', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   --mono-weight:   400;      /* retained as a separate tuning hook for figures */
 
   /* Keep the chrome and figures on the same sans family for now. The separate
