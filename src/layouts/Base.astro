@@ -2,7 +2,7 @@
 import '@fontsource-variable/dm-sans/wght.css';
 import '../styles/tokens.css';
 import '../styles/global.css';
-import socialImage from '../assets/photos/2026-states-IMG_1045.jpg';
+import socialImage from '../assets/photos/team-812-robot-pit.png';
 
 interface Props {
   title: string;
@@ -29,13 +29,13 @@ const socialImageUrl = new URL(socialImage.src, Astro.site ?? Astro.url);
 <meta property="og:image" content={socialImageUrl}>
 <meta property="og:image:width" content={String(socialImage.width)}>
 <meta property="og:image:height" content={String(socialImage.height)}>
-<meta property="og:image:alt" content="Team 812 students and mentors working around their robot in the pit.">
+<meta property="og:image:alt" content="A Team 812 student and mentor working on the robot in the pit.">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content={title}>
 <meta name="twitter:description" content={description}>
 <meta name="twitter:image" content={socialImageUrl}>
-<meta name="twitter:image:alt" content="Team 812 students and mentors working around their robot in the pit.">
+<meta name="twitter:image:alt" content="A Team 812 student and mentor working on the robot in the pit.">
 </head>
 <body class="flags">
 <slot />

@@ -68,7 +68,7 @@ test('built routes expose complete, distinct production metadata', async () => {
     assert.match(meta(html, 'property', 'og:image'), /^https:\/\/themidnightmechanics\.com\//);
     assert.equal(
       meta(html, 'property', 'og:image:alt'),
-      'Team 812 students and mentors working around their robot in the pit.',
+      'A Team 812 student and mentor working on the robot in the pit.',
     );
 
     assert.equal(meta(html, 'name', 'twitter:card'), 'summary_large_image');

@@ -83,8 +83,8 @@ p{margin:0}
    Side effect: the headline now sits on solid ground, so legibility is
    guaranteed for every future photo too. */
 .hero{
-  display:grid;grid-template-columns:1fr .84fr;
-  min-height:min(84vh, 880px);overflow:hidden;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,min(46vw,580px));
+  min-height:0;overflow:hidden;
 }
 .hero-text{
   display:flex;align-items:center;
@@ -95,9 +95,9 @@ p{margin:0}
 .hero .lede{font-size:var(--t1);color:var(--ink);max-width:30em;opacity:.82}
 .hero .cta{display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.8);flex-wrap:wrap}
 
-/* The photo slot is taller than the photo is, so `cover` crops the WIDTH.
-   That is what makes --hero-x actually pan. It could not in a wide slot. */
-.hero-shot{position:relative;margin:0;overflow:hidden}
+/* Keep the slot close to the source photo's near-square ratio, so the robot
+   stays readable and the hero does not create an artificial vertical gap. */
+.hero-shot{position:relative;margin:0;overflow:hidden;aspect-ratio:.97}
 .hero-shot img{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;object-position:var(--hero-x) var(--hero-y);
@@ -343,9 +343,8 @@ body.flags .ph-tag{
   .hero-shot::after{background:linear-gradient(0deg, color-mix(in srgb, var(--ground) 55%, transparent) 0%, transparent calc(var(--space) * 5))}
   .hero{grid-template-columns:1fr;min-height:0}
   .hero-text{padding:calc(var(--space) * 3) calc(var(--space) * 1.5)}
-  /* A portrait slot on purpose. Wider than 0.95 and `cover` stops cropping the
-     width, so --hero-x goes dead and the rival team's banner comes back in. */
-  .hero-shot{aspect-ratio:.95}
+  /* Match the source photo on narrow screens to avoid extra crop and spacing. */
+  .hero-shot{aspect-ratio:.97}
   .stats{grid-template-columns:1fr 1fr}
   .split,.split.flip{grid-template-columns:1fr;gap:calc(var(--space) * 2)}
   .wall,.tiers{grid-template-columns:1fr}
