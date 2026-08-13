@@ -18,7 +18,7 @@ a{color:inherit;text-decoration:none}
 h1,h2,h3{margin:0;font-weight:500;line-height:1.02;letter-spacing:-.022em}
 p{margin:0}
 
-/* mono label. used for all metadata, nav, numbers, captions. */
+/* compact label. used for metadata, nav, numbers, and captions. */
 .mono{
   font-family:var(--font-chrome);
   font-weight:var(--mono-weight);
