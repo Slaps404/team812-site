@@ -1,0 +1,9 @@
+# Local-only material. The deploy should contain source and site assets only.
+/photos/
+/research/
+
+# Generated or install-time material; Vercel rebuilds these remotely.
+/dist/
+/node_modules/
+/.git/
+/.DS_Store

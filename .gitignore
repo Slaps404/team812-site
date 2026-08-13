@@ -7,3 +7,4 @@ dist/
 photos/*
 !photos/INDEX.md
 .DS_Store
+.vercel
