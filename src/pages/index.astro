@@ -35,9 +35,8 @@ import preussImg from '../assets/photos/2026-states-IMG_0935.jpg';
     <Split>
       <Fragment slot="left">
         <h2>We have published every line of our robot code since 2011.</h2>
-        <p class="body" style="margin-top:calc(var(--space) * 1.2)">Sixteen consecutive seasons, in the open, on GitHub. C++ through 2015, Java since. One season in D, because a student wanted to try it.</p>
+        <p class="body" style="margin-top:calc(var(--space) * 1.2)">Sixteen consecutive seasons, all open-sourced. C++ from 2011 to 2015, Java since then.</p>
         <p class="body">We also ship our own tools. <b>ShooterTargeting</b> solves launch coefficients for a given shooter geometry. <b>ArmSim</b> listens on NetworkTables to simulate arm motion before the arm exists.</p>
-        <p class="body" style="opacity:.6;font-size:var(--t-1)">If you employ engineers, hand them this link. It is the fastest way to judge whether we are worth funding.</p>
         <div class="years">
           <a class="hi" href="https://github.com/preuss812/FRC_2026" target="_blank" rel="noopener">2026</a>
           <a href="https://github.com/preuss812/FRC_2025" target="_blank" rel="noopener">2025</a>
@@ -75,19 +74,21 @@ import preussImg from '../assets/photos/2026-states-IMG_0935.jpg';
     </div>
   </section>
 
-  <!-- Light panel. Corporate logos cannot sit on a dark ground. -->
+  <!-- Light panel. Corporate logos cannot sit on a dark ground.
+       The wall leads and the sentence follows it: the logos are the claim, the
+       line underneath is the caption. Past support lives on the sponsors page
+       only, so the home wall stays current sponsors and nothing else. -->
   <div class="panel">
     <div class="wrap">
-      <h2 style="font-size:var(--t2)">Our sponsors are on the robot, the shirts, and the pit banner.</h2>
       <LogoWall />
-      <p class="mono" style="margin-top:calc(var(--space) * 1.4)">Past support: Cluely</p>
+      <h2 class="wall-note">Our sponsors are on the robot, the shirts, and the pit banner.</h2>
     </div>
   </div>
 
   <section>
     <Split flip={true}>
       <Fragment slot="left">
-        <h2 class="label">The 2027 ask</h2>
+        <h2 class="label">The ask for this year</h2>
         <div style="font-family:var(--font-mono);font-size:var(--t4);line-height:1;letter-spacing:-.05em;color:var(--accent)">$10,000</div>
         <p class="body" style="margin-top:calc(var(--space) * 1.2)">That is the gap between the season we can run and the season we planned. Gifts go to the team's gift fund, held in the school's robotics account.</p>
         <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6)">

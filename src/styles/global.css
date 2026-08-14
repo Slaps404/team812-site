@@ -18,12 +18,14 @@ a{color:inherit;text-decoration:none}
 h1,h2,h3{margin:0;font-weight:500;line-height:1.02;letter-spacing:-.022em}
 p{margin:0}
 
-/* compact label. used for metadata, nav, numbers, and captions. */
+/* compact label. used for metadata, numbers, and captions. Interface chrome
+   (nav, buttons, .label) deliberately uses the narrower --chrome-track, so the
+   two roles stay distinguishable on a single type family. */
 .mono{
   font-family:var(--font-chrome);
   font-weight:var(--mono-weight);
   font-size:var(--t-2);
-  letter-spacing:var(--chrome-track);
+  letter-spacing:var(--figure-track);
   text-transform:uppercase;
   color:var(--ink-dim);
 }
@@ -46,8 +48,11 @@ p{margin:0}
   padding:calc(var(--space) * .8) calc(var(--space) * 1.5);
   display:flex;align-items:center;gap:calc(var(--space) * 1.6);
 }
-.mark{display:flex;align-items:baseline;gap:.5em;margin-right:auto}
-.mark b{font-family:var(--font-mono);font-size:var(--t1);font-weight:500;letter-spacing:-.03em}
+/* The badge is sized off --t1 rather than a fixed pixel height, so it grows and
+   shrinks with the type scale instead of drifting out of step with the wordmark
+   next to it. 2.1 lands it just under the nav's own padded height. */
+.mark{display:flex;align-items:center;gap:.6em;margin-right:auto}
+.mark img{height:calc(var(--t1) * 2.1);width:auto}
 .mark span{font-family:var(--font-chrome);font-size:var(--t-2);letter-spacing:calc(var(--chrome-track) + .02em);text-transform:uppercase;color:var(--ink-dim)}
 .nav a.link{
   font-family:var(--font-chrome);font-size:var(--t-2);
@@ -171,6 +176,9 @@ h3{font-size:var(--t1)}
 /* photo blocks. one enforced ratio, object-fit cover, no frames or shadows. */
 .shot{position:relative}
 .shot img{width:100%;height:auto;aspect-ratio:var(--photo-ratio);object-fit:cover;border-radius:var(--radius)}
+/* Captions sit one weight above the interface chrome. On a single-family site
+   that weight step is what stops a caption reading as a nav item. */
+.shot figcaption,.credit{font-weight:500}
 .shot figcaption{margin-top:calc(var(--space) * .55)}
 .shot.tall img{aspect-ratio:calc(var(--photo-ratio) * .52)}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--space) * 1.2)}
@@ -196,6 +204,13 @@ h3{font-size:var(--t1)}
 .panel .mono,
 .panel .label{color:color-mix(in srgb, var(--panel-ink) var(--panel-label-mix), transparent)}
 .panel h2{color:var(--panel-ink)}
+/* Caption under the logo wall. The wall is the statement; this is its footnote,
+   so it drops to body size and the panel's label colour. */
+.panel h2.wall-note{
+  font-size:var(--type-base);
+  color:color-mix(in srgb, var(--panel-ink) var(--panel-label-mix), transparent);
+  margin-top:calc(var(--space) * 1.4);
+}
 .wall{
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:1px;background:color-mix(in srgb, var(--panel-ink) 12%, transparent);
@@ -243,15 +258,49 @@ h3{font-size:var(--t1)}
 .tier li:last-child{border-bottom:0}
 .tier li b{color:var(--ink);font-weight:500}
 
-/* use of funds */
-.funds{margin-top:calc(var(--space) * 2);border-top:1px solid var(--rule)}
-.fund{
-  display:grid;grid-template-columns:1fr auto;gap:var(--space);
-  padding:calc(var(--space) * .85) 0;border-bottom:1px solid var(--rule);
-  align-items:baseline;
+/* ============================================================
+   USE OF FUNDS
+   A pie plus a keyed legend. The pie is decorative: every number it
+   encodes is also written out in the legend beside it, so the chart is
+   aria-hidden and screen readers get the list, not a shape.
+   Slice angles are derived from the amounts, so the data drives the graphic.
+   ============================================================ */
+.funds{
+  display:flex;gap:calc(var(--space) * 2);align-items:center;
+  margin-top:calc(var(--space) * 2);flex-wrap:wrap;
 }
-.fund .amt{font-family:var(--font-mono);font-size:var(--type-base);color:var(--ink)}
-.fund.total .amt,.fund.total .lab{color:var(--accent);font-weight:500}
+.funds .pie{width:150px;height:150px;border-radius:50%;flex:0 0 auto}
+.funds .legend{flex:1;min-width:200px}
+.fund{display:flex;align-items:center;gap:.6em;padding:calc(var(--space) * .35) 0}
+.fund .swatch{width:10px;height:10px;border-radius:2px;flex:0 0 auto}
+.fund .lab{
+  font-family:var(--font-chrome);font-size:var(--t-2);
+  letter-spacing:var(--chrome-track);text-transform:uppercase;
+  color:var(--ink-dim);flex:1;
+}
+.fund .amt{font-family:var(--font-mono);font-size:var(--t-2);color:var(--ink)}
+.fund.total{
+  padding-top:calc(var(--space) * .55);margin-top:calc(var(--space) * .3);
+  border-top:1px solid var(--rule);
+}
+.fund.total .lab,.fund.total .amt{color:var(--accent)}
+.fund.total .amt{font-weight:500}
+
+/* The sponsors page runs the same block in a narrower column. */
+.funds.compact{gap:calc(var(--space) * 1.6)}
+.funds.compact .pie{width:120px;height:120px}
+.funds.compact .legend{min-width:180px}
+.funds.compact .fund{padding:calc(var(--space) * .3) 0}
+.funds.compact .fund .swatch{width:9px;height:9px}
+.funds.compact .fund.total{padding-top:calc(var(--space) * .5)}
+
+/* Marks a figure the team has not confirmed yet. Not a placeholder flag: the
+   number is real, its precision is not. */
+.flag-note{
+  font-family:var(--font-chrome);font-size:var(--t-2);
+  letter-spacing:var(--chrome-track);text-transform:uppercase;
+  color:var(--flag);margin-top:calc(var(--space) * .8);
+}
 
 /* numbered reasons. deliberately NOT three cards with stock icons. */
 .reasons{margin-top:calc(var(--space) * 2);border-top:1px solid var(--rule)}

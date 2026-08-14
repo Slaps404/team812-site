@@ -27,7 +27,10 @@
   /* Keep the chrome and figures on the same sans family for now. The separate
      tokens remain so the tuning panel can still preview alternatives. */
   --font-chrome:   var(--font-sans);
-  --chrome-track:  .07em;    /* the sans treatment uses a lighter track */
+  --chrome-track:  .07em;    /* nav, buttons, section labels: lighter track */
+  --figure-track:  .11em;    /* captions, stat labels, footer meta: wider track.
+                                With one family doing both jobs, tracking is what
+                                separates figure text from interface chrome. */
   --type-base:     17px;
   --type-scale:    1.24;
   --display:       4.3vw;     /* hero headline, scales with window */
@@ -45,6 +48,9 @@
   --link-underline-offset: .18em;
   --focus-ring:            2px;
   --focus-ring-offset:     3px;
+  /* The design prototype uses 55%, which renders panel text at 3.81:1 on
+     --panel and fails WCAG AA for normal text. 65% measures 5.24:1. Do not
+     lower this without re-running tests/accessibility.spec.ts. */
   --panel-label-mix:       65%;
   --disabled-opacity:      .85;
 

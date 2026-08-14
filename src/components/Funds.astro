@@ -1,16 +1,59 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 
-const funds = (await getCollection('funds')).sort((a, b) => a.data.order - b.data.order);
+interface Props {
+  /* The sponsors page runs this in a 4fr column, the home page in a 6fr one. */
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+
+const entries = (await getCollection('funds')).sort((a, b) => a.data.order - b.data.order);
+const slices = entries.filter((f: CollectionEntry<'funds'>) => !f.data.total);
+const total = entries.find((f: CollectionEntry<'funds'>) => f.data.total);
+
+/* Slice colours step down the accent's opacity rather than introducing a second
+   hue per line item, so the chart stays inside the site's one-accent rule. */
+const SWATCHES = [
+  'var(--accent)',
+  'color-mix(in srgb, var(--accent) 60%, transparent)',
+  'color-mix(in srgb, var(--accent) 32%, transparent)',
+];
+
+const parseAmount = (value: string) => Number.parseInt(value.replace(/[^0-9]/g, ''), 10) || 0;
+const sum = slices.reduce(
+  (running: number, f: CollectionEntry<'funds'>) => running + parseAmount(f.data.amount),
+  0,
+);
+
+/* conic-gradient needs cumulative stops, so walk the slices once and give each
+   an explicit start and end percentage. If the amounts are still placeholders
+   that sum to zero, fall back to equal slices so the chart never collapses. */
+let cursor = 0;
+const stops = slices.map((f: CollectionEntry<'funds'>, i: number) => {
+  const share = sum > 0 ? (parseAmount(f.data.amount) / sum) * 100 : 100 / slices.length;
+  const stop = `${SWATCHES[i % SWATCHES.length]} ${cursor}% ${cursor + share}%`;
+  cursor += share;
+  return stop;
+});
+const gradient = `conic-gradient(${stops.join(', ')})`;
 ---
-<div class="funds">
-  {funds.map((f: CollectionEntry<'funds'>) => (
-    <div class:list={['fund', { ph: f.data.flagged, total: f.data.total }]}>
-      <div class="lab">{f.data.label}</div>
-      <div class="amt">
-        {f.data.amount}
-        {f.data.flagged && <span class="ph-tag">{f.data.tag}</span>}
+<div class:list={['funds', { compact }]}>
+  {/* Decorative: every value the pie encodes is written out in the legend
+      beside it, so assistive tech should read the list, not the shape. */}
+  <div class="pie" style={`background:${gradient}`} aria-hidden="true"></div>
+  <div class="legend">
+    {slices.map((f: CollectionEntry<'funds'>, i: number) => (
+      <div class="fund">
+        <span class="swatch" style={`background:${SWATCHES[i % SWATCHES.length]}`}></span>
+        <span class="lab">{f.data.label}</span>
+        <span class="amt">{f.data.amount}</span>
       </div>
-    </div>
-  ))}
+    ))}
+    {total && (
+      <div class="fund total">
+        <span class="lab">{total.data.label}</span>
+        <span class="amt">{total.data.amount}</span>
+      </div>
+    )}
+  </div>
 </div>

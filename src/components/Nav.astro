@@ -1,12 +1,27 @@
 ---
+import { Image } from 'astro:assets';
+import badge from '../assets/logos/team812-badge.png';
+
 interface Props {
   current: 'home' | 'sponsors';
 }
 const { current } = Astro.props;
+
+/* The badge is the team's official logo, pulled from themidnightmechanics.com.
+   Its ring text ("DON'T YOU PANIC / I'M A MIDNIGHT MECHANIC") is illegible at
+   nav size, which is fine: the badge works as a shape here and the wordmark
+   beside it carries the name. That is also why the alt text names the team
+   rather than transcribing the ring. Size lives in the .mark img rule. */
 ---
 <nav class="nav">
   <div class="nav-in">
-    <a class="mark" href="/"><b>812</b><span>Midnight Mechanics</span></a>
+    <a class="mark" href="/">
+      {/* The source is 1000px wide but the nav slot is ~44px. width is pinned to
+          3x that so the emitted asset is a few kB instead of the full-size logo,
+          and still sharp on high-density screens. */}
+      <Image src={badge} alt="Team 812 badge" width={132} loading="eager" />
+      <span>Midnight Mechanics</span>
+    </a>
     <a class:list={['link', { on: current === 'home' }]} href="/" aria-current={current === 'home' ? 'page' : undefined}>Home</a>
     <a class:list={['link', { on: current === 'sponsors' }]} href="/sponsors" aria-current={current === 'sponsors' ? 'page' : undefined}>Sponsors</a>
     <a class="link soon" title="Section not yet available">Robots</a>

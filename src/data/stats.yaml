@@ -20,7 +20,7 @@
   flagged: true
 - id: "first"
   order: 4
-  value: "1"
-  suffix: "st"
+  value: "1st"
+  suffix: ""
   label: "FRC team in San Diego"
   flagged: false
