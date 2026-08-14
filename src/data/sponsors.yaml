@@ -6,24 +6,28 @@
   order: 1
   name: "Qualcomm"
   tier: "current"
+  url: "https://www.qualcomm.com/"
   logo: "qualcomm"
   widthClass: "w-qualcomm"
 - id: "nordson"
   order: 2
   name: "Nordson"
   tier: "current"
+  url: "https://www.nordson.com/"
   logo: "nordson"
   widthClass: "w-nordson"
 - id: "leidos"
   order: 3
   name: "Leidos"
   tier: "current"
+  url: "https://www.leidos.com/"
   logo: "leidos"
   widthClass: "w-leidos"
 - id: "cluely"
   order: 4
   name: "Cluely"
   tier: "past"
+  url: "https://cluely.com/"
 - id: "supporters-placeholder"
   order: 5
   name: "Names of individual supporters go here as plain text, no logos."

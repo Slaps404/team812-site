@@ -79,7 +79,9 @@ const supporter = sponsors.find((s: CollectionEntry<'sponsors'>) => s.data.tier 
       <h2 class="label">Current sponsors</h2>
       <LogoWall />
       <h2 class="label" style="margin-top:calc(var(--space) * 2.6)">Past support</h2>
-      <p style="color:color-mix(in srgb, var(--panel-ink) 70%, transparent);max-width:36em">{past?.data.name}</p>
+      <p style="color:color-mix(in srgb, var(--panel-ink) 70%, transparent);max-width:36em">
+        {past?.data.url ? <a href={past.data.url} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${past.data.name} website`}>{past.data.name}</a> : past?.data.name}
+      </p>
       <h2 class="label" style="margin-top:calc(var(--space) * 2.6)">Supporters</h2>
       <p class="ph" style="color:color-mix(in srgb, var(--panel-ink) 70%, transparent);max-width:36em">{supporter?.data.name}<span class="ph-tag">{supporter?.data.tag}</span></p>
     </div>

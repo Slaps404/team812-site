@@ -14,7 +14,9 @@ const current = all
 <div class="wall">
   {current.map((s: CollectionEntry<'sponsors'>) => (
     <div class:list={['logo', s.data.widthClass]}>
-      <img src={LOGO_SRC[s.data.logo ?? '']} alt={s.data.name} />
+      <a href={s.data.url} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${s.data.name} website`}>
+        <img src={LOGO_SRC[s.data.logo ?? '']} alt={`${s.data.name} sponsor logo`} />
+      </a>
     </div>
   ))}
 </div>
