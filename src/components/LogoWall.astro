@@ -14,7 +14,16 @@ const current = all
 <div class="wall">
   {current.map((s: CollectionEntry<'sponsors'>) => (
     <div class:list={['logo', s.data.widthClass]}>
-      <img src={LOGO_SRC[s.data.logo ?? '']} alt={s.data.name} />
+      {s.data.url ? (
+        /* The link wraps the logo rather than sitting beside it, so the whole
+           cell is the target. The alt text already names the company, so the
+           anchor needs no extra label; aria-label would just repeat it. */
+        <a href={s.data.url} target="_blank" rel="noopener">
+          <img src={LOGO_SRC[s.data.logo ?? '']} alt={s.data.name} />
+        </a>
+      ) : (
+        <img src={LOGO_SRC[s.data.logo ?? '']} alt={s.data.name} />
+      )}
     </div>
   ))}
 </div>

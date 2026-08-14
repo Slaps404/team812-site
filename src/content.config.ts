@@ -52,6 +52,9 @@ const sponsors = defineCollection({
     name: z.string(),
     tier: z.enum(['current', 'past', 'supporter']),
     logo: z.string().optional(),
+    // Sponsor's own site. Optional, so a sponsor with no public URL still renders,
+    // just as a plain logo instead of a link.
+    url: z.string().url().optional(),
     widthClass: z.string().optional(),
     flagged: z.boolean().default(false),
     tag: z.string().default(''),
