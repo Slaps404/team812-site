@@ -2,7 +2,9 @@
 import '@fontsource-variable/dm-sans/wght.css';
 import '../styles/tokens.css';
 import '../styles/global.css';
+import favicon from '../assets/logos/team812-badge.png';
 import socialImage from '../assets/photos/team-812-robot-pit.png';
+import ImageViewer from '../components/ImageViewer.astro';
 
 interface Props {
   title: string;
@@ -19,7 +21,7 @@ const socialImageUrl = new URL(socialImage.src, Astro.site ?? Astro.url);
 <title>{title}</title>
 <meta name="description" content={description}>
 <link rel="canonical" href={canonicalUrl}>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href={favicon.src} type="image/png">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Midnight Mechanics">
@@ -39,5 +41,6 @@ const socialImageUrl = new URL(socialImage.src, Astro.site ?? Astro.url);
 </head>
 <body class="flags">
 <slot />
+<ImageViewer />
 </body>
 </html>

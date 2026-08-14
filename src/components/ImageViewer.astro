@@ -1,0 +1,92 @@
+---
+import pit from '../assets/photos/team-812-robot-pit.png';
+import states0935 from '../assets/photos/2026-states-IMG_0935.jpg';
+import states1011 from '../assets/photos/2026-states-IMG_1011.jpg';
+import states1026 from '../assets/photos/2026-states-IMG_1026.jpg';
+import states1033 from '../assets/photos/2026-states-IMG_1033.jpg';
+import states1045 from '../assets/photos/2026-states-IMG_1045.jpg';
+
+const photos = [
+  { id: 'team-812-robot-pit', src: pit.src, alt: 'A Team 812 student and mentor working on the robot in the pit at the 2026 state championship.', caption: 'Pit crew / FIRST California Southern State Championship / 2026' },
+  { id: states1026.src, src: states1026.src, alt: "A mentor and two students working on Team 812's shooter mechanism.", caption: 'Shooter tuning between matches / 2026' },
+  { id: states1033.src, src: states1033.src, alt: 'Students and a mentor working on the robot, with TEAM 812 on the bumper.', caption: 'Drivetrain repair, 30 minutes to queue / 2026' },
+  { id: states0935.src, src: states0935.src, alt: 'Team members at The Preuss School UC San Diego entrance sign.', caption: 'The Preuss School UC San Diego / 2026' },
+  { id: states1011.src, src: states1011.src, alt: 'The 2026 Team 812 roster in team shirts.', caption: 'The people you would be funding / 2026' },
+  { id: states1045.src, src: states1045.src, alt: 'Team 812 members and robot at the 2026 state championship.', caption: 'Team 812 at States / 2026' },
+];
+---
+<dialog class="image-viewer" id="image-viewer" aria-labelledby="image-viewer-title">
+  <div class="image-viewer-shell">
+    <div class="image-viewer-topbar">
+      <p class="mono" id="image-viewer-title">Team 812 / image archive</p>
+      <button class="image-viewer-close" type="button" aria-label="Close image viewer">×</button>
+    </div>
+    <div class="image-viewer-stage">
+      <button class="image-viewer-arrow previous" type="button" aria-label="Previous image">←</button>
+      <img class="image-viewer-image" alt="" />
+      <button class="image-viewer-arrow next" type="button" aria-label="Next image">→</button>
+    </div>
+    <div class="image-viewer-caption">
+      <p class="mono image-viewer-count"></p>
+      <p class="image-viewer-copy"></p>
+    </div>
+    <div class="image-viewer-thumbs" aria-label="Team photo thumbnails">
+      {photos.map((photo, index) => (
+        <button class="image-viewer-thumb" type="button" data-index={index} aria-label={`View ${photo.caption}`}>
+          <img src={photo.src} alt="" loading="lazy" />
+        </button>
+      ))}
+    </div>
+  </div>
+</dialog>
+
+<script define:vars={{ photos }}>
+  const viewer = document.querySelector('#image-viewer');
+  const viewerImage = viewer?.querySelector('.image-viewer-image');
+  const copy = viewer?.querySelector('.image-viewer-copy');
+  const count = viewer?.querySelector('.image-viewer-count');
+  const thumbs = [...(viewer?.querySelectorAll('.image-viewer-thumb') ?? [])];
+  let current = 0;
+
+  const show = (index) => {
+    current = (index + photos.length) % photos.length;
+    const photo = photos[current];
+    if (!viewerImage || !copy || !count) return;
+    viewerImage.src = photo.src;
+    viewerImage.alt = photo.alt;
+    viewerImage.classList.remove('is-zoomed');
+    copy.textContent = photo.caption;
+    count.textContent = `${String(current + 1).padStart(2, '0')} / ${String(photos.length).padStart(2, '0')}`;
+    thumbs.forEach((thumb, index) => thumb.toggleAttribute('aria-current', index === current));
+  };
+
+  document.querySelectorAll('[data-gallery-id]').forEach((image) => {
+    image.setAttribute('role', 'button');
+    image.setAttribute('tabindex', '0');
+    image.setAttribute('aria-label', `Open image: ${image.getAttribute('alt') || 'Team photo'}`);
+    const open = () => {
+      const id = image.getAttribute('data-gallery-id');
+      const index = photos.findIndex((photo) => photo.id === id);
+      show(index < 0 ? 0 : index);
+      viewer?.showModal();
+    };
+    image.addEventListener('click', open);
+    image.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+    });
+  });
+
+  viewer?.querySelector('.image-viewer-close')?.addEventListener('click', () => viewer.close());
+  viewer?.querySelector('.previous')?.addEventListener('click', () => show(current - 1));
+  viewer?.querySelector('.next')?.addEventListener('click', () => show(current + 1));
+  viewerImage?.addEventListener('click', () => viewerImage.classList.toggle('is-zoomed'));
+  viewer?.querySelector('.image-viewer-stage')?.addEventListener('click', (event) => {
+    if (event.target === event.currentTarget) viewer.close();
+  });
+  thumbs.forEach((thumb) => thumb.addEventListener('click', () => show(Number(thumb.dataset.index))));
+  viewer?.addEventListener('click', (event) => { if (event.target === viewer) viewer.close(); });
+  viewer?.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') show(current - 1);
+    if (event.key === 'ArrowRight') show(current + 1);
+  });
+</script>
