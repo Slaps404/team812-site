@@ -198,7 +198,10 @@ h3{font-size:var(--t1)}
    that weight step is what stops a caption reading as a nav item. */
 .shot figcaption,.credit{font-weight:500}
 .shot figcaption{margin-top:calc(var(--space) * .55)}
-.shot.tall img{aspect-ratio:calc(var(--photo-ratio) * .52)}
+/* The tall slot is wider than the source photo, so cover crops vertically.
+   Pin the crop to the bottom to remove the arena ceiling and banner above the
+   subject. */
+.shot.tall img{aspect-ratio:calc(var(--photo-ratio) * .72);object-position:center bottom}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--space) * 1.2)}
 
 /* year chips for the code archive */
