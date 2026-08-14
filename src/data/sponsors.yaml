@@ -8,6 +8,7 @@
   tier: "current"
   url: "https://www.qualcomm.com/"
   logo: "qualcomm"
+  url: "https://www.qualcomm.com"
   widthClass: "w-qualcomm"
 - id: "nordson"
   order: 2
@@ -15,6 +16,7 @@
   tier: "current"
   url: "https://www.nordson.com/"
   logo: "nordson"
+  url: "https://www.nordson.com"
   widthClass: "w-nordson"
 - id: "leidos"
   order: 3
@@ -22,6 +24,7 @@
   tier: "current"
   url: "https://www.leidos.com/"
   logo: "leidos"
+  url: "https://www.leidos.com"
   widthClass: "w-leidos"
 - id: "cluely"
   order: 4

@@ -1,7 +1,7 @@
 import { expect, test, type Browser, type Locator, type Response } from '@playwright/test';
 
 const regularRatio = 1.3;
-const tallRatio = regularRatio * 0.52;
+const tallRatio = regularRatio * 0.72;
 
 async function renderedRatio(image: Locator) {
   await image.scrollIntoViewIfNeeded();
