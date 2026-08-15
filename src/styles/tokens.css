@@ -11,7 +11,7 @@
   --ink:           #f2f1ec;   /* main text, warm not pure white */
   --ink-dim:       #8f9296;   /* metadata, captions */
   --accent:        #0f9f99;   /* darker teal for the ask and UI accents */
-  --panel:         #f7f6ef;   /* light panel behind sponsor logos */
+  --panel:         #e9e8e1;   /* muted panel behind sponsor logos */
   --panel-ink:     #1a1a18;
   --flag:          #e8a33d;   /* marks unconfirmed data */
 
@@ -22,6 +22,7 @@
   /* type */
   --font-sans:     'DM Sans Variable', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   --font-mono:     'DM Sans Variable', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --font-display:  'Barlow Condensed', 'DM Sans Variable', sans-serif;
   --mono-weight:   400;      /* retained as a separate tuning hook for figures */
 
   /* Keep the chrome and figures on the same sans family for now. The separate
@@ -33,11 +34,11 @@
                                 separates figure text from interface chrome. */
   --type-base:     17px;
   --type-scale:    1.24;
-  --display:       4.3vw;     /* hero headline, scales with window */
+  --display:       4.6vw;     /* hero headline, scales with window */
 
   /* hero crop. The photo slot is tall, so these pan the frame for real. */
   --hero-x:        61%;
-  --hero-y:        74%;
+  --hero-y:        82%;
 
   /* form */
   --radius:        0px;
