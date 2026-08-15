@@ -214,6 +214,7 @@ h3{font-size:var(--t1)}
 /* asymmetric split. thirds-based, so the page never reads as a spreadsheet. */
 .split{display:grid;grid-template-columns:6fr 4fr;gap:calc(var(--space) * 3);align-items:start}
 .split.flip{grid-template-columns:4fr 6fr}
+.sponsor-hero-split{grid-template-columns:1fr 1fr}
 
 /* photo blocks. one enforced ratio, object-fit cover, no frames or shadows. */
 .shot{position:relative}

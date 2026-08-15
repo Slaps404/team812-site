@@ -20,7 +20,7 @@ const { current } = Astro.props;
           3x that so the emitted asset is a few kB instead of the full-size logo,
           and still sharp on high-density screens. */}
       <Image src={badge} alt="Team 812 badge" width={132} loading="eager" />
-      <span>Midnight Mechanics</span>
+      <span>The Midnight Mechanics</span>
     </a>
     <a class:list={['link', { on: current === 'home' }]} href="/" aria-current={current === 'home' ? 'page' : undefined}>Home</a>
     <a class:list={['link', { on: current === 'sponsors' }]} href="/sponsors" aria-current={current === 'sponsors' ? 'page' : undefined}>Sponsors</a>
