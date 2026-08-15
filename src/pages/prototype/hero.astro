@@ -1,0 +1,145 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { Image } from 'astro:assets';
+import heroImg from '../../assets/photos/2026-states-IMG_1045.jpg';
+import { HERO_IMAGE_WIDTHS } from '../../lib/imageLayout';
+import '../../styles/hero-prototype.css';
+---
+<Base
+  title="Team 812 Hero Design Prototype"
+  description="Throwaway visual prototype for the Team 812 homepage hero."
+>
+  <Nav current="home" />
+
+  <main class="hero-prototype" data-prototype="hero">
+    <section class="hero-variant variant-a" data-variant="a" aria-labelledby="hero-a-title">
+      <div class="variant-a-media">
+        <Image
+          src={heroImg}
+          alt="A Team 812 student and mentor working on the robot in the pit at the 2026 state championship."
+          widths={HERO_IMAGE_WIDTHS}
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="variant-a-scrim" aria-hidden="true"></div>
+      <div class="variant-a-copy">
+        <p class="prototype-kicker">FRC 812 / SAN DIEGO / 25 SEASONS</p>
+        <p class="prototype-index">01 / COMPETITION FLOOR</p>
+        <h1 id="hero-a-title"><span>THE</span><span>MIDNIGHT</span><span>MECHANICS</span></h1>
+        <p class="variant-a-lede">Students building serious machines under a hard deadline.</p>
+        <div class="prototype-actions">
+          <a class="prototype-button prototype-button-solid" href="/sponsors">Sponsor the next season</a>
+          <a class="prototype-button" href="https://github.com/preuss812" target="_blank" rel="noopener">Open-source code</a>
+        </div>
+        <p class="prototype-caption">Pit crew / FIRST California Southern State Championship / 2026</p>
+      </div>
+    </section>
+
+    <section class="hero-variant variant-b" data-variant="b" aria-labelledby="hero-b-title">
+      <div class="variant-b-topline">
+        <span>TEAM 812 / 2027 SEASON</span>
+        <span>ENGINEERING LOG / 001</span>
+      </div>
+      <div class="variant-b-grid">
+        <div class="variant-b-copy">
+          <p class="prototype-kicker">FIRST-GENERATION ENGINEERS</p>
+          <h1 id="hero-b-title">25 seasons.<br><em>Still building.</em></h1>
+          <p class="variant-b-lede">The Midnight Mechanics are San Diego's first FRC team, built at The Preuss School UC San Diego.</p>
+          <div class="variant-b-facts" aria-label="Team facts">
+            <span><b>25</b> seasons</span>
+            <span><b>51</b> events</span>
+            <span><b>16</b> code archives</span>
+          </div>
+          <div class="prototype-actions">
+            <a class="prototype-button prototype-button-solid" href="/sponsors">Support the program</a>
+            <a class="prototype-button" href="https://github.com/preuss812" target="_blank" rel="noopener">Read the code</a>
+          </div>
+        </div>
+        <figure class="variant-b-photo">
+          <Image
+            src={heroImg}
+            alt="A Team 812 student and mentor working on the robot in the pit at the 2026 state championship."
+            widths={HERO_IMAGE_WIDTHS}
+            sizes="(max-width: 820px) 100vw, 52vw"
+            loading="lazy"
+          />
+          <figcaption class="prototype-caption">Shooter tuning between matches / 2026</figcaption>
+        </figure>
+      </div>
+      <div class="variant-b-footer"><span>OPEN SOURCE BY DEFAULT</span><span>BUILD / TEST / REPEAT</span></div>
+    </section>
+
+    <section class="hero-variant variant-c" data-variant="c" aria-labelledby="hero-c-title">
+      <div class="variant-c-panel">
+        <p class="prototype-kicker">TEAM 812 / THE PREUSS SCHOOL UC SAN DIEGO</p>
+        <h1 id="hero-c-title">Built for the first time.</h1>
+        <p class="variant-c-quote">Our team is where they meet CAD, motor controllers, version control, and a hard deadline for the first time.</p>
+        <p class="variant-c-lede">Twenty-five seasons of engineering opportunity for students who will be the first in their families to finish college.</p>
+        <div class="prototype-actions">
+          <a class="prototype-button prototype-button-solid" href="/sponsors">Back the next build</a>
+          <a class="prototype-button" href="https://github.com/preuss812" target="_blank" rel="noopener">See our tools</a>
+        </div>
+      </div>
+      <figure class="variant-c-photo">
+        <Image
+          src={heroImg}
+          alt="A Team 812 student and mentor working on the robot in the pit at the 2026 state championship."
+          widths={HERO_IMAGE_WIDTHS}
+          sizes="(max-width: 820px) 100vw, 53vw"
+          loading="lazy"
+        />
+        <figcaption class="prototype-caption">A team is a room full of people solving the same problem.</figcaption>
+      </figure>
+    </section>
+  </main>
+
+  <aside class="prototype-switcher" data-prototype-switcher aria-label="Hero prototype variants">
+    <span class="prototype-switcher-label">DESIGN PROTOTYPE</span>
+    <a href="?variant=a" data-variant="a" aria-label="Show Night Shift variant">A <span>Night Shift</span></a>
+    <a href="?variant=b" data-variant="b" aria-label="Show Engineering Magazine variant">B <span>Engineering Magazine</span></a>
+    <a href="?variant=c" data-variant="c" aria-label="Show First-Generation Documentary variant">C <span>Documentary</span></a>
+    <span class="prototype-current" data-variant-label>A / Night Shift</span>
+  </aside>
+
+  <Footer />
+
+  <script is:inline>
+    const prototypeVariants = ['a', 'b', 'c'];
+    const prototypeNames = { a: 'Night Shift', b: 'Engineering Magazine', c: 'Documentary' };
+    const prototypeRoot = document.documentElement;
+    const prototypeBar = document.querySelector('[data-prototype-switcher]');
+
+    const setPrototypeVariant = (value, updateUrl = true) => {
+      const variant = prototypeVariants.includes(value) ? value : 'a';
+      prototypeRoot.dataset.variant = variant;
+      prototypeBar?.querySelectorAll('[data-variant]').forEach((link) => {
+        link.setAttribute('aria-current', link.dataset.variant === variant ? 'page' : 'false');
+      });
+      const label = prototypeBar?.querySelector('[data-variant-label]');
+      if (label) label.textContent = `${variant.toUpperCase()} / ${prototypeNames[variant]}`;
+      if (updateUrl) history.replaceState(null, '', `?variant=${variant}`);
+    };
+
+    setPrototypeVariant(new URLSearchParams(window.location.search).get('variant'), false);
+
+    prototypeBar?.addEventListener('click', (event) => {
+      const link = event.target.closest('[data-variant]');
+      if (!link) return;
+      event.preventDefault();
+      setPrototypeVariant(link.dataset.variant);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName) || document.activeElement?.isContentEditable) return;
+      if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+      const current = prototypeRoot.dataset.variant || 'a';
+      const offset = event.key === 'ArrowRight' ? 1 : -1;
+      const next = (prototypeVariants.indexOf(current) + offset + prototypeVariants.length) % prototypeVariants.length;
+      setPrototypeVariant(prototypeVariants[next]);
+    });
+  </script>
+</Base>
