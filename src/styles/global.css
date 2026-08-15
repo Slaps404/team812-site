@@ -97,9 +97,9 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 .nav a.link.soon{opacity:var(--disabled-opacity);cursor:not-allowed}
 .btn{
   display:inline-block;
-  font-family:var(--font-sans);font-size:var(--t-2);font-weight:600;
+  font-family:var(--font-sans);font-size:var(--t-1);font-weight:700;
   letter-spacing:.035em;text-transform:uppercase;
-  padding:calc(var(--space) * .55) calc(var(--space) * .95);
+  padding:calc(var(--space) * .75) calc(var(--space) * 1.2);
   border:1px solid var(--accent);color:var(--accent);
   border-radius:4px;
   transition:background var(--motion) var(--ease), color var(--motion) var(--ease);
@@ -214,9 +214,9 @@ section{padding:calc(var(--space) * 6.5) 0}
   color:var(--ink-dim);
   margin:0 0 calc(var(--space) * 1.1);
 }
-h2{font-size:var(--t3);max-width:26em}
+h2{font-size:var(--t3);max-width:40em}
 h3{font-size:var(--t1)}
-.body{font-size:var(--type-base);color:var(--ink);opacity:.82;max-width:36em}
+.body{font-size:var(--type-base);color:var(--ink);opacity:.82;max-width:48em}
 .body + .body{margin-top:calc(var(--space) * .9)}
 .body a{
   text-decoration-line:underline;
@@ -233,6 +233,7 @@ h3{font-size:var(--t1)}
 /* asymmetric split. thirds-based, so the page never reads as a spreadsheet. */
 .split{display:grid;grid-template-columns:6fr 4fr;gap:calc(var(--space) * 3);align-items:start}
 .split.flip{grid-template-columns:4fr 6fr}
+.sponsor-hero-split{grid-template-columns:1fr 1fr}
 
 /* photo blocks. one enforced ratio, object-fit cover, no frames or shadows. */
 .shot{position:relative}
