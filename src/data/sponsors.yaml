@@ -8,7 +8,6 @@
   tier: "current"
   url: "https://www.qualcomm.com/"
   logo: "qualcomm"
-  url: "https://www.qualcomm.com"
   widthClass: "w-qualcomm"
 - id: "nordson"
   order: 2
@@ -16,7 +15,6 @@
   tier: "current"
   url: "https://www.nordson.com/"
   logo: "nordson"
-  url: "https://www.nordson.com"
   widthClass: "w-nordson"
 - id: "leidos"
   order: 3
@@ -24,16 +22,9 @@
   tier: "current"
   url: "https://www.leidos.com/"
   logo: "leidos"
-  url: "https://www.leidos.com"
   widthClass: "w-leidos"
 - id: "cluely"
   order: 4
   name: "Cluely"
   tier: "past"
   url: "https://cluely.com/"
-- id: "supporters-placeholder"
-  order: 5
-  name: "Names of individual supporters go here as plain text, no logos."
-  tier: "supporter"
-  flagged: true
-  tag: "need names"

@@ -1,5 +1,4 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -13,8 +12,6 @@ import Tune from '../components/Tune.astro';
 
 import rosterImg from '../assets/photos/2026-states-IMG_1011.jpg';
 
-const sponsors = await getCollection('sponsors');
-const supporter = sponsors.find((s: CollectionEntry<'sponsors'>) => s.data.tier === 'supporter');
 const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=98e77c65-0221-4291-b0c9-029538948e1c';
 ---
 <Base
@@ -26,8 +23,8 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=98e77c65-0221-4
 
 <main class="view on" id="v-sponsors">
 
-  <section data-reveal style="padding-top:calc(var(--space) * 3.5)">
-    <Split style="align-items:end">
+  <section class="sponsor-hero" data-reveal>
+    <Split class="sponsor-hero-split" style="align-items:center">
       <Fragment slot="left">
         <h1 style="font-size:var(--t4);max-width:22em">Support the students building Team 812's next robot.</h1>
         <p class="body" style="font-size:var(--t1);margin-top:calc(var(--space) * 1.4)">We need <b style="color:var(--accent)"><a href="#funding-breakdown" style="color:inherit">$10,000</a></b> for the 2027 season. Here is exactly what you get, and exactly where the money goes.</p>
@@ -50,7 +47,7 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=98e77c65-0221-4
     <div class="wrap">
       <h2>What each level gets.</h2>
       <Tiers />
-      <p class="body" style="max-width:none;margin-top:calc(var(--space) * 2);opacity:.62;font-size:var(--t-1)">Tiers stack, so a $5,000 sponsor gets all ten items. Under $1,000, we list your name on this page as a Supporter. Every benefit here is something the team controls directly, so we can actually deliver it.</p>
+        <p class="body" style="max-width:none;margin-top:calc(var(--space) * 2);opacity:.62;font-size:var(--t-1)">Tiers stack, so a $5,000 sponsor gets all ten items. Under $1,000, we list your name on this page as a Supporter.</p>
     </div>
   </section>
 
@@ -60,24 +57,21 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=98e77c65-0221-4
     <Split>
       <Fragment slot="left">
         <h2 class="label">Where it goes</h2>
-        <Funds compact />
+        <Funds compact chart={false} />
         <p class="flag-note">Rough estimate, not final</p>
       </Fragment>
       <Fragment slot="right">
         <h2 class="label">How to give</h2>
-        <p class="body"><b>Sponsorships and donations go to the Preuss School Robotics gift fund.</b></p>
-        <p class="body">Corporate sponsors: email us for an invoice and a W-9.</p>
         <p class="body">Contact: <b><a href="mailto:team812@preuss.ucsd.edu">team812@preuss.ucsd.edu</a></b></p>
+        <p class="body">Corporate sponsors: email us for an invoice and a W-9.</p>
       </Fragment>
     </Split>
   </section>
 
   <div class="panel" data-reveal>
     <div class="wrap">
-      <h2 class="label">Current sponsors</h2>
+      <h2 class="label">Sponsors</h2>
       <LogoWall />
-      <h2 class="label" style="margin-top:calc(var(--space) * 2.6)">Supporters</h2>
-      <p class="ph" style="color:color-mix(in srgb, var(--panel-ink) 70%, transparent);max-width:36em">{supporter?.data.name}<span class="ph-tag">{supporter?.data.tag}</span></p>
     </div>
   </div>
 
@@ -86,16 +80,13 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=98e77c65-0221-4
 <dialog class="sponsor-modal" id="sponsor-modal" aria-labelledby="sponsor-modal-title">
   <div class="sponsor-modal-inner">
     <button class="modal-close" type="button" id="close-sponsor-modal" aria-label="Close donation instructions">×</button>
-    <p class="mono">Quick donation guide</p>
     <h2 id="sponsor-modal-title">Send your gift to Team 812</h2>
-    <p class="body">The UCSD form has several funds. Follow these steps so your donation reaches the Preuss School Robotics Team.</p>
     <ol class="sponsor-steps">
       <li><b>Open the UCSD giving form.</b><span>Click the button below.</span></li>
       <li><b>Search for “robotics team”.</b><span>Use the fund search box on the giving page.</span></li>
       <li><b>Select “Preuss School Robotics Team”.</b><span>That is the fund that sends your gift to Team 812.</span></li>
     </ol>
-    <a class="btn solid modal-donate" href={donationUrl} target="_blank" rel="noopener noreferrer">Open UCSD Giving</a>
-    <p class="modal-note">The giving form opens in a new tab, so you can keep these instructions handy.</p>
+    <a class="btn solid modal-donate" href={donationUrl} target="_blank" rel="noopener noreferrer">Give now</a>
   </div>
 </dialog>
 

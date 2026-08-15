@@ -79,8 +79,8 @@ test('sponsor roster uses the regular desktop photo slot', async ({ page }) => {
   const box = await roster.boundingBox();
 
   expect(box).not.toBeNull();
-  expect(box!.width).toBeCloseTo(397, 0);
-  expect(box!.height).toBeCloseTo(305, 0);
+  expect(box!.width).toBeCloseTo(496, 0);
+  expect(box!.height).toBeCloseTo(381.5, 0);
   expect(box!.width / box!.height).toBeCloseTo(regularRatio, 2);
 });
 

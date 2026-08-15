@@ -4,8 +4,9 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 interface Props {
   /* The sponsors page runs this in a 4fr column, the home page in a 6fr one. */
   compact?: boolean;
+  chart?: boolean;
 }
-const { compact = false } = Astro.props;
+const { compact = false, chart = true } = Astro.props;
 
 const entries = (await getCollection('funds')).sort((a, b) => a.data.order - b.data.order);
 const slices = entries.filter((f: CollectionEntry<'funds'>) => !f.data.total);
@@ -37,10 +38,10 @@ const stops = slices.map((f: CollectionEntry<'funds'>, i: number) => {
 });
 const gradient = `conic-gradient(${stops.join(', ')})`;
 ---
-<div class:list={['funds', { compact }]}>
+<div class:list={['funds', { compact, 'no-chart': !chart }]}>
   {/* Decorative: every value the pie encodes is written out in the legend
       beside it, so assistive tech should read the list, not the shape. */}
-  <div class="pie" style={`background:${gradient}`} aria-hidden="true"></div>
+  {chart && <div class="pie" style={`background:${gradient}`} aria-hidden="true"></div>}
   <div class="legend">
     {slices.map((f: CollectionEntry<'funds'>, i: number) => (
       <div class="fund">
