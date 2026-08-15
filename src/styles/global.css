@@ -111,6 +111,53 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 .btn.ghost:hover{background:transparent;border-color:var(--ink);color:var(--ink)}
 
 /* ============================================================
+   ROBOTS + TEAM PAGES
+   Archive rows and photo-led sections keep the new routes recognizably part
+   of the same site without inventing a second visual system.
+   ============================================================ */
+.eyebrow{margin-bottom:calc(var(--space) * 1.2);color:var(--accent)}
+.archive-hero,.team-hero{padding:calc(var(--space) * 4) 0 calc(var(--space) * 5)}
+.archive-hero h1,.team-hero h1{max-width:11em;font-size:var(--t4)}
+.archive-lede,.team-lede{font-size:var(--t1);max-width:31em;margin-top:calc(var(--space) * 1.4)}
+.archive-hero .btn{margin-top:calc(var(--space) * 1.8)}
+.feature-split .shot{align-self:center}
+.robot-feature{
+  display:grid;grid-template-columns:6fr 4fr;gap:calc(var(--space) * 3);
+  padding-top:calc(var(--space) * 1.8);border-top:1px solid var(--rule);
+}
+.robot-feature h2{max-width:14em}
+.robot-feature .btn{margin-top:calc(var(--space) * 1.8)}
+.robot-year{font-family:var(--font-display);font-size:var(--t3);line-height:1;color:var(--accent)}
+.robot-year span{font-family:var(--font-chrome);font-size:var(--t-1);letter-spacing:var(--figure-track);text-transform:uppercase;color:var(--ink-dim)}
+.robot-facts{border-left:1px solid var(--rule);padding-left:calc(var(--space) * 1.5)}
+.robot-fact-value{font-size:var(--t1);line-height:1.15;margin-bottom:calc(var(--space) * 1.4)}
+.section-heading{display:grid;grid-template-columns:6fr 4fr;gap:calc(var(--space) * 3);align-items:end;margin-bottom:calc(var(--space) * 2)}
+.robot-archive{border-top:1px solid var(--rule)}
+.robot-row{display:grid;grid-template-columns:5rem 1fr auto;gap:calc(var(--space) * 1.4);align-items:start;padding:calc(var(--space) * 1.35) 0;border-bottom:1px solid var(--rule)}
+.robot-row-year{font-family:var(--font-display);font-size:var(--t2);line-height:1;color:var(--accent)}
+.robot-row-copy h3{font-size:var(--t1);line-height:1.05}
+.robot-row-copy .body{margin-top:.35rem;max-width:42em;font-size:var(--t-1)}
+.robot-row-link{font-family:var(--font-chrome);font-size:var(--t-1);letter-spacing:var(--chrome-track);text-transform:uppercase;color:var(--ink-dim);white-space:nowrap}
+.robot-row-link:hover{color:var(--accent)}
+.robot-detail-hero{padding:calc(var(--space) * 4) 0 calc(var(--space) * 5)}
+.back-link{display:inline-block;margin-bottom:calc(var(--space) * 3);color:var(--ink-dim)}
+.back-link:hover{color:var(--accent)}
+.robot-detail-hero h1{max-width:12em;font-size:var(--t4)}
+.robot-detail-grid{display:grid;grid-template-columns:6fr 4fr;gap:calc(var(--space) * 3);align-items:start}
+.robot-detail-facts{border-left:1px solid var(--rule);padding-left:calc(var(--space) * 1.5)}
+.robot-detail-placeholder{min-height:18rem;display:grid;align-content:center;gap:calc(var(--space) * .7);padding:calc(var(--space) * 2);border:1px dashed var(--rule);color:var(--ink-dim)}
+.robot-detail-placeholder p:last-child{max-width:28em}
+.detail-note{max-width:42em}
+.team-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(var(--space) * 1.2)}
+.team-gallery .shot:nth-child(3){grid-column:1 / -1}
+.team-sections{display:grid;grid-template-columns:4fr 6fr;gap:calc(var(--space) * 3)}
+.team-copy{max-width:42em}
+.role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:calc(var(--space) * 2);background:var(--rule)}
+.role{padding:calc(var(--space) * 1.1);background:var(--ground)}
+.role h3{font-size:var(--t-1);line-height:1.05}
+.role p{margin-top:.45rem;color:var(--ink-dim);font-size:var(--t-1)}
+
+/* ============================================================
    HERO
    Full bleed photo. Your real States pit shot, not stock.
    ============================================================ */
@@ -519,6 +566,14 @@ body.flags .ph-tag{
   /* Match the source photo on narrow screens to avoid extra crop and spacing. */
   .hero-shot{aspect-ratio:.97}
   .sponsor-hero{min-height:0}
+  .robot-feature,.section-heading,.team-sections,.robot-detail-grid{grid-template-columns:1fr;gap:calc(var(--space) * 1.5)}
+  .robot-facts{border-left:0;border-top:1px solid var(--rule);padding:calc(var(--space) * 1.2) 0 0}
+  .robot-detail-facts{border-left:0;border-top:1px solid var(--rule);padding:calc(var(--space) * 1.2) 0 0}
+  .robot-row{grid-template-columns:3.5rem 1fr;gap:calc(var(--space) * .8)}
+  .robot-row-link{grid-column:2}
+  .team-gallery{grid-template-columns:1fr}
+  .team-gallery .shot:nth-child(3){grid-column:auto}
+  .role-grid{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr 1fr}
   .split,.split.flip{grid-template-columns:1fr;gap:calc(var(--space) * 2)}
   .wall,.tiers{grid-template-columns:1fr}

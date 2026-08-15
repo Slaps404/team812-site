@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Shot from '../components/Shot.astro';
+import { robotSeasons } from '../data/robots';
+
+import robotPitImg from '../assets/photos/team-812-robot-pit.png';
+---
+<Base
+  title="Robots | The Midnight Mechanics"
+  description="A year-by-year archive of Team 812 competition robots and the code behind them."
+>
+
+<Nav current="robots" />
+
+<main class="view on" id="v-robots">
+  <section class="archive-hero" data-reveal>
+    <div class="wrap split feature-split">
+      <div>
+        <p class="mono eyebrow">THE ROBOT ARCHIVE</p>
+        <h1>One season. One machine. A lot to learn.</h1>
+        <p class="body archive-lede">Every robot is a record of what Team 812 learned that year. Start with the 2026 machine, then follow the code archive back through the seasons we have documented.</p>
+        <a class="btn ghost" href="#robot-seasons">Browse the seasons</a>
+      </div>
+      <Shot
+        src={robotPitImg}
+        alt="A Team 812 student and mentor working on the robot in the pit at the 2026 state championship."
+        caption="Pit crew / FIRST California Southern State Championship / 2026"
+        priority
+      />
+    </div>
+  </section>
+
+  <section data-reveal>
+    <div class="wrap">
+      <p class="mono eyebrow">FEATURED RECORD</p>
+      <div class="robot-feature">
+        <div>
+          <p class="robot-year">2026 <span>/ {robotSeasons[0].game}</span></p>
+          <h2>The current machine, under pressure.</h2>
+          <p class="body">{robotSeasons[0].description}</p>
+          <a class="btn solid" href={robotSeasons[0].repoUrl} target="_blank" rel="noopener">Read the 2026 code</a>
+        </div>
+        <div class="robot-facts" aria-label="2026 robot record status">
+          <p class="label">Record status</p>
+          <p class="robot-fact-value">Photo documented</p>
+          <p class="label">Next additions</p>
+          <p class="robot-fact-value">Robot name, specs, and build notes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section id="robot-seasons" data-reveal>
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <p class="mono eyebrow">SEASON INDEX</p>
+          <h2>Robots, year by year.</h2>
+        </div>
+        <p class="body">The links below point to the team’s public code repositories. The visual and technical records will grow as each season is reviewed.</p>
+      </div>
+      <div class="robot-archive" role="list">
+        {robotSeasons.map((robot) => (
+          <article class="robot-row" role="listitem">
+            <p class="robot-row-year">{robot.year}</p>
+            <div class="robot-row-copy">
+              <h3>{robot.game ?? `Robot record / ${robot.year}`}</h3>
+              <p class="body">{robot.description}</p>
+            </div>
+            <a class="robot-row-link" href={`/robots/${robot.year}`} aria-label={`Open the ${robot.year} robot record`}>Record <span aria-hidden="true">↗</span></a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</main>
+
+<Footer />
+
+</Base>

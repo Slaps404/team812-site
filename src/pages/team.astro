@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Shot from '../components/Shot.astro';
+
+import schoolImg from '../assets/photos/2026-states-IMG_0935.jpg';
+import rosterImg from '../assets/photos/2026-states-IMG_1011.jpg';
+import pitImg from '../assets/photos/2026-states-IMG_1045.jpg';
+
+const roles = [
+  ['Mechanical', 'Drivetrain, mechanisms, fabrication, and repair.'],
+  ['Electrical', 'Power, wiring, sensors, and reliable connections.'],
+  ['Software', 'Controls, version control, testing, and tools.'],
+  ['Strategy and scouting', 'Match plans, scouting notes, and decisions under pressure.'],
+  ['Business, outreach, and media', 'Sponsors, community work, documentation, and the story around the robot.'],
+];
+---
+<Base
+  title="Team | The Midnight Mechanics"
+  description="Meet the students, mentors, and build crew behind FRC Team 812 at The Preuss School UC San Diego."
+>
+
+<Nav current="team" />
+
+<main class="view on" id="v-team">
+  <section class="team-hero" data-reveal>
+    <div class="wrap">
+      <p class="mono eyebrow">TEAM 812 / THE PREUSS SCHOOL UC SAN DIEGO</p>
+      <h1>Students, mentors, and the work between matches.</h1>
+      <p class="body team-lede">Team 812 is where Preuss students meet CAD, motor controllers, version control, and a hard deadline for the first time.</p>
+    </div>
+  </section>
+
+  <section data-reveal>
+    <div class="wrap">
+      <div class="team-gallery">
+        <Shot src={schoolImg} alt="Team members at The Preuss School UC San Diego entrance sign." caption="The Preuss School UC San Diego / 2026" />
+        <Shot src={rosterImg} alt="The 2026 Team 812 roster in team shirts." caption="Team 812 / 2026" />
+        <Shot src={pitImg} alt="Team 812 students and mentors working around their robot at the 2026 state championship." caption="Build crew / 2026 state championship" />
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section data-reveal>
+    <div class="wrap team-sections">
+      <div>
+        <p class="mono eyebrow">THE PEOPLE IN THE ROOM</p>
+        <h2>A team is more than the robot.</h2>
+      </div>
+      <div class="team-copy">
+        <p class="body">Students design, build, code, test, explain, and repair. Mentors make room for the next question. The robot is the shared deadline that brings the work together.</p>
+        <p class="body">This page will grow into the team’s photo and role archive. For now, it keeps the focus on the people and the work without publishing student names or unapproved roster details.</p>
+        <div class="role-grid" aria-label="Team roles">
+          {roles.map(([name, description]) => (
+            <div class="role">
+              <h3>{name}</h3>
+              <p>{description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<Footer />
+
+</Base>

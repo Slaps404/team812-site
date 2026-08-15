@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Shot from '../../components/Shot.astro';
+import { robotSeasons, type RobotSeason } from '../../data/robots';
+
+import robotPitImg from '../../assets/photos/team-812-robot-pit.png';
+
+export function getStaticPaths() {
+  return robotSeasons.map((robot) => ({
+    params: { year: String(robot.year) },
+    props: { robot },
+  }));
+}
+
+const { robot } = Astro.props as { robot: RobotSeason };
+const isFeatured = robot.year === 2026;
+---
+<Base
+  title={`${robot.year} Robot | The Midnight Mechanics`}
+  description={`${robot.year} Team 812 robot record, public code, and season notes.`}
+>
+
+<Nav current="robots" />
+
+<main class="view on" id="v-robot-detail">
+  <section class="robot-detail-hero" data-reveal>
+    <div class="wrap">
+      <a class="back-link mono" href="/robots">← Robot archive</a>
+      <p class="mono eyebrow">SEASON RECORD / {robot.year}</p>
+      <h1>{robot.game ? `The ${robot.game} robot.` : `The ${robot.year} robot record.`}</h1>
+      <p class="body archive-lede">{robot.description}</p>
+    </div>
+  </section>
+
+  <section data-reveal>
+    <div class="wrap robot-detail-grid">
+      {isFeatured ? (
+        <Shot
+          src={robotPitImg}
+          alt="A Team 812 student and mentor working on the robot in the pit at the 2026 state championship."
+          caption="Pit crew / FIRST California Southern State Championship / 2026"
+          priority
+        />
+      ) : (
+        <div class="robot-detail-placeholder" role="status">
+          <p class="mono">IMAGE RECORD PENDING</p>
+          <p>Add an approved {robot.year} robot image when the season record is reviewed.</p>
+        </div>
+      )}
+      <div class="robot-detail-facts">
+        <p class="label">Game</p>
+        <p class="robot-fact-value">{robot.game ?? 'To be confirmed'}</p>
+        <p class="label">Public code</p>
+        <a class="body" href={robot.repoUrl} target="_blank" rel="noopener">Open the {robot.year} repository ↗</a>
+        <p class="label">Record status</p>
+        <p class="robot-fact-value">{robot.detailsPending ? 'Details pending team review' : 'Photo documented'}</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section data-reveal>
+    <div class="wrap">
+      <p class="mono eyebrow">NEXT TO ADD</p>
+      <h2>Keep the record concrete.</h2>
+      <p class="body detail-note">When this season is reviewed, add only the approved robot name, capabilities, results, and links to real team artifacts such as CAD, a technical binder, or build notes.</p>
+    </div>
+  </section>
+</main>
+
+<Footer />
+
+</Base>
