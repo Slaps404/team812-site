@@ -6,7 +6,6 @@ import Hero from '../components/Hero.astro';
 import Stats from '../components/Stats.astro';
 import Split from '../components/Split.astro';
 import Shot from '../components/Shot.astro';
-import Funds from '../components/Funds.astro';
 import LogoWall from '../components/LogoWall.astro';
 import Tune from '../components/Tune.astro';
 import { PAIR_IMAGE_SIZES } from '../lib/imageLayout';
@@ -14,6 +13,7 @@ import { PAIR_IMAGE_SIZES } from '../lib/imageLayout';
 import shooterImg from '../assets/photos/2026-states-IMG_1026.jpg';
 import drivetrainImg from '../assets/photos/2026-states-IMG_1033.jpg';
 import preussImg from '../assets/photos/2026-states-IMG_0935.jpg';
+const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=98e77c65-0221-4291-b0c9-029538948e1c';
 ---
 <Base
   title="The Midnight Mechanics | FRC Team 812"
@@ -28,13 +28,26 @@ import preussImg from '../assets/photos/2026-states-IMG_0935.jpg';
 
   <Stats />
 
+  <section data-reveal>
+    <div class="wrap">
+      <h2>Built at a school where nearly every student will be the first in their family to earn a degree.</h2>
+      <p class="body" style="margin-top:calc(var(--space) * 1.2)">The Preuss School UC San Diego is a charter school for low-income students. Our team is where they meet CAD, motor controllers, version control, and a hard deadline for the first time.</p>
+      <div class="pair" style="margin-top:calc(var(--space) * 2.5)">
+        <Shot src={drivetrainImg} alt="Students and a mentor working on the robot, with TEAM 812 on the bumper." caption="Drivetrain repair, 30 minutes to queue / 2026" sizes={PAIR_IMAGE_SIZES} />
+        <Shot src={preussImg} alt="Team members at The Preuss School UC San Diego entrance sign." caption="The Preuss School UC San Diego / 2026" sizes={PAIR_IMAGE_SIZES} />
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
   <!-- The code archive. This is the block I added after finding your GitHub org.
        It is the strongest engineering proof you have, and your current site
        does not mention it once. -->
   <section data-reveal>
     <Split>
       <Fragment slot="left">
-        <h2>We have published every line of our robot code since 2011.</h2>
+        <h2>Every line of our code since 2011.</h2>
         <p class="body" style="margin-top:calc(var(--space) * 1.2)">Sixteen consecutive seasons, all open-sourced. C++ from 2011 to 2015, Java since then.</p>
         <p class="body">We also ship our own tools. <b>ShooterTargeting</b> solves launch coefficients for a given shooter geometry. <b>ArmSim</b> listens on NetworkTables to simulate arm motion before the arm exists.</p>
         <div class="years">
@@ -61,19 +74,6 @@ import preussImg from '../assets/photos/2026-states-IMG_0935.jpg';
     </Split>
   </section>
 
-  <hr class="rule">
-
-  <section data-reveal>
-    <div class="wrap">
-      <h2>Built at a school where nearly every student will be the first in their family to earn a degree.</h2>
-      <p class="body" style="margin-top:calc(var(--space) * 1.2)">The Preuss School UC San Diego is a charter school for low-income students. Our team is where they meet CAD, motor controllers, version control, and a hard deadline for the first time.</p>
-      <div class="pair" style="margin-top:calc(var(--space) * 2.5)">
-        <Shot src={drivetrainImg} alt="Students and a mentor working on the robot, with TEAM 812 on the bumper." caption="Drivetrain repair, 30 minutes to queue / 2026" sizes={PAIR_IMAGE_SIZES} />
-        <Shot src={preussImg} alt="Team members at The Preuss School UC San Diego entrance sign." caption="The Preuss School UC San Diego / 2026" sizes={PAIR_IMAGE_SIZES} />
-      </div>
-    </div>
-  </section>
-
   <!-- Light panel. Corporate logos cannot sit on a dark ground.
        The wall leads and the sentence follows it: the logos are the claim, the
        line underneath is the caption. Past support lives on the sponsors page
@@ -86,20 +86,14 @@ import preussImg from '../assets/photos/2026-states-IMG_0935.jpg';
   </div>
 
   <section data-reveal>
-    <Split flip={true}>
-      <Fragment slot="left">
-        <h2 class="label">The ask for this year</h2>
-        <div style="font-family:var(--font-mono);font-size:var(--t4);line-height:1;letter-spacing:-.05em;color:var(--accent)">$10,000</div>
-        <p class="body" style="margin-top:calc(var(--space) * 1.2)">That is the gap between the season we can run and the season we planned. Gifts go to the team's gift fund, held in the school's robotics account.</p>
-        <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6)">
-          <a class="btn solid" href="/sponsors">See tiers and benefits</a>
-        </div>
-      </Fragment>
-      <Fragment slot="right">
-        <h2 class="label">Where it goes</h2>
-        <Funds />
-      </Fragment>
-    </Split>
+    <div class="wrap">
+      <h2>Close the $10,000 gap.</h2>
+      <p class="body" style="margin-top:calc(var(--space) * 1.2)">Help fund Team 812’s 2027 season at The Preuss School.</p>
+      <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6);flex-wrap:wrap">
+        <a class="btn solid" href={donationUrl} target="_blank" rel="noopener noreferrer">Give to Team 812</a>
+        <a class="btn ghost" href="/sponsors">View sponsorship tiers</a>
+      </div>
+    </div>
   </section>
 
 </main>

@@ -17,7 +17,13 @@ img{display:block;max-width:100%}
 img[data-gallery-id]{cursor:zoom-in}
 img[data-gallery-id]:focus-visible{outline:var(--focus-ring) solid var(--accent);outline-offset:var(--focus-ring-offset)}
 a{color:inherit;text-decoration:none}
-h1,h2,h3{margin:0;font-weight:500;line-height:1.02;letter-spacing:-.022em}
+h1,h2,h3{
+  margin:0;
+  font-family:var(--font-display);
+  font-weight:600;
+  line-height:.94;
+  letter-spacing:-.018em;
+}
 p{margin:0}
 
 /* compact label. used for metadata, numbers, and captions. Interface chrome
@@ -123,7 +129,11 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
   padding:calc(var(--space) * 4) calc(var(--space) * 3) calc(var(--space) * 4)
           max(calc(var(--space) * 1.5), calc((100vw - var(--measure)) / 2 + var(--space) * 1.5));
 }
-.hero h1{font-size:var(--display);margin:calc(var(--space) * .7) 0}
+.hero h1{
+  font-size:var(--display);
+  margin:calc(var(--space) * .7) 0;
+  color:color-mix(in srgb,var(--ink) 84%,var(--ground));
+}
 .hero .lede{font-size:var(--t1);color:var(--ink);max-width:30em;opacity:.82}
 .hero .cta{display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.8);flex-wrap:wrap}
 .sponsor-primary{display:block;width:fit-content;margin-top:calc(var(--space) * 1.8);padding:calc(var(--space) * 1.15) calc(var(--space) * 1.8);font-size:var(--t1);font-weight:600;letter-spacing:.08em;text-align:center;cursor:pointer}
@@ -145,25 +155,34 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 
 /* Keep the slot close to the source photo's near-square ratio, so the robot
    stays readable and the hero does not create an artificial vertical gap. */
-.hero-shot{position:relative;margin:0;overflow:hidden;aspect-ratio:.97}
+.hero-shot{
+  position:relative;
+  display:grid;
+  grid-template-rows:minmax(0,1fr) auto;
+  margin:0;
+  overflow:hidden;
+  aspect-ratio:.97;
+}
 .hero-shot img{
-  position:absolute;inset:0;width:100%;height:100%;
+  position:relative;
+  grid-row:1;
+  width:100%;height:100%;min-height:0;
   object-fit:cover;object-position:var(--hero-x) var(--hero-y);
 }
 .hero-shot::before{
-  content:"";position:absolute;inset:0;
+  content:"";position:absolute;inset:0 0 calc(var(--space) * 2.7);z-index:1;pointer-events:none;
   background:
     linear-gradient(90deg,
       var(--ground) 0%,
       color-mix(in srgb, var(--ground) 35%, transparent) 12%,
-      transparent 34%),
-    linear-gradient(0deg,
-      color-mix(in srgb, var(--ground) 80%, transparent) 0%,
-      transparent calc(var(--space) * 4));
+      transparent 34%);
 }
 .credit{
-  position:absolute;right:calc(var(--space) * 1.2);bottom:calc(var(--space) * .7);
-  z-index:2;text-align:right;
+  grid-row:2;
+  z-index:2;
+  padding:calc(var(--space) * .75) calc(var(--space) * 1.2) calc(var(--space) * .4);
+  background:var(--ground);
+  text-align:right;
   color:color-mix(in srgb, var(--ink) 72%, transparent);
 }
 
@@ -252,6 +271,10 @@ h3{font-size:var(--t1)}
 /* Caption under the logo wall. The wall is the statement; this is its footnote,
    so it drops to body size and the panel's label colour. */
 .panel h2.wall-note{
+  font-family:var(--font-sans);
+  font-weight:500;
+  line-height:1.02;
+  letter-spacing:-.022em;
   font-size:var(--type-base);
   color:color-mix(in srgb, var(--panel-ink) var(--panel-label-mix), transparent);
   margin-top:calc(var(--space) * 1.4);
@@ -356,13 +379,12 @@ h3{font-size:var(--t1)}
   color:var(--flag);margin-top:calc(var(--space) * .8);
 }
 
-/* numbered reasons. deliberately NOT three cards with stock icons. */
+/* Reasons. Deliberately NOT three cards with stock icons. */
 .reasons{margin-top:calc(var(--space) * 2.5);border-top:1px solid var(--rule)}
 .reason{
-  display:grid;grid-template-columns:auto 1fr;gap:calc(var(--space) * 1.6);
+  display:grid;grid-template-columns:1fr;
   padding:calc(var(--space) * 2.1) 0;border-bottom:1px solid var(--rule);
 }
-.reason .num{font-family:var(--font-mono);font-size:var(--t-1);color:var(--accent)}
 
 /* ============================================================
    IMAGE VIEWER
@@ -466,14 +488,14 @@ body.flags .ph-tag{
 }
 
 @media (max-width:820px){
-  :root{--display:8.4vw}
+  :root{--display:9vw}
   .nav-in{flex-wrap:wrap;row-gap:calc(var(--space) * .55);column-gap:calc(var(--space) * 1.2)}
   .mark{flex:1 0 100%;margin-right:0}
   .nav a.link.soon{display:none}
   .nav .btn{margin-left:auto}
   .hero h1{overflow-wrap:break-word}
-  .credit{position:static;text-align:left;padding:calc(var(--space) * .6) calc(var(--space) * 1.5) 0}
-  .hero-shot::before{background:linear-gradient(0deg, color-mix(in srgb, var(--ground) 55%, transparent) 0%, transparent calc(var(--space) * 5))}
+  .credit{position:static;text-align:left;padding:calc(var(--space) * .75) calc(var(--space) * 1.5) calc(var(--space) * .4)}
+  .hero-shot::before{display:none}
   .hero{grid-template-columns:1fr;min-height:0}
   .hero-text{padding:calc(var(--space) * 3) calc(var(--space) * 1.5)}
   /* Match the source photo on narrow screens to avoid extra crop and spacing. */
