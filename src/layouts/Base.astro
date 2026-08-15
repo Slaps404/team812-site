@@ -3,7 +3,7 @@ import '@fontsource-variable/dm-sans/wght.css';
 import '../styles/tokens.css';
 import '../styles/global.css';
 import favicon from '../assets/logos/team812-badge.png';
-import socialImage from '../assets/photos/team-812-robot-pit.png';
+import socialImage from '../assets/photos/2026-states-IMG_1045.jpg';
 import ImageViewer from '../components/ImageViewer.astro';
 
 interface Props {
@@ -38,9 +38,26 @@ const socialImageUrl = new URL(socialImage.src, Astro.site ?? Astro.url);
 <meta name="twitter:description" content={description}>
 <meta name="twitter:image" content={socialImageUrl}>
 <meta name="twitter:image:alt" content="A Team 812 student and mentor working on the robot in the pit.">
+<script is:inline>document.documentElement.classList.add('js');</script>
 </head>
 <body class="flags">
 <slot />
 <ImageViewer />
+<script is:inline>
+  const revealItems = [...document.querySelectorAll('[data-reveal]')];
+  const reveal = (element) => element.classList.add('is-revealed');
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    revealItems.forEach(reveal);
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('is-revealed', entry.isIntersecting);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    revealItems.forEach((element) => observer.observe(element));
+  }
+</script>
 </body>
 </html>

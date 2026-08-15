@@ -2,7 +2,7 @@
 # the file content loader does not preserve YAML array order on its own.
 - id: "5000"
   order: 1
-  precede: "Everything at $2,500, plus"
+  precede: "Includes the $2,500 benefits, plus"
   amount: "$5,000"
   top: true
   items:
@@ -12,7 +12,7 @@
     - "Logo on this site's homepage"
 - id: "2500"
   order: 2
-  precede: "Everything at $1,000, plus"
+  precede: "Includes the $1,000 benefits, plus"
   amount: "$2,500"
   top: false
   items:
@@ -21,7 +21,7 @@
     - "Thank-you post on our social accounts"
 - id: "1000"
   order: 3
-  precede: "Every sponsor gets"
+  precede: ""
   amount: "$1,000"
   top: false
   items:

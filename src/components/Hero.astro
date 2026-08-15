@@ -1,10 +1,10 @@
 ---
 import { Image } from 'astro:assets';
-import heroImg from '../assets/photos/team-812-robot-pit.png';
+import heroImg from '../assets/photos/2026-states-IMG_1045.jpg';
 import { HERO_IMAGE_SIZES, HERO_IMAGE_WIDTHS } from '../lib/imageLayout';
 ---
 <header class="hero">
-  <div class="hero-text">
+  <div class="hero-text" data-reveal>
     <div>
       <p class="mono">Team 812,&nbsp; The Preuss School UC San Diego</p>
       <h1>25 seasons of first-generation engineers.</h1>
@@ -15,7 +15,7 @@ import { HERO_IMAGE_SIZES, HERO_IMAGE_WIDTHS } from '../lib/imageLayout';
       </div>
     </div>
   </div>
-  <figure class="hero-shot">
+  <figure class="hero-shot" data-reveal style="--reveal-delay:120ms">
     <Image
       src={heroImg}
       alt="A Team 812 student and mentor working on the robot in the pit at the 2026 state championship."

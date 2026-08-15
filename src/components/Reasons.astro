@@ -5,7 +5,7 @@ const reasons = (await getCollection('reasons')).sort((a, b) => a.data.order - b
 ---
 <div class="reasons">
   {reasons.map((r: CollectionEntry<'reasons'>) => (
-    <div class="reason">
+    <div class="reason" data-reveal>
       <div class="num">{r.data.num}</div>
       <div>
         <h3>{r.data.title}</h3>
