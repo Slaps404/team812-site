@@ -395,7 +395,7 @@ footer{padding:calc(var(--space) * 3) 0;border-top:1px solid var(--rule)}
 .footer-icon{display:inline-flex;align-items:center;justify-content:center;width:1.8rem;height:1.8rem;color:var(--ink-dim);transition:color var(--motion) var(--ease)}
 .footer-icon:hover,.footer-icon:focus-visible{color:var(--accent)}
 .footer-icon svg{width:1.3rem;height:1.3rem}
-.preuss-mark{display:grid;place-items:center;width:1.35rem;height:1.35rem;border:1.5px solid currentColor;border-radius:50%;font-family:var(--font-sans);font-size:.85rem;font-weight:700;line-height:1}
+.footer-school-link:hover,.footer-school-link:focus-visible{color:var(--accent)}
 .foot .chant{
   flex-basis:100%;margin-top:calc(var(--space) * 1.6);
   padding-top:calc(var(--space) * 1.2);border-top:1px solid var(--rule);
