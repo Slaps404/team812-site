@@ -90,14 +90,16 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=98e77c65-0221-4
 </dialog>
 
 <script>
-  const modal = document.querySelector<HTMLDialogElement>('#sponsor-modal');
-  const openButton = document.querySelector<HTMLButtonElement>('#open-sponsor-modal');
-  const closeButton = document.querySelector<HTMLButtonElement>('#close-sponsor-modal');
+  document.addEventListener('astro:page-load', () => {
+    const modal = document.querySelector<HTMLDialogElement>('#sponsor-modal');
+    const openButton = document.querySelector<HTMLButtonElement>('#open-sponsor-modal');
+    const closeButton = document.querySelector<HTMLButtonElement>('#close-sponsor-modal');
 
-  openButton?.addEventListener('click', () => modal?.showModal());
-  closeButton?.addEventListener('click', () => modal?.close());
-  modal?.addEventListener('click', (event) => {
-    if (event.target === modal) modal.close();
+    openButton?.addEventListener('click', () => modal?.showModal());
+    closeButton?.addEventListener('click', () => modal?.close());
+    modal?.addEventListener('click', (event) => {
+      if (event.target === modal) modal.close();
+    });
   });
 </script>
 

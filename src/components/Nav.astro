@@ -15,16 +15,16 @@ const { current } = Astro.props;
 ---
 <nav class="nav">
   <div class="nav-in">
-    <a class="mark" href="/">
+    <a class="mark" href="/" data-astro-prefetch>
       {/* The source is 1000px wide but the nav slot is ~44px. width is pinned to
           3x that so the emitted asset is a few kB instead of the full-size logo,
           and still sharp on high-density screens. */}
       <Image src={badge} alt="Team 812 badge" width={132} loading="eager" />
       <span>The Midnight Mechanics</span>
     </a>
-    <a class:list={['link', { on: current === 'home' }]} href="/" aria-current={current === 'home' ? 'page' : undefined}>Home</a>
-    <a class:list={['link', { on: current === 'sponsors' }]} href="/sponsors" aria-current={current === 'sponsors' ? 'page' : undefined}>Sponsors</a>
-    <a class:list={['link', { on: current === 'robots' }]} href="/robots" aria-current={current === 'robots' ? 'page' : undefined}>Robots</a>
-    <a class:list={['link', { on: current === 'team' }]} href="/team" aria-current={current === 'team' ? 'page' : undefined}>Team</a>
+    <a class:list={['link', { on: current === 'home' }]} href="/" data-astro-prefetch aria-current={current === 'home' ? 'page' : undefined}>Home</a>
+    <a class:list={['link', { on: current === 'sponsors' }]} href="/sponsors" data-astro-prefetch aria-current={current === 'sponsors' ? 'page' : undefined}>Sponsors</a>
+    <a class:list={['link', { on: current === 'robots' }]} href="/robots" data-astro-prefetch aria-current={current === 'robots' ? 'page' : undefined}>Robots</a>
+    <a class:list={['link', { on: current === 'team' }]} href="/team" data-astro-prefetch aria-current={current === 'team' ? 'page' : undefined}>Team</a>
   </div>
 </nav>

@@ -2,10 +2,13 @@
 import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
-import Shot from '../../components/Shot.astro';
+import Album, { type PhotoItem } from '../../components/Album.astro';
 import { robotSeasons, type RobotSeason } from '../../data/robots';
 
-import robotPitImg from '../../assets/photos/team-812-robot-pit.png';
+import pit from '../../assets/photos/team-812-robot-pit.png';
+import states1026 from '../../assets/photos/2026-states-IMG_1026.jpg';
+import states1033 from '../../assets/photos/2026-states-IMG_1033.jpg';
+import states1045 from '../../assets/photos/2026-states-IMG_1045.jpg';
 
 export function getStaticPaths() {
   return robotSeasons.map((robot) => ({
@@ -15,7 +18,35 @@ export function getStaticPaths() {
 }
 
 const { robot } = Astro.props as { robot: RobotSeason };
-const isFeatured = robot.year === 2026;
+
+// Photos album registry by year (add any season photos here)
+const seasonAlbums: Record<number, PhotoItem[]> = {
+  2026: [
+    {
+      src: pit,
+      alt: 'Team 812 students and mentor tuning the robot in the pit at the state championship.',
+      caption: 'Pit crew / FIRST California Southern State Championship / 2026',
+    },
+    {
+      src: states1026,
+      alt: "A mentor and students working on Team 812's shooter mechanism.",
+      caption: 'Shooter tuning between matches / 2026',
+    },
+    {
+      src: states1033,
+      alt: 'Students and mentor repairing the drivetrain in the pit.',
+      caption: 'Drivetrain repair, 30 minutes to queue / 2026',
+    },
+    {
+      src: states1045,
+      alt: 'Team 812 members and robot at the 2026 state championship.',
+      caption: 'Team 812 at States / 2026',
+    },
+  ],
+  // 2025: [ ... ] - easily add your 2025 photos here!
+};
+
+const photos = seasonAlbums[robot.year] ?? [];
 ---
 <Base
   title={`${robot.year} Robot | The Midnight Mechanics`}
@@ -36,26 +67,33 @@ const isFeatured = robot.year === 2026;
 
   <section data-reveal>
     <div class="wrap robot-detail-grid">
-      {isFeatured ? (
-        <Shot
-          src={robotPitImg}
-          alt="A Team 812 student and mentor working on the robot in the pit at the 2026 state championship."
-          caption="Pit crew / FIRST California Southern State Championship / 2026"
-          priority
-        />
-      ) : (
-        <div class="robot-detail-placeholder" role="status">
-          <p class="mono">IMAGE RECORD PENDING</p>
-          <p>Add an approved {robot.year} robot image when the season record is reviewed.</p>
-        </div>
-      )}
+      <Album photos={photos} year={robot.year} />
       <div class="robot-detail-facts">
-        <p class="label">Game</p>
-        <p class="robot-fact-value">{robot.game ?? 'To be confirmed'}</p>
+        <p class="label">Game theme</p>
+        <p class="robot-fact-value">{robot.game}</p>
+
+        {robot.events && robot.events.length > 0 && (
+          <div>
+            <p class="label">Competitions & Events</p>
+            <ul style="margin:0 0 calc(var(--space) * 1.4);padding-left:1.2rem;font-size:var(--t-1);color:var(--ink-dim);line-height:1.6">
+              {robot.events.map((evt) => <li>{evt}</li>)}
+            </ul>
+          </div>
+        )}
+
+        {robot.awards && robot.awards.length > 0 && (
+          <div>
+            <p class="label">Awards & Honors</p>
+            <div class="robot-awards" style="margin-bottom:calc(var(--space) * 1.4)">
+              {robot.awards.map((award) => (
+                <span class="robot-award-tag">{award}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
         <p class="label">Public code</p>
         <a class="body" href={robot.repoUrl} target="_blank" rel="noopener">Open the {robot.year} repository ↗</a>
-        <p class="label">Record status</p>
-        <p class="robot-fact-value">{robot.detailsPending ? 'Details pending team review' : 'Photo documented'}</p>
       </div>
     </div>
   </section>
