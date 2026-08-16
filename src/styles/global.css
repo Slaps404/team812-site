@@ -640,18 +640,18 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 /* Beats the reveal rule's `html.js [data-reveal].is-revealed` specificity. */
 html.js .hero-content[data-reveal].is-muted{opacity:0;transition:opacity 400ms var(--ease)}
 .hero-controls{
-  position:absolute;z-index:3;right:calc(var(--space) * 1.5);bottom:calc(var(--space) * 1.5);
-  display:flex;gap:calc(var(--space) * .5);
+  position:absolute;z-index:3;inset:50% 0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 calc(var(--space) * 1.5);transform:translateY(-50%);
+  pointer-events:none;
 }
 .hero-arrow{
   display:grid;place-items:center;width:2.6rem;height:2.6rem;
-  border:1px solid color-mix(in srgb,var(--ink) 34%,transparent);border-radius:4px;
-  background:color-mix(in srgb,var(--ground) 55%,transparent);
-  color:var(--ink);font-size:var(--t1);line-height:1;cursor:pointer;
-  backdrop-filter:blur(6px);
-  transition:background var(--motion) var(--ease), border-color var(--motion) var(--ease);
+  border:0;border-radius:50%;background:transparent;color:var(--ink);
+  font-size:var(--t1);line-height:1;cursor:pointer;opacity:.55;
+  pointer-events:auto;transition:opacity var(--motion) var(--ease),background var(--motion) var(--ease);
 }
-.hero-arrow:hover{background:var(--ground);border-color:var(--ink)}
+.hero-arrow:hover,.hero-arrow:focus-visible{background:color-mix(in srgb,var(--ground) 35%,transparent);opacity:1}
 .hero-scrim{
   position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(0deg,var(--ground) 0%,color-mix(in srgb,var(--ground) 78%,transparent) 26%,color-mix(in srgb,var(--ground) 22%,transparent) 60%,transparent 100%);
