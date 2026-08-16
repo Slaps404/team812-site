@@ -37,8 +37,8 @@
   --display:       4.6vw;     /* hero headline, scales with window */
 
   /* hero crop. The photo slot is tall, so these pan the frame for real. */
-  --hero-x:        61%;
-  --hero-y:        82%;
+  --hero-x:        50%;
+  --hero-y:        34%;
 
   /* form */
   --radius:        0px;
