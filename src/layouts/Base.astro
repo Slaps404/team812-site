@@ -64,15 +64,30 @@ const socialImageUrl = new URL(socialImage.src, Astro.site ?? Astro.url);
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
       revealItems.forEach(reveal);
     } else {
-      const observer = new IntersectionObserver((entries) => {
+      // Reveal once and stop watching: re-toggling on exit made the animation
+      // replay every time an element scrolled back into view.
+      const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach((entry) => {
-          entry.target.classList.toggle('is-revealed', entry.isIntersecting);
+          if (!entry.isIntersecting) return;
+          reveal(entry.target);
+          obs.unobserve(entry.target);
         });
       }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
 
-      revealItems.forEach((element) => observer.observe(element));
+      revealItems.forEach((element) => {
+        if (element.classList.contains('is-revealed')) return;
+        observer.observe(element);
+      });
     }
   };
+
+  // astro:page-load only fires on window 'load', which waits for every image.
+  // Above-the-fold content would sit hidden until then, so start on DOM ready.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupReveal, { once: true });
+  } else {
+    setupReveal();
+  }
 
   document.addEventListener('astro:after-swap', enableMotionStyles);
   document.addEventListener('astro:page-load', setupReveal);
