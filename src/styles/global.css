@@ -912,6 +912,9 @@ footer{padding:0;border-top:0;background:var(--accent);color:var(--ground)}
 .footer-contact-link,.footer-social-link{display:flex;align-items:center;gap:.55em;color:var(--ground);font-size:var(--t-1);transition:opacity var(--motion) var(--ease)}
 .footer-contact-link:hover,.footer-contact-link:focus-visible,.footer-social-link:hover,.footer-social-link:focus-visible{color:var(--ground);opacity:.68}
 .footer-contact-link svg,.footer-social-link svg{flex:0 0 1.2rem;width:1.2rem;height:1.2rem}
+.footer-school-logo{display:inline-flex;align-items:center;justify-content:center;flex:0 0 2.5rem;width:2.5rem;height:2.9rem;overflow:hidden;opacity:.78;transition:opacity var(--motion) var(--ease)}
+.footer-school-logo img{width:100%;height:100%;object-fit:cover;object-position:left center;filter:brightness(0) saturate(100%)}
+.footer-school-logo:hover,.footer-school-logo:focus-visible{opacity:1}
 .footer-social-link span{display:grid;line-height:1.1}
 .footer-social-link small{margin-top:.14rem;color:var(--ground);font-size:10px;opacity:.68}
 .footer-links{justify-content:flex-end}
