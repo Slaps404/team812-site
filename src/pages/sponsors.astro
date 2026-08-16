@@ -8,11 +8,10 @@ import Reasons from '../components/Reasons.astro';
 import Tiers from '../components/Tiers.astro';
 import Funds from '../components/Funds.astro';
 import LogoWall from '../components/LogoWall.astro';
-import Tune from '../components/Tune.astro';
 
 import rosterImg from '../assets/photos/2026-states-IMG_1011.jpg';
 
-const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=98e77c65-0221-4291-b0c9-029538948e1c';
+const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=f84b6f44-4eb5-43e6-9468-5e756a2d4696';
 ---
 <Base
   title="Sponsor FRC Team 812 | The Midnight Mechanics"
@@ -28,7 +27,7 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=98e77c65-0221-4
       <Fragment slot="left">
         <h1 style="font-size:var(--t4);max-width:22em">Support the students building Team 812's next robot.</h1>
         <p class="body" style="font-size:var(--t1);margin-top:calc(var(--space) * 1.4)">We need <b style="color:var(--accent)"><a href="#funding-breakdown" style="color:inherit">$10,000</a></b> for the 2027 season. Here is exactly what you get, and exactly where the money goes.</p>
-        <button class="btn solid sponsor-primary" type="button" id="open-sponsor-modal">Donate to Team 812</button>
+        <a class="btn solid sponsor-primary" href={donationUrl} target="_blank" rel="noopener noreferrer">Donate to Team 812</a>
       </Fragment>
       <Fragment slot="right">
         <Shot src={rosterImg} alt="The 2026 Team 812 roster in team shirts." caption="The students and mentors you support on Team 812" priority />
@@ -76,35 +75,6 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=98e77c65-0221-4
 
 </main>
 
-<dialog class="sponsor-modal" id="sponsor-modal" aria-labelledby="sponsor-modal-title">
-  <div class="sponsor-modal-inner">
-    <button class="modal-close" type="button" id="close-sponsor-modal" aria-label="Close donation instructions">×</button>
-    <h2 id="sponsor-modal-title">Send your gift to Team 812</h2>
-    <ol class="sponsor-steps">
-      <li><b>Open the UCSD giving form.</b><span>Click the button below.</span></li>
-      <li><b>Search for “robotics team”.</b><span>Use the fund search box on the giving page.</span></li>
-      <li><b>Select “Preuss School Robotics Team”.</b><span>That is the fund that sends your gift to Team 812.</span></li>
-    </ol>
-    <a class="btn solid modal-donate" href={donationUrl} target="_blank" rel="noopener noreferrer">Give Now</a>
-  </div>
-</dialog>
-
-<script>
-  document.addEventListener('astro:page-load', () => {
-    const modal = document.querySelector<HTMLDialogElement>('#sponsor-modal');
-    const openButton = document.querySelector<HTMLButtonElement>('#open-sponsor-modal');
-    const closeButton = document.querySelector<HTMLButtonElement>('#close-sponsor-modal');
-
-    openButton?.addEventListener('click', () => modal?.showModal());
-    closeButton?.addEventListener('click', () => modal?.close());
-    modal?.addEventListener('click', (event) => {
-      if (event.target === modal) modal.close();
-    });
-  });
-</script>
-
 <Footer />
-
-<Tune />
 
 </Base>
