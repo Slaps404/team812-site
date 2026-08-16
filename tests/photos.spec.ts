@@ -77,10 +77,11 @@ test('sponsor roster uses the regular desktop photo slot', async ({ page }) => {
   const roster = page.getByAltText('The 2026 Team 812 roster in team shirts.');
   await roster.evaluate((element: HTMLImageElement) => element.decode());
   const box = await roster.boundingBox();
+  const expectedWidth = (68 * 16 - 3 * 16 - 3 * 16) * 0.6;
 
   expect(box).not.toBeNull();
-  expect(box!.width).toBeCloseTo(496, 0);
-  expect(box!.height).toBeCloseTo(381.5, 0);
+  expect(box!.width).toBeCloseTo(expectedWidth, 0);
+  expect(box!.height).toBeCloseTo(expectedWidth / regularRatio, 1);
   expect(box!.width / box!.height).toBeCloseTo(regularRatio, 2);
 });
 

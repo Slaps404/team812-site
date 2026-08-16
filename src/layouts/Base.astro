@@ -54,7 +54,10 @@ const socialImageUrl = new URL(socialImage.src, Astro.site ?? Astro.url);
 <slot />
 <ImageViewer />
 <script is:inline>
+  const enableMotionStyles = () => document.documentElement.classList.add('js');
+
   const setupReveal = () => {
+    enableMotionStyles();
     const revealItems = [...document.querySelectorAll('[data-reveal]')];
     const reveal = (element) => element.classList.add('is-revealed');
 
@@ -71,6 +74,7 @@ const socialImageUrl = new URL(socialImage.src, Astro.site ?? Astro.url);
     }
   };
 
+  document.addEventListener('astro:after-swap', enableMotionStyles);
   document.addEventListener('astro:page-load', setupReveal);
 </script>
 </body>

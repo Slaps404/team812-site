@@ -56,8 +56,8 @@ p{margin:0}
    movement entirely. */
 html.js [data-reveal]{
   position:relative;
-  transform:translateY(calc(var(--space) * 0.4));
-  transition:transform 280ms var(--ease);
+  transform:translateY(calc(var(--space) * 1.1));
+  transition:transform 1000ms var(--ease);
   transition-delay:var(--reveal-delay,0ms);
 }
 html.js [data-reveal]::after{
@@ -67,14 +67,14 @@ html.js [data-reveal]::after{
   z-index:3;
   pointer-events:none;
   background:var(--reveal-cover,var(--ground));
-  transition:opacity 280ms var(--ease);
+  transition:opacity 1000ms var(--ease);
   transition-delay:var(--reveal-delay,0ms);
 }
 html.js [data-reveal].is-revealed{transform:none}
 html.js [data-reveal].is-revealed::after{opacity:0}
 html.js .panel[data-reveal]{--reveal-cover:var(--panel)}
-html.js .reason:nth-child(2),html.js .tier:nth-child(2){--reveal-delay:40ms}
-html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:80ms}
+html.js .reason:nth-child(2),html.js .tier:nth-child(2){--reveal-delay:80ms}
+html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 
 /* ============================================================
    NAV
@@ -265,27 +265,23 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:80ms}
    HERO
    Full bleed photo. Your real States pit shot, not stock.
    ============================================================ */
-/* A full-bleed photo hero was the first instinct and it failed on the evidence.
-   This photo's subject (robot + leidos decal + students) sits in a roughly
-   SQUARE region, with a rival team's sponsor banner immediately left of it.
-   No 1.9:1 crop contains the subject and excludes the banner. A tall slot can.
-   Side effect: the headline now sits on solid ground, so legibility is
-   guaranteed for every future photo too. */
 .hero{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,min(46vw,580px));
-  min-height:0;overflow:hidden;
+  position:relative;display:flex;align-items:flex-end;
+  min-height:min(78vh,820px);overflow:hidden;
 }
-.hero-text{
-  display:flex;align-items:center;
-  padding:calc(var(--space) * 4) calc(var(--space) * 3) calc(var(--space) * 4)
-          max(calc(var(--space) * 1.5), calc((100vw - var(--measure)) / 2 + var(--space) * 1.5));
+.hero-image{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:var(--hero-x) var(--hero-y);
 }
-.hero h1{
-  font-size:var(--display);
-  margin:calc(var(--space) * .7) 0;
-  color:color-mix(in srgb,var(--ink) 90%,var(--ground));
+.hero-scrim{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(0deg,var(--ground) 0%,color-mix(in srgb,var(--ground) 72%,transparent) 34%,color-mix(in srgb,var(--ground) 18%,transparent) 68%,transparent 100%);
 }
-.hero .lede{font-size:var(--t1);color:var(--ink);max-width:30em;opacity:.82}
+.hero-content{
+  position:relative;z-index:2;width:100%;max-width:var(--measure);margin:0 auto;
+  padding:calc(var(--space) * 4) calc(var(--space) * 1.5) calc(var(--space) * 3.5);
+}
+.hero h1{font-size:var(--t4);max-width:24em;margin-top:calc(var(--space) * .6);color:var(--ink);text-wrap:pretty}
 .hero .cta{display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.8);flex-wrap:wrap}
 .sponsor-primary{display:block;width:fit-content;margin-top:calc(var(--space) * 1.8);padding:calc(var(--space) * 1.15) calc(var(--space) * 1.8);font-size:var(--t1);font-weight:600;letter-spacing:.08em;text-align:center;cursor:pointer}
 .sponsor-hint{max-width:30rem;margin-top:calc(var(--space) * .7);font-size:var(--t-1);color:var(--ink-dim)}
@@ -303,45 +299,11 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:80ms}
 .sponsor-steps span{display:block;margin-top:.2rem;color:var(--ink-dim);font-size:var(--type-base)}
 .modal-donate{width:100%;padding:calc(var(--space) * .9);text-align:center;font-size:var(--t1);font-weight:600}
 
-/* Keep the slot close to the source photo's near-square ratio, so the robot
-   stays readable and the hero does not create an artificial vertical gap. */
-.hero-shot{
-  position:relative;
-  display:grid;
-  grid-template-rows:minmax(0,1fr) auto;
-  margin:0;
-  overflow:hidden;
-  aspect-ratio:.97;
-}
-
 .sponsor-hero{
   display:flex;
   align-items:center;
   min-height:calc(100svh - 5rem);
   padding:calc(var(--space) * 2) 0;
-}
-
-.hero-shot img{
-  position:relative;
-  grid-row:1;
-  width:100%;height:100%;min-height:0;
-  object-fit:cover;object-position:var(--hero-x) var(--hero-y);
-}
-.hero-shot::before{
-  content:"";position:absolute;inset:0 0 calc(var(--space) * 2.7);z-index:1;pointer-events:none;
-  background:
-    linear-gradient(90deg,
-      var(--ground) 0%,
-      color-mix(in srgb, var(--ground) 35%, transparent) 12%,
-      transparent 34%);
-}
-.credit{
-  grid-row:2;
-  z-index:2;
-  padding:calc(var(--space) * .75) calc(var(--space) * 1.2) calc(var(--space) * .4);
-  background:var(--ground);
-  text-align:right;
-  color:color-mix(in srgb, var(--ink) 72%, transparent);
 }
 
 /* ============================================================
@@ -391,7 +353,7 @@ h3{font-size:var(--t1)}
 /* asymmetric split. thirds-based, so the page never reads as a spreadsheet. */
 .split{display:grid;grid-template-columns:6fr 4fr;gap:calc(var(--space) * 3);align-items:start}
 .split.flip{grid-template-columns:4fr 6fr}
-.sponsor-hero-split{grid-template-columns:1fr 1fr}
+.sponsor-hero-split{grid-template-columns:4fr 6fr}
 
 /* photo blocks. one enforced ratio, object-fit cover, no frames or shadows. */
 .shot{position:relative}
@@ -410,31 +372,20 @@ h3{font-size:var(--t1)}
 /* year chips for the code archive */
 .years{display:flex;flex-wrap:wrap;gap:calc(var(--space) * .45) calc(var(--space) * .5);margin-top:calc(var(--space) * 1.5)}
 .years a{
-  font-family:var(--font-mono);font-size:var(--t-2);
-  letter-spacing:var(--figure-track);
-  padding:calc(var(--space) * .35) calc(var(--space) * .65);
-  background:rgba(242,241,236,.05);
-  border:1px solid rgba(242,241,236,.12);
-  border-radius:4px;
+  font-family:var(--font-mono);font-size:var(--t-1);
+  padding:calc(var(--space) * .3) calc(var(--space) * .55);
+  border:1px solid var(--rule);border-radius:var(--radius);
   color:var(--ink-dim);
   text-decoration:none;
-  transition:background var(--motion) var(--ease), border-color var(--motion) var(--ease), color var(--motion) var(--ease), transform var(--motion) var(--ease);
+  transition:border-color var(--motion) var(--ease),color var(--motion) var(--ease);
 }
 .years a:hover{
-  background:color-mix(in srgb, var(--accent) 15%, transparent);
   border-color:var(--accent);
-  color:var(--ink);
-  transform:translateY(-1px);
+  color:var(--accent);
 }
 .years a.hi{
-  background:var(--accent);
-  border-color:var(--accent);
-  color:var(--ground);
-  font-weight:600;
-}
-.years a.hi:hover{
-  background:color-mix(in srgb, var(--accent) 85%, white);
-  color:var(--ground);
+  border-color:var(--ink-dim);
+  color:var(--ink);
 }
 
 /* ============================================================
@@ -682,12 +633,8 @@ body.flags .ph-tag{
   .nav a.link.soon{display:none}
   .nav .btn{margin-left:auto}
   .hero h1{overflow-wrap:break-word}
-  .credit{position:static;text-align:left;padding:calc(var(--space) * .75) calc(var(--space) * 1.5) calc(var(--space) * .4)}
-  .hero-shot::before{display:none}
-  .hero{grid-template-columns:1fr;min-height:0}
-  .hero-text{padding:calc(var(--space) * 3) calc(var(--space) * 1.5)}
-  /* Match the source photo on narrow screens to avoid extra crop and spacing. */
-  .hero-shot{aspect-ratio:.97}
+  .hero{min-height:min(72svh,680px)}
+  .hero-content{padding:calc(var(--space) * 3) calc(var(--space) * 1.5) calc(var(--space) * 2.5)}
   .sponsor-hero{min-height:0;padding:calc(var(--space) * 3) 0}
   .robot-feature,.section-heading,.team-sections,.robot-detail-grid{grid-template-columns:1fr;gap:calc(var(--space) * 1.5)}
   .robot-facts{border-left:0;border-top:1px solid var(--rule);padding:calc(var(--space) * 1.2) 0 0}
