@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Shot from '../components/Shot.astro';
-import { robotSeasons } from '../data/robots';
+import { robotSeasons, getAwardDescription } from '../data/robots';
 
 import robotPitImg from '../assets/photos/team-812-robot-pit.png';
 ---
@@ -18,9 +18,9 @@ import robotPitImg from '../assets/photos/team-812-robot-pit.png';
   <section class="archive-hero" data-reveal>
     <div class="wrap split feature-split">
       <div>
-        <h1>One season. One machine. A lot to learn.</h1>
-        <p class="body archive-lede">Every robot is a record of what Team 812 learned that year. Start with the 2026 machine, then follow the code archive back through the seasons we have documented.</p>
-        <a class="btn ghost" href="#robot-seasons">Browse the seasons</a>
+        <h1>Every robot we've built.</h1>
+        <p class="body archive-lede">An archive of our competition robots, match results, and code repositories dating back to 2011.</p>
+        <a class="btn ghost" href="#robot-seasons">View all seasons</a>
       </div>
       <Shot
         src={robotPitImg}
@@ -39,7 +39,7 @@ import robotPitImg from '../assets/photos/team-812-robot-pit.png';
           <p class="robot-year">2026 <span>/ {robotSeasons[0].game}</span></p>
           <h2>The current machine, under pressure.</h2>
           <p class="body">{robotSeasons[0].description}</p>
-          <a class="btn solid" href={robotSeasons[0].repoUrl} target="_blank" rel="noopener">Read the 2026 code</a>
+          <a class="btn solid" href={robotSeasons[0].repoUrl} target="_blank" rel="noopener">Read the 2026 Code</a>
         </div>
         <div class="robot-facts" aria-label="2026 robot record status">
           <p class="label">Record status</p>
@@ -81,9 +81,11 @@ import robotPitImg from '../assets/photos/team-812-robot-pit.png';
                   {robot.awards.map((award) => {
                     const l = award.toLowerCase();
                     const isMajor = l.includes('chairman') || l.includes('winner') || l.includes('inspiration') || l.includes('flowers') || l.includes('dean');
+                    const desc = getAwardDescription(award);
                     return (
-                      <span class:list={['robot-award-tag', { major: isMajor }]}>
+                      <span class:list={['robot-award-tag', { major: isMajor }]} tabindex="0">
                         {isMajor ? `★ ${award}` : award}
+                        <span class="award-tooltip" role="tooltip">{desc}</span>
                       </span>
                     );
                   })}
