@@ -11,40 +11,80 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.7" r="1.1" fill="currentColor"/></svg>
         </a>
       </nav>
-      <div class="foot-chant-box" id="chant-trigger" role="button" tabindex="0" title="Click to shout the chant!">
-        <p class="chant">
-          <span class="chant-lead">WHAT TIME IS IT?</span>
-          <span class="chant-shout">
-            <span class="scream-letter" style="--i:0">M</span>
-            <span class="scream-letter" style="--i:1">I</span>
-            <span class="scream-letter" style="--i:2">D</span>
-            <span class="scream-letter" style="--i:3">N</span>
-            <span class="scream-letter" style="--i:4">I</span>
-            <span class="scream-letter" style="--i:5">G</span>
-            <span class="scream-letter" style="--i:6">H</span>
-            <span class="scream-letter" style="--i:7">T</span>
-            <span class="scream-letter" style="--i:8">!</span>
-          </span>
-        </p>
-      </div>
+      <p class="chant" id="footer-chant">
+        <span class="chant-word" id="word-what">What</span>
+        <span class="chant-word" id="word-time">time</span>
+        <span class="chant-karaoke-word" id="word-is">is</span>
+        <span class="chant-word" id="word-it">it?...</span>
+        <span class="chant-word chant-highlight" id="midnight-word">Midnight!</span>
+      </p>
     </div>
   </footer>
 
   <script>
     const setupChant = () => {
-      const box = document.getElementById('chant-trigger');
-      if (!box) return;
-      box.addEventListener('click', () => {
-        box.classList.add('is-screaming');
-        setTimeout(() => box.classList.remove('is-screaming'), 1600);
-      });
-      box.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          box.classList.add('is-screaming');
-          setTimeout(() => box.classList.remove('is-screaming'), 1600);
-        }
-      });
+      const chant = document.getElementById('footer-chant');
+      if (!chant) return;
+
+      const wordWhat = document.getElementById('word-what');
+      const wordTime = document.getElementById('word-time');
+      const wordIs = document.getElementById('word-is');
+      const wordIt = document.getElementById('word-it');
+      const midnightWord = document.getElementById('midnight-word');
+
+      if (wordIs) wordIs.textContent = "is";
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            observer.unobserve(entry.target);
+
+            // 1. "What" lights up
+            setTimeout(() => {
+              wordWhat?.classList.add('is-active');
+            }, 150);
+
+            // 2. "time" lights up
+            setTimeout(() => {
+              wordTime?.classList.add('is-active');
+            }, 350);
+
+            // 3. "is" turns into "isss" and smoothly sweeps highlight across it
+            setTimeout(() => {
+              if (wordIs) {
+                wordIs.textContent = "isss";
+                const startTime = performance.now();
+                const duration = 450; // fast & snappy 450ms sweep
+
+                const animateFill = (now: number) => {
+                  const elapsed = now - startTime;
+                  const progress = Math.min(100, (elapsed / duration) * 100);
+                  wordIs.style.setProperty('--fill-pct', `${progress}%`);
+
+                  if (progress < 100) {
+                    requestAnimationFrame(animateFill);
+                  } else {
+                    wordIs.classList.add('is-active');
+
+                    // 4. "it?..." lights up
+                    setTimeout(() => {
+                      wordIt?.classList.add('is-active');
+
+                      // 5. Short punchy suspense pause then BAM: "Midnight!"
+                      setTimeout(() => {
+                        midnightWord?.classList.add('is-active');
+                      }, 400);
+                    }, 200);
+                  }
+                };
+                requestAnimationFrame(animateFill);
+              }
+            }, 600);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      observer.observe(chant);
     };
     document.addEventListener('astro:page-load', setupChant);
   </script>

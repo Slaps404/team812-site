@@ -93,7 +93,7 @@ const photos = seasonAlbums[robot.year] ?? [];
                 const desc = getAwardDescription(award);
                 return (
                   <span class:list={['robot-award-tag', { major: isMajor }]} tabindex="0">
-                    {isMajor ? `★ ${award}` : award}
+                    {award}
                     <span class="award-tooltip" role="tooltip">{desc}</span>
                   </span>
                 );
