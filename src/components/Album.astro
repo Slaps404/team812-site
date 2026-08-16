@@ -6,6 +6,7 @@ export interface PhotoItem {
   src: ImageMetadata;
   alt: string;
   caption: string;
+  isTransparent?: boolean;
 }
 
 interface Props {
@@ -16,11 +17,12 @@ interface Props {
 const { photos = [], year } = Astro.props;
 const hasPhotos = photos.length > 0;
 const hasMultiple = photos.length > 1;
+const isFirstTransparent = photos[0]?.isTransparent ?? false;
 ---
 
 {hasPhotos ? (
   <div class="robot-album" data-album>
-    <figure class="shot robot-album-main">
+    <figure class:list={['shot robot-album-main', { 'transparent-machine': isFirstTransparent }]}>
       <Image
         class="robot-album-main-img"
         src={photos[0].src}
@@ -44,6 +46,7 @@ const hasMultiple = photos.length > 1;
             data-src={photo.src.src}
             data-alt={photo.alt}
             data-caption={photo.caption}
+            data-transparent={photo.isTransparent ? 'true' : 'false'}
             role="tab"
             aria-selected={idx === 0 ? 'true' : 'false'}
             aria-label={`View photo: ${photo.caption}`}
@@ -71,6 +74,7 @@ const hasMultiple = photos.length > 1;
 <script>
   const setupAlbums = () => {
     document.querySelectorAll('[data-album]').forEach((album) => {
+      const mainFig = album.querySelector('.robot-album-main');
       const mainImg = album.querySelector('.robot-album-main-img') as HTMLImageElement;
       const caption = album.querySelector('.robot-album-caption');
       const thumbs = album.querySelectorAll('.robot-album-thumb');
@@ -87,6 +91,15 @@ const hasMultiple = photos.length > 1;
           const newSrc = thumb.getAttribute('data-src');
           const newAlt = thumb.getAttribute('data-alt');
           const newCaption = thumb.getAttribute('data-caption');
+          const isTrans = thumb.getAttribute('data-transparent') === 'true';
+
+          if (mainFig) {
+            if (isTrans) {
+              mainFig.classList.add('transparent-machine');
+            } else {
+              mainFig.classList.remove('transparent-machine');
+            }
+          }
 
           if (mainImg && newSrc) {
             mainImg.src = newSrc;
@@ -103,4 +116,9 @@ const hasMultiple = photos.length > 1;
   };
 
   document.addEventListener('astro:page-load', setupAlbums);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupAlbums);
+  } else {
+    setupAlbums();
+  }
 </script>

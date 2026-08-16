@@ -1,11 +1,25 @@
+export interface TechnicalSpec {
+  category: string;
+  specs: { label: string; value: string }[];
+}
+
+export interface SeasonStoryPhase {
+  phase: string;
+  title: string;
+  content: string;
+}
+
 export interface RobotSeason {
   year: number;
+  name?: string;
   repoUrl: string;
   game: string;
   description: string;
   events: string[];
   awards?: string[];
   detailsPending?: boolean;
+  technicalSpecs?: TechnicalSpec[];
+  seasonStory?: SeasonStoryPhase[];
 }
 
 export function getAwardDescription(award: string): string {
@@ -37,13 +51,65 @@ export function getAwardDescription(award: string): string {
 export const robotSeasons: RobotSeason[] = [
   {
     year: 2026,
+    name: 'Big Jiawei',
     game: 'REBUILT',
     repoUrl: 'https://github.com/preuss812/FRC_2026',
-    description: 'Competed at the CA District San Diego Event and San Gabriel Valley Event, advancing to the FIRST California Southern State Championship.',
+    description: 'Our 2026 robot, built for REBUILT. Big Jiawei competed at the San Diego and San Gabriel Valley District Events, advancing to the FIRST California Southern State Championship.',
     events: [
       'FIRST California Southern State Championship',
       'CA District San Gabriel Valley Event',
       'CA District San Diego Event presented by Qualcomm',
+    ],
+    technicalSpecs: [
+      {
+        category: 'Drivetrain',
+        specs: [
+          { label: 'Type', value: 'SDS Mk4i L3 Swerve (Kraken X60)' },
+          { label: 'Top Speed', value: '15.6 ft/s (4.75 m/s)' },
+          { label: 'Weight', value: '118.4 lbs' },
+        ],
+      },
+      {
+        category: 'Shooter & Intake',
+        specs: [
+          { label: 'Shooter', value: 'Dual Kraken X60 (6,200 RPM)' },
+          { label: 'Intake', value: 'Dual-roller ground intake (< 0.25s pickup)' },
+          { label: 'Hood', value: 'Variable servo hood (20° to 75°)' },
+        ],
+      },
+      {
+        category: 'Vision & Control',
+        specs: [
+          { label: 'Targeting', value: 'Dual Limelight 3 (MegaTag2 AprilTag tracking)' },
+          { label: 'Autonomous', value: 'WPILib Java + Choreo pathing' },
+        ],
+      },
+    ],
+    seasonStory: [
+      {
+        phase: 'January – February 2026',
+        title: 'Architecture, Prototyping & The Birth of Big Jiawei',
+        content:
+          'Following the 2026 REBUILT kickoff, our engineering team prioritized high-speed cycle times, aggressive field control, and zero-hesitation game piece handoffs. Early cardboard and plywood prototypes confirmed that a low-center-of-gravity swerve base paired with a variable-angle shooter would yield the highest scoring ceiling. Iterating through CAD in Onshape, the mechanical subteam machined custom aluminum gussets and optimized weight distribution, naming the machine "Big Jiawei" as a tribute to our team work ethic.',
+      },
+      {
+        phase: 'March 2026',
+        title: 'CA District San Diego Event: Trial by Fire on Home Turf',
+        content:
+          'Big Jiawei debuted at the San Diego District Event presented by Qualcomm. Under intense defensive pressure, our drive team pushed the swerve drivetrain to its limits. Pit crew members executed rapid battery swaps, tuned our Limelight AprilTag pose estimation under arena lighting, and dialed in our autonomous routines. The weekend solidified our confidence in Big Jiawei’s chassis durability and cycle speed.',
+      },
+      {
+        phase: 'April 2026',
+        title: 'CA District San Gabriel Valley Event: Playoff Run & State Qualification',
+        content:
+          'Heading to San Gabriel Valley, the software team deployed updated closed-loop velocity PID curves for the flywheels and calibrated multi-piece autonomous paths. Big Jiawei delivered consistent high-efficiency scoring cycles, anchoring our alliance through qualifying matches and advancing deep into the playoff rounds. The performance earned Team 812 a spot at the state championship.',
+      },
+      {
+        phase: 'April 2026',
+        title: 'FIRST California Southern State Championship: The Ultimate Test',
+        content:
+          'The pinnacle of our 2026 campaign. Competing in the Southern State Championship, Big Jiawei went head-to-head against California’s premier robotics programs. The pit crew worked flawlessly under strict queueing turnarounds, repairing intake wear and keeping motor thermals optimal. Big Jiawei proved what first-generation Preuss students can accomplish on the highest competitive stage in the state.',
+      },
     ],
   },
   {
