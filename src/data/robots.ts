@@ -8,6 +8,32 @@ export interface RobotSeason {
   detailsPending?: boolean;
 }
 
+export function getAwardDescription(award: string): string {
+  const l = award.toLowerCase();
+  if (l.includes('chairman')) {
+    return "FIRST's most prestigious award, honoring the team that best embodies the mission and values of FIRST.";
+  }
+  if (l.includes('winner')) {
+    return 'Celebrates the 1st place tournament champion alliance, qualifying for the FIRST World Championship.';
+  }
+  if (l.includes('inspiration')) {
+    return 'Celebrates outstanding success in advancing respect and appreciation for engineering within the school and community.';
+  }
+  if (l.includes('flowers')) {
+    return 'Honors an outstanding engineering mentor who leads, inspires, and empowers students.';
+  }
+  if (l.includes('dean')) {
+    return 'Recognizes exceptional student leaders whose technical passion and leadership exemplify FIRST ideals.';
+  }
+  if (l.includes('spirit')) {
+    return 'Celebrates extraordinary enthusiasm, spirit, and teamwork throughout the competition.';
+  }
+  if (l.includes('judge')) {
+    return 'Special recognition by the judging panel for unique team efforts and excellence.';
+  }
+  return 'Official FIRST Robotics Competition award.';
+}
+
 export const robotSeasons: RobotSeason[] = [
   {
     year: 2026,
