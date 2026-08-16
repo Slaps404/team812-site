@@ -21,9 +21,11 @@ const { current } = Astro.props;
       <img src={badge.src} alt="Team 812 badge" width="132" height="139" loading="eager" decoding="async" />
       <span>The Midnight Mechanics</span>
     </a>
-    <a class:list={['link', { on: current === 'home' }]} href="/" data-astro-prefetch aria-current={current === 'home' ? 'page' : undefined}>Home</a>
-    <a class:list={['link', { on: current === 'sponsors' }]} href="/sponsors" data-astro-prefetch aria-current={current === 'sponsors' ? 'page' : undefined}>Sponsors</a>
-    <a class:list={['link', { on: current === 'robots' }]} href="/robots" data-astro-prefetch aria-current={current === 'robots' ? 'page' : undefined}>Robots</a>
-    <a class:list={['link', { on: current === 'team' }]} href="/team" data-astro-prefetch aria-current={current === 'team' ? 'page' : undefined}>Team</a>
+    <div class="nav-links" aria-label="Primary">
+      <a class:list={['link', { on: current === 'home' }]} href="/" data-astro-prefetch aria-current={current === 'home' ? 'page' : undefined}>Home</a>
+      <a class:list={['link', { on: current === 'sponsors' }]} href="/sponsors" data-astro-prefetch aria-current={current === 'sponsors' ? 'page' : undefined}>Sponsors</a>
+      <a class:list={['link', { on: current === 'robots' }]} href="/robots" data-astro-prefetch aria-current={current === 'robots' ? 'page' : undefined}>Robots</a>
+      <a class:list={['link', { on: current === 'team' }]} href="/team" data-astro-prefetch aria-current={current === 'team' ? 'page' : undefined}>Team</a>
+    </div>
   </div>
 </nav>
