@@ -251,7 +251,7 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 .season-robot-grid{display:grid;grid-template-columns:6fr 4fr;gap:calc(var(--space) * 3);align-items:start}
 .season-robot-copy h2{max-width:14em}
 .season-robot-copy .btn{margin-top:calc(var(--space) * 1.6)}
-.season-robot-shot img{object-fit:contain;background:var(--ground-2)}
+.season-robot-shot img{aspect-ratio:auto;object-fit:contain;background:var(--ground-2)}
 .season-robot-placeholder{
   display:flex;flex-direction:column;justify-content:center;
   gap:calc(var(--space) * .5);padding:calc(var(--space) * 2);
