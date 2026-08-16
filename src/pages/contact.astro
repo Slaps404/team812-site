@@ -9,39 +9,31 @@ import pitImg from '../assets/photos/2026-states-IMG_1045.jpg';
 const email = 'team812@preuss.ucsd.edu';
 
 // The site is a static build, so there is no server to accept a form post.
-// Every route below is a real inbox or account the team already checks, and a
-// mailto with a prefilled subject does the work a form would have done.
+// One clear inbox and a short routing list keep the contact path simple.
 const channels = [
   {
     num: '01',
     name: 'Sponsors and donors',
     summary: 'Sponsorship levels, invoices, W-9s, and in-kind donations.',
-    detail: 'Tell us the level you are considering and who should receive the invoice. Corporate sponsors get a W-9 and a receipt by email.',
-    action: { label: email, href: `mailto:${email}?subject=Sponsorship%20inquiry%20%E2%80%94%20Team%20812` },
-    aside: { label: 'See the tiers first', href: '/sponsors' },
+    subject: 'Sponsorship inquiry',
   },
   {
     num: '02',
     name: 'Preuss students and families',
     summary: 'Joining the team, meeting times, and what the season asks of you.',
-    detail: 'No engineering experience needed. Say what year you are in and which subteam sounds interesting, and we will point you to the next meeting.',
-    action: { label: email, href: `mailto:${email}?subject=Joining%20Team%20812` },
-    aside: { label: 'Read about the subteams', href: '/team#subteams' },
+    subject: 'Joining Team 812',
   },
   {
     num: '03',
     name: 'Mentors and volunteers',
     summary: 'Engineers, teachers, and parents who can give time in build season.',
-    detail: 'Mechanical, electrical, software, and business mentors are all useful. A few hours a week during January and February makes a real difference.',
-    action: { label: email, href: `mailto:${email}?subject=Mentoring%20Team%20812` },
+    subject: 'Mentoring Team 812',
   },
   {
     num: '04',
     name: 'Other FRC teams and press',
     summary: 'Code questions, event logistics, interviews, and photo requests.',
-    detail: 'Our code is public going back to 2011, so start on GitHub if the question is about the robot. Anything else reaches us at the same address.',
-    action: { label: email, href: `mailto:${email}?subject=Team%20812%20inquiry` },
-    aside: { label: 'Browse the code archive', href: 'https://github.com/preuss812' },
+    subject: 'Team 812 inquiry',
   },
 ];
 ---
@@ -80,10 +72,10 @@ const channels = [
     <div class="wrap">
       <div class="section-heading">
         <div>
-          <p class="mono eyebrow">WHAT ARE YOU WRITING ABOUT</p>
-          <h2>Four reasons people write to us.</h2>
+          <p class="mono eyebrow">START WITH A SUBJECT</p>
+          <h2>Tell us what you need.</h2>
         </div>
-        <p class="body">They all land in the same inbox. Picking the right subject line just gets your message to the right student faster.</p>
+        <p class="body">One inbox for sponsorship, joining the team, mentoring, and robot questions. A clear subject helps us route it.</p>
       </div>
       <div class="subteams" role="list">
         {channels.map((channel) => (
@@ -92,20 +84,7 @@ const channels = [
             <div class="subteam-copy">
               <h3>{channel.name}</h3>
               <p class="body subteam-summary">{channel.summary}</p>
-              <p class="subteam-detail">{channel.detail}</p>
-              <p class="body contact-actions">
-                <a href={channel.action.href}>{channel.action.label}</a>
-                {channel.aside && (
-                  <>
-                    <span class="contact-sep" aria-hidden="true">/</span>
-                    <a
-                      href={channel.aside.href}
-                      target={channel.aside.href.startsWith('http') ? '_blank' : undefined}
-                      rel={channel.aside.href.startsWith('http') ? 'noopener' : undefined}
-                    >{channel.aside.label}</a>
-                  </>
-                )}
-              </p>
+              <p class="mono subteam-subject">SUBJECT: {channel.subject}</p>
             </div>
           </article>
         ))}
@@ -154,3 +133,10 @@ const channels = [
 <Footer />
 
 </Base>
+
+<style>
+  .subteam-subject {
+    margin-top: calc(var(--space) * .55);
+    color: var(--ink-dim);
+  }
+</style>
