@@ -9,6 +9,8 @@ import pit from '../../assets/photos/team-812-robot-pit.png';
 import states1026 from '../../assets/photos/2026-states-IMG_1026.jpg';
 import states1033 from '../../assets/photos/2026-states-IMG_1033.jpg';
 import states1045 from '../../assets/photos/2026-states-IMG_1045.jpg';
+import tbaFavicon from '../../assets/logos/tba-favicon.ico';
+import githubFavicon from '../../assets/logos/github-favicon.svg';
 
 export function getStaticPaths() {
   return robotSeasons.map((robot) => ({
@@ -25,22 +27,22 @@ const seasonAlbums: Record<number, PhotoItem[]> = {
     {
       src: pit,
       alt: 'Team 812 students and mentor tuning the robot in the pit at the state championship.',
-      caption: 'Pit crew / FIRST California Southern State Championship / 2026',
+      caption: 'Pit crew tuning at the FIRST California Southern State Championship',
     },
     {
       src: states1026,
       alt: "A mentor and students working on Team 812's shooter mechanism.",
-      caption: 'Shooter tuning between matches / 2026',
+      caption: 'Shooter mechanism calibration between matches',
     },
     {
       src: states1033,
       alt: 'Students and mentor repairing the drivetrain in the pit.',
-      caption: 'Drivetrain repair, 30 minutes to queue / 2026',
+      caption: 'Drivetrain repair in the pits before queueing',
     },
     {
       src: states1045,
       alt: 'Team 812 members and robot at the 2026 state championship.',
-      caption: 'Team 812 at States / 2026',
+      caption: 'Team 812 pit crew at the State Championship',
     },
   ],
   // 2025: [ ... ] - easily add your 2025 photos here!
@@ -85,15 +87,36 @@ const photos = seasonAlbums[robot.year] ?? [];
           <div>
             <p class="label">Awards & Honors</p>
             <div class="robot-awards" style="margin-bottom:calc(var(--space) * 1.4)">
-              {robot.awards.map((award) => (
-                <span class="robot-award-tag">{award}</span>
-              ))}
+              {robot.awards.map((award) => {
+                const l = award.toLowerCase();
+                const isMajor = l.includes('chairman') || l.includes('winner') || l.includes('inspiration') || l.includes('flowers') || l.includes('dean');
+                return (
+                  <span class:list={['robot-award-tag', { major: isMajor }]}>
+                    {isMajor ? `★ ${award}` : award}
+                  </span>
+                );
+              })}
             </div>
           </div>
         )}
 
-        <p class="label">Public code</p>
-        <a class="body" href={robot.repoUrl} target="_blank" rel="noopener">Open the {robot.year} repository ↗</a>
+        <p class="label">External records & code</p>
+        <div style="display:flex;flex-direction:column;gap:calc(var(--space) * .6);margin-top:calc(var(--space) * .3)">
+          <a class="robot-ext-btn" href={`https://www.thebluealliance.com/team/812/${robot.year}`} target="_blank" rel="noopener noreferrer">
+            <div class="robot-ext-left">
+              <img src={tbaFavicon.src} alt="" class="robot-ext-icon" width="20" height="20" />
+              <span>View {robot.year} on The Blue Alliance</span>
+            </div>
+            <span class="robot-ext-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="robot-ext-btn" href={robot.repoUrl} target="_blank" rel="noopener noreferrer">
+            <div class="robot-ext-left">
+              <img src={githubFavicon.src} alt="" class="robot-ext-icon" width="20" height="20" />
+              <span>Open {robot.year} GitHub code</span>
+            </div>
+            <span class="robot-ext-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -101,10 +124,14 @@ const photos = seasonAlbums[robot.year] ?? [];
   <hr class="rule">
 
   <section data-reveal>
-    <div class="wrap">
-      <p class="mono eyebrow">NEXT TO ADD</p>
-      <h2>Keep the record concrete.</h2>
-      <p class="body detail-note">When this season is reviewed, add only the approved robot name, capabilities, results, and links to real team artifacts such as CAD, a technical binder, or build notes.</p>
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:calc(var(--space) * 1.5)">
+      <div>
+        <p class="mono eyebrow">TEAM 812 ARCHIVE</p>
+        <h2>Explore other seasons.</h2>
+      </div>
+      <a class="btn solid" href="/robots" style="align-self:center">
+        ← Browse all robots
+      </a>
     </div>
   </section>
 </main>

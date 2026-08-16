@@ -19,13 +19,20 @@ body{
 img{display:block;max-width:100%}
 img[data-gallery-id]{cursor:zoom-in}
 img[data-gallery-id]:focus-visible{outline:var(--focus-ring) solid var(--accent);outline-offset:var(--focus-ring-offset)}
-a{color:inherit;text-decoration:none}
-h1,h2,h3{
+a,a:hover,a:focus,a:active,a:visited{color:inherit;text-decoration:none !important;text-decoration-line:none !important}
+h1,h2{
   margin:0;
   font-family:var(--font-display);
   font-weight:600;
   line-height:.94;
   letter-spacing:-.018em;
+}
+h3{
+  margin:0;
+  font-family:var(--font-sans);
+  font-weight:600;
+  line-height:1.2;
+  letter-spacing:-.01em;
 }
 p{margin:0}
 
@@ -79,6 +86,7 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:80ms}
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--rule);
 }
+.nav, .nav *{text-decoration:none !important;text-decoration-line:none !important}
 .nav-in{
   max-width:var(--measure);margin:0 auto;
   padding:calc(var(--space) * .8) calc(var(--space) * 1.5);
@@ -87,16 +95,17 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:80ms}
 /* The badge is sized off --t1 rather than a fixed pixel height, so it grows and
    shrinks with the type scale instead of drifting out of step with the wordmark
    next to it. 2.1 lands it just under the nav's own padded height. */
-.mark{display:flex;align-items:center;gap:.6em;margin-right:auto}
+.mark{display:flex;align-items:center;gap:.6em;margin-right:auto;text-decoration:none !important}
 .mark img{height:calc(var(--t1) * 2.1);width:auto}
-.mark span{font-family:var(--font-chrome);font-size:var(--t-2);letter-spacing:calc(var(--chrome-track) + .02em);text-transform:uppercase;color:var(--ink-dim)}
+.mark span{font-family:var(--font-chrome);font-size:var(--t-2);letter-spacing:calc(var(--chrome-track) + .02em);text-transform:uppercase;color:var(--ink-dim);text-decoration:none !important}
 .nav a.link{
   font-family:var(--font-chrome);font-size:var(--t-2);
   letter-spacing:var(--chrome-track);text-transform:uppercase;color:var(--ink-dim);
   transition:color var(--motion) var(--ease);
+  text-decoration:none !important;
 }
-.nav a.link:hover{color:var(--ink)}
-.nav a.link.on{color:var(--ink)}
+.nav a.link:hover{color:var(--ink);text-decoration:none !important}
+.nav a.link.on{color:var(--ink);text-decoration:none !important}
 .nav a.link.soon{opacity:var(--disabled-opacity);cursor:not-allowed}
 .btn{
   display:inline-block;
@@ -139,21 +148,57 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:80ms}
 .robot-fact-value:last-child{margin-bottom:0}
 .section-heading{display:grid;grid-template-columns:6fr 4fr;gap:calc(var(--space) * 3);align-items:end;margin-bottom:calc(var(--space) * 2)}
 .robot-archive{border-top:1px solid var(--rule)}
-.robot-row{display:grid;grid-template-columns:5rem 1fr auto;gap:calc(var(--space) * 1.4);align-items:start;padding:calc(var(--space) * 1.35) 0;border-bottom:1px solid var(--rule)}
-.robot-row-year{font-family:var(--font-display);font-size:var(--t2);line-height:1;color:var(--accent)}
-.robot-row-copy h3{font-size:var(--t1);line-height:1.05}
-.robot-row-copy .body{margin-top:.35rem;max-width:42em;font-size:var(--t-1)}
-.robot-row-link{font-family:var(--font-chrome);font-size:var(--t-1);letter-spacing:var(--chrome-track);text-transform:uppercase;color:var(--ink-dim);white-space:nowrap}
-.robot-row-link:hover{color:var(--accent)}
+.robot-row-card{
+  position:relative;
+  display:grid;grid-template-columns:5.5rem 1fr;gap:calc(var(--space) * 1.5);
+  align-items:start;padding:calc(var(--space) * 1.35) calc(var(--space) * 1);
+  margin:0 calc(var(--space) * -1);
+  border-bottom:1px solid var(--rule);border-radius:6px;
+  transition:background var(--motion) var(--ease);
+}
+.robot-row-card:hover{background:rgba(242,241,236,.03)}
+.robot-row-year{font-family:var(--font-display);font-size:var(--t2);line-height:1;color:var(--accent);margin-top:.15rem}
+.robot-row-header{display:flex;align-items:center;justify-content:space-between;gap:calc(var(--space) * 1)}
+.robot-row-header h3{
+  font-family:var(--font-sans);font-size:var(--t1);font-weight:600;line-height:1.2;letter-spacing:-.01em;
+  color:var(--ink);transition:color var(--motion) var(--ease);
+}
+.robot-row-title-link{
+  color:var(--ink);
+  transition:color var(--motion) var(--ease);
+}
+.robot-row-title-link::after{
+  content:'';position:absolute;inset:0;border-radius:6px;z-index:1;
+}
+.robot-row-card:hover .robot-row-title-link,
+.robot-row-card:hover .robot-row-header h3{
+  color:var(--accent);
+}
+.robot-row-arrow{
+  font-size:var(--t1);color:var(--ink-dim);opacity:0;
+  transform:translateX(-6px);transition:all var(--motion) var(--ease);
+  pointer-events:none;
+}
+.robot-row-card:hover .robot-row-arrow{
+  opacity:1;color:var(--accent);transform:translateX(0);
+}
+.robot-row-copy .body{margin-top:.35rem;max-width:44em;font-size:var(--t-1)}
 .robot-awards{display:flex;flex-wrap:wrap;gap:calc(var(--space) * .35) calc(var(--space) * .45);margin-top:calc(var(--space) * .55)}
 .robot-award-tag{
   font-family:var(--font-sans);font-size:var(--t-2);
-  color:#f0cb82;
-  background:rgba(232,163,61,.08);
-  border:1px solid rgba(232,163,61,.22);
+  color:var(--ink-dim);
+  background:rgba(242,241,236,.04);
+  border:1px solid rgba(242,241,236,.12);
   border-radius:3px;
   padding:calc(var(--space) * .18) calc(var(--space) * .48);
   line-height:1.3;
+}
+.robot-award-tag.major{
+  color:#fbe4a8;
+  font-weight:600;
+  background:rgba(232,163,61,.14);
+  border-color:rgba(232,163,61,.42);
+  box-shadow:0 0 10px rgba(232,163,61,.08);
 }
 .robot-detail-hero{padding:calc(var(--space) * 4) 0 calc(var(--space) * 5)}
 .back-link{display:inline-block;margin-bottom:calc(var(--space) * 3);color:var(--ink-dim)}
@@ -187,6 +232,26 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:80ms}
 .empty-heading{font-family:var(--font-sans);font-size:var(--t1);color:var(--ink);font-weight:500;line-height:1.2}
 .empty-sub{font-size:var(--t-1);color:var(--ink-dim);max-width:32em}
 .detail-note{max-width:42em}
+.robot-ext-btn{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:calc(var(--space) * .65) calc(var(--space) * .9);
+  background:rgba(242,241,236,.03);border:1px solid var(--rule);
+  border-radius:4px;color:var(--ink);
+  font-family:var(--font-sans);font-size:var(--t-1);font-weight:500;
+  text-decoration:none !important;
+  transition:all var(--motion) var(--ease);
+}
+.robot-ext-left{display:flex;align-items:center;gap:calc(var(--space) * .65)}
+.robot-ext-icon{width:1.25rem;height:1.25rem;flex:none;transition:transform var(--motion) var(--ease)}
+.robot-ext-icon.tba{color:#3b82f6}
+.robot-ext-icon.gh{color:var(--ink)}
+.robot-ext-arrow{color:var(--ink-dim);font-size:var(--t-1);transition:transform var(--motion) var(--ease), color var(--motion) var(--ease)}
+.robot-ext-btn:hover{
+  background:rgba(242,241,236,.06);border-color:var(--accent);
+  transform:translateY(-1px);
+}
+.robot-ext-btn:hover .robot-ext-arrow{color:var(--accent);transform:translate(2px, -2px)}
+.robot-ext-btn:hover .robot-ext-icon{transform:scale(1.08)}
 .team-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(var(--space) * 1.2)}
 .team-gallery .shot:nth-child(3){grid-column:1 / -1}
 .team-sections{display:grid;grid-template-columns:4fr 6fr;gap:calc(var(--space) * 3)}
@@ -331,9 +396,10 @@ h3{font-size:var(--t1)}
 /* photo blocks. one enforced ratio, object-fit cover, no frames or shadows. */
 .shot{position:relative}
 .shot img{width:100%;height:auto;aspect-ratio:var(--photo-ratio);object-fit:cover;border-radius:var(--radius)}
-/* Captions sit one weight above the interface chrome. On a single-family site
-   that weight step is what stops a caption reading as a nav item. */
-.shot figcaption,.credit{font-weight:500}
+.shot figcaption,.credit,.robot-album-caption{
+  font-family:var(--font-sans);font-size:var(--t-1);font-weight:400;
+  text-transform:none;letter-spacing:0;color:var(--ink-dim);line-height:1.4;
+}
 .shot figcaption{margin-top:calc(var(--space) * .55)}
 /* The tall slot is wider than the source photo, so cover crops vertically.
    Pin the crop to the bottom to remove the arena ceiling and banner above the
@@ -626,8 +692,8 @@ body.flags .ph-tag{
   .robot-feature,.section-heading,.team-sections,.robot-detail-grid{grid-template-columns:1fr;gap:calc(var(--space) * 1.5)}
   .robot-facts{border-left:0;border-top:1px solid var(--rule);padding:calc(var(--space) * 1.2) 0 0}
   .robot-detail-facts{border-left:0;border-top:1px solid var(--rule);padding:calc(var(--space) * 1.2) 0 0}
-  .robot-row{grid-template-columns:3.5rem 1fr;gap:calc(var(--space) * .8)}
-  .robot-row-link{grid-column:2}
+  .robot-row-card{grid-template-columns:3.5rem 1fr;gap:calc(var(--space) * .8);margin:0;padding:calc(var(--space) * 1.1) 0}
+  .robot-row-arrow{opacity:1;transform:none}
   .team-gallery{grid-template-columns:1fr}
   .team-gallery .shot:nth-child(3){grid-column:auto}
   .role-grid{grid-template-columns:1fr}

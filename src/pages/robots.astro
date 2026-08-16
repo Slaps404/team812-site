@@ -26,7 +26,7 @@ import robotPitImg from '../assets/photos/team-812-robot-pit.png';
       <Shot
         src={robotPitImg}
         alt="A Team 812 student and mentor working on the robot in the pit at the 2026 state championship."
-        caption="Pit crew / FIRST California Southern State Championship / 2026"
+        caption="Pit crew tuning at the FIRST California Southern State Championship"
         priority
       />
     </div>
@@ -58,27 +58,39 @@ import robotPitImg from '../assets/photos/team-812-robot-pit.png';
     <div class="wrap">
       <div class="section-heading">
         <div>
-          <p class="mono eyebrow">SEASON INDEX</p>
-          <h2>Robots, year by year.</h2>
+          <p class="mono eyebrow">SEASON ARCHIVE</p>
+          <h2>All of our robots.</h2>
         </div>
-        <p class="body">The links below point to the team’s public code repositories. The visual and technical records will grow as each season is reviewed.</p>
+        <p class="body">16 seasons of competition history, public code repositories, and recorded match data.</p>
       </div>
       <div class="robot-archive" role="list">
         {robotSeasons.map((robot) => (
-          <article class="robot-row" role="listitem">
+          <article class="robot-row-card" role="listitem">
             <p class="robot-row-year">{robot.year}</p>
             <div class="robot-row-copy">
-              <h3>{robot.game}</h3>
+              <div class="robot-row-header">
+                <h3>
+                  <a class="robot-row-title-link" href={`/robots/${robot.year}`} aria-label={`View the ${robot.year} ${robot.game} season record`}>
+                    {robot.game}
+                  </a>
+                </h3>
+                <span class="robot-row-arrow" aria-hidden="true">→</span>
+              </div>
               <p class="body">{robot.description}</p>
               {robot.awards && robot.awards.length > 0 && (
                 <div class="robot-awards">
-                  {robot.awards.map((award) => (
-                    <span class="robot-award-tag">{award}</span>
-                  ))}
+                  {robot.awards.map((award) => {
+                    const l = award.toLowerCase();
+                    const isMajor = l.includes('chairman') || l.includes('winner') || l.includes('inspiration') || l.includes('flowers') || l.includes('dean');
+                    return (
+                      <span class:list={['robot-award-tag', { major: isMajor }]}>
+                        {isMajor ? `★ ${award}` : award}
+                      </span>
+                    );
+                  })}
                 </div>
               )}
             </div>
-            <a class="robot-row-link" href={`/robots/${robot.year}`} aria-label={`Open the ${robot.year} robot record`}>Record <span aria-hidden="true">↗</span></a>
           </article>
         ))}
       </div>

@@ -40,6 +40,15 @@ const socialImageUrl = new URL(socialImage.src, Astro.site ?? Astro.url);
 <meta name="twitter:image:alt" content="A Team 812 student and mentor working on the robot in the pit.">
 <script is:inline>document.documentElement.classList.add('js');</script>
 <ClientRouter />
+<style is:inline>
+  a, a:hover, a:focus, a:active, a:visited,
+  .nav, .nav *, .mark, .mark *, .btn, .btn *,
+  .robot-row, .robot-row *, .robot-btn, .robot-btn * {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    -webkit-text-decoration-line: none !important;
+  }
+</style>
 </head>
 <body class="flags">
 <slot />
