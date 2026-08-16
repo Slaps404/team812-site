@@ -51,28 +51,16 @@ p{margin:0}
 .wrap{max-width:var(--measure);margin:0 auto;padding:0 calc(var(--space) * 1.5)}
 .rule{border:0;border-top:1px solid var(--rule);margin:0}
 
-/* Content enters as it reaches the viewport. The html.js gate keeps content
-   visible if JavaScript is unavailable, while reduced-motion users skip the
-   movement entirely. */
+/* Content enters as it reaches the viewport — a plain fade, no vertical
+   travel. The html.js gate keeps content visible if JavaScript is
+   unavailable, while reduced-motion users skip the fade entirely. */
 html.js [data-reveal]{
   position:relative;
-  transform:translateY(calc(var(--space) * 1.1));
-  transition:transform 1000ms var(--ease);
-  transition-delay:var(--reveal-delay,0ms);
-}
-html.js [data-reveal]::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:3;
-  pointer-events:none;
-  background:var(--reveal-cover,var(--ground));
+  opacity:0;
   transition:opacity 1000ms var(--ease);
   transition-delay:var(--reveal-delay,0ms);
 }
-html.js [data-reveal].is-revealed{transform:none}
-html.js [data-reveal].is-revealed::after{opacity:0}
-html.js .panel[data-reveal]{--reveal-cover:var(--panel)}
+html.js [data-reveal].is-revealed{opacity:1}
 html.js .reason:nth-child(2),html.js .tier:nth-child(2){--reveal-delay:80ms}
 html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 
@@ -359,12 +347,14 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
    STAT BAND
    Specific numbers, not marketing adjectives.
    ============================================================ */
-.stats{
+.stats{border-bottom:1px solid var(--rule)}
+.stats-in{
   display:grid;grid-template-columns:repeat(4,1fr);
-  border-bottom:1px solid var(--rule);
+  max-width:var(--measure);margin:0 auto;padding:0 calc(var(--space) * 1.5);
 }
-.stat{padding:calc(var(--space) * 2) calc(var(--space) * 1.2);border-left:1px solid var(--rule)}
-.stat:first-child{border-left:0}
+.stat{padding:calc(var(--space) * 2) calc(var(--space) * 1.5);border-left:1px solid var(--rule)}
+.stat:first-child{border-left:0;padding-left:0}
+.stat:last-child{padding-right:0}
 .stat .n{
   font-family:var(--font-mono);font-size:var(--t3);font-weight:500;
   line-height:1;letter-spacing:-.04em;color:var(--ink);
@@ -746,7 +736,11 @@ body.flags .ph-tag{
   .team-gallery{grid-template-columns:1fr}
   .team-gallery .shot:nth-child(3){grid-column:auto}
   .role-grid{grid-template-columns:1fr}
-  .stats{grid-template-columns:1fr 1fr}
+  .stats-in{grid-template-columns:1fr 1fr}
+  .stat{padding:calc(var(--space) * 1.5)}
+  .stat:nth-child(odd){border-left:0;padding-left:0}
+  .stat:nth-child(even){padding-right:0}
+  .stat:nth-child(n + 3){border-top:1px solid var(--rule)}
   .split,.split.flip{grid-template-columns:1fr;gap:calc(var(--space) * 2)}
   .wall,.tiers{grid-template-columns:1fr}
   .logo{aspect-ratio:3.4}
