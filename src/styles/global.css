@@ -110,7 +110,7 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 .btn{
   display:inline-block;
   font-family:var(--font-sans);font-size:var(--t-1);font-weight:700;
-  letter-spacing:.035em;text-transform:uppercase;
+  letter-spacing:.035em;text-transform:none;
   padding:calc(var(--space) * .75) calc(var(--space) * 1.2);
   border:1px solid var(--accent);color:var(--accent);
   border-radius:4px;
