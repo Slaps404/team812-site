@@ -312,14 +312,226 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 }
 .robot-ext-btn:hover .robot-ext-arrow{color:var(--accent);transform:translate(2px, -2px)}
 .robot-ext-btn:hover .robot-ext-icon{transform:scale(1.08)}
-.team-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(var(--space) * 1.2)}
-.team-gallery .shot:nth-child(3){grid-column:1 / -1}
+.team-hero-cta{display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.8);flex-wrap:wrap}
 .team-sections{display:grid;grid-template-columns:4fr 6fr;gap:calc(var(--space) * 3)}
-.team-copy{max-width:42em}
-.role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:calc(var(--space) * 2);background:var(--rule)}
-.role{padding:calc(var(--space) * 1.1);background:var(--ground)}
-.role h3{font-size:var(--t-1);line-height:1.05}
-.role p{margin-top:.45rem;color:var(--ink-dim);font-size:var(--t-1)}
+.team-copy{max-width:46em}
+
+/* Subteams. Numbered rows on a single rule, so five entries read as one list
+   instead of five boxes competing for attention. */
+.subteams{border-top:1px solid var(--rule)}
+.subteam{
+  display:grid;grid-template-columns:4.5rem 1fr;gap:calc(var(--space) * 1.5);
+  align-items:start;padding:calc(var(--space) * 1.6) 0;
+  border-bottom:1px solid var(--rule);
+}
+.subteam-num{
+  margin:0;font-size:var(--t-1);line-height:1.4;color:var(--accent);
+  letter-spacing:var(--figure-track);
+}
+.subteam-copy h3{font-size:var(--t1);line-height:1.2;letter-spacing:-.01em}
+.subteam-summary{margin-top:.35rem;max-width:44em}
+.subteam-detail{
+  margin-top:.4rem;max-width:44em;
+  color:var(--ink-dim);font-size:var(--t-1);line-height:1.5;
+}
+
+/* Two-role split inside the people section. */
+.team-roles{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:calc(var(--space) * 2);
+  margin-top:calc(var(--space) * 2);padding-top:calc(var(--space) * 1.6);
+  border-top:1px solid var(--rule);
+}
+.team-role h3{font-size:var(--type-base);line-height:1.05;color:var(--accent)}
+.team-role .body{margin-top:.55rem;font-size:var(--t-1);line-height:1.55}
+.team-role-link{margin-top:calc(var(--space) * .9);font-size:var(--t-2);padding:calc(var(--space) * .5) calc(var(--space) * .9)}
+.team-copy .note{
+  margin-top:calc(var(--space) * 1.8);
+  color:var(--ink-dim);font-size:var(--t-2);line-height:1.5;
+}
+
+/* Roster. Names stack inside their subteam column, and the columns reflow with
+   auto-fill, so the block stays dense at any headcount instead of growing a
+   card per student. The hairline gap is the same treatment as the sponsor
+   wall: structure without boxes. */
+.roster{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));
+  gap:calc(var(--space) * 1.8) calc(var(--space) * 2);
+}
+.roster-group{padding-top:calc(var(--space) * .8);border-top:1px solid var(--rule)}
+.roster-group-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:calc(var(--space) * .6);
+}
+.roster-group-head h3{font-size:var(--t-1);line-height:1.15;text-wrap:balance}
+.roster-count{font-size:var(--t-2);color:var(--ink-dim);letter-spacing:var(--figure-track)}
+.roster-names{list-style:none;margin:calc(var(--space) * .75) 0 0;padding:0;display:grid;gap:.34rem}
+.roster-name{
+  display:flex;align-items:baseline;gap:.4rem;flex-wrap:wrap;
+  font-size:var(--t-1);line-height:1.4;color:var(--ink);
+}
+.roster-year{color:var(--ink-dim);font-size:var(--t-2)}
+.roster-lead-tag{
+  font-size:var(--t-2);letter-spacing:var(--figure-track);
+  text-transform:uppercase;color:var(--accent);
+}
+.roster-total{
+  margin-top:calc(var(--space) * 1.1);
+  font-size:var(--t-2);letter-spacing:var(--figure-track);color:var(--ink-dim);
+}
+
+/* ============================================================
+   MENTORS
+   Rule-topped cards, not boxes, so the grid matches the roster and tier
+   language. The portrait slot is a fixed square: a photo and a monogram
+   occupy exactly the same space, so the page has its final rhythm before
+   the photos arrive and does not reflow when they do.
+   ============================================================ */
+.mentor-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));
+  gap:calc(var(--space) * 2.4) calc(var(--space) * 2);
+}
+.mentor-card{display:flex;flex-direction:column;gap:calc(var(--space) * .9)}
+.mentor-portrait{
+  position:relative;aspect-ratio:1;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(242,241,236,.03);
+  border:1px solid var(--rule);border-radius:var(--radius);
+  overflow:hidden;
+}
+.mentor-portrait img{width:100%;height:100%;object-fit:cover}
+/* Until a photo lands, the tile has to earn its own square: a soft accent
+   wash keeps it reading as a designed slot rather than a failed image. */
+.mentor-portrait.is-monogram{
+  background:
+    radial-gradient(circle at 50% 46%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 62%),
+    rgba(242,241,236,.03);
+}
+.mentor-monogram{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(2.4rem,5vw,3.4rem);line-height:1;letter-spacing:-.02em;
+  color:color-mix(in srgb, var(--accent) 78%, var(--ink));
+}
+.mentor-body{display:flex;flex-direction:column;padding-top:calc(var(--space) * .55);border-top:1px solid var(--rule)}
+.mentor-body h3{font-size:var(--t1);line-height:1.15}
+.mentor-role{margin-top:.3rem;color:var(--accent);font-size:var(--t-2)}
+.mentor-tags{
+  list-style:none;display:flex;flex-wrap:wrap;
+  gap:.3rem;margin:calc(var(--space) * .8) 0 0;padding:0;
+}
+.mentor-tags li{
+  font-size:var(--t-2);line-height:1.3;color:var(--ink-dim);
+  padding:calc(var(--space) * .18) calc(var(--space) * .48);
+  border:1px solid rgba(242,241,236,.14);border-radius:3px;
+}
+.mentor-bio{
+  margin-top:calc(var(--space) * .9);
+  font-size:var(--t-1);line-height:1.55;color:var(--ink);opacity:.82;
+}
+.mentor-meta{margin:calc(var(--space) * 1.1) 0 0;display:grid;gap:0}
+.mentor-meta-row{
+  display:grid;grid-template-columns:6.2rem minmax(0,1fr);
+  gap:calc(var(--space) * .6);
+  padding:calc(var(--space) * .5) 0;
+  border-top:1px solid var(--rule);
+}
+.mentor-meta-row dt{font-size:var(--t-2);color:var(--ink-dim)}
+.mentor-meta-row dd{margin:0;font-size:var(--t-2);line-height:1.45;color:var(--ink)}
+.mentor-meta-row.honor dd{color:var(--accent)}
+
+/* The mentors with no published bio yet. One dense row instead of three mostly
+   empty cards — the gap is visible without being given equal weight. */
+.mentor-more{margin-top:calc(var(--space) * 3);padding-top:calc(var(--space) * 1.1);border-top:1px solid var(--rule)}
+.mentor-more-label{color:var(--ink-dim)}
+.mentor-more-list{
+  list-style:none;margin:calc(var(--space) * 1.1) 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));
+  gap:calc(var(--space) * 1.1);
+}
+.mentor-chip{display:flex;align-items:center;gap:calc(var(--space) * .7)}
+.mentor-chip-face{
+  flex:0 0 auto;width:3rem;height:3rem;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(242,241,236,.03);
+  border:1px solid var(--rule);border-radius:50%;
+  font-family:var(--font-display);font-weight:600;font-size:var(--t-1);
+  color:var(--ink-dim);
+}
+.mentor-chip-face img{width:100%;height:100%;object-fit:cover}
+.mentor-chip-copy{display:flex;flex-direction:column;gap:.15rem;min-width:0}
+.mentor-chip-name{font-size:var(--t-1);line-height:1.25;color:var(--ink)}
+.mentor-chip-role{font-size:var(--t-2)}
+.mentor-more-note{margin-top:calc(var(--space) * 1.2);font-size:var(--t-2);color:var(--ink-dim)}
+
+/* Founding-coach tribute. The honor sits in its own panel with the accent rule
+   the top sponsor tier uses, because it is the one award on the site given to a
+   single person in the world. */
+.founder{display:grid;grid-template-columns:6fr 4fr;gap:calc(var(--space) * 3);align-items:start}
+.founder-copy .body{margin-top:calc(var(--space) * 1.2)}
+.founder-honor{
+  padding:calc(var(--space) * 1.4);
+  background:var(--ground-2);
+  border:1px solid var(--rule);border-top:3px solid var(--accent);
+  border-radius:var(--radius);
+}
+.founder-honor .mono{color:var(--accent)}
+.founder-honor-award{
+  margin-top:calc(var(--space) * .7);
+  font-family:var(--font-display);font-weight:600;
+  font-size:var(--t2);line-height:1;letter-spacing:-.018em;color:var(--ink);
+}
+.founder-honor-year{margin-top:calc(var(--space) * .5);font-size:var(--t-1);color:var(--ink)}
+.founder-honor-note{
+  margin-top:calc(var(--space) * .9);padding-top:calc(var(--space) * .8);
+  border-top:1px solid var(--rule);
+  font-size:var(--t-2);line-height:1.45;color:var(--ink-dim);
+}
+
+/* Honors ledger. Grouped by award, so twenty-four lines of event history
+   compress into ten rows that each show a pattern rather than an incident. */
+.honor-ledger{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.honor-row{
+  display:grid;grid-template-columns:15rem minmax(0,1fr);
+  gap:calc(var(--space) * .4) calc(var(--space) * 2);
+  padding:calc(var(--space) * 1.15) 0;
+  border-bottom:1px solid var(--rule);
+}
+.honor-head{display:flex;align-items:baseline;gap:calc(var(--space) * .6)}
+.honor-award{font-size:var(--t-1);line-height:1.3;color:var(--ink);font-weight:500}
+.honor-row.major .honor-award{color:var(--accent)}
+.honor-count{font-size:var(--t-2);color:var(--ink-dim)}
+.honor-note{grid-column:2;font-size:var(--t-2);line-height:1.5;color:var(--ink-dim);max-width:44em}
+.honor-years{
+  grid-column:2;list-style:none;margin:calc(var(--space) * .55) 0 0;padding:0;
+  display:flex;flex-wrap:wrap;gap:.3rem;
+}
+.honor-year{
+  font-size:var(--t-2);line-height:1.3;color:var(--ink-dim);
+  padding:calc(var(--space) * .18) calc(var(--space) * .48);
+  border:1px solid rgba(242,241,236,.14);border-radius:3px;
+  transition:border-color var(--motion) var(--ease),color var(--motion) var(--ease);
+}
+.honor-year:hover{border-color:var(--ink-dim);color:var(--ink)}
+.honor-row.major .honor-year{
+  color:#fbe4a8;
+  background:rgba(232,163,61,.12);
+  border-color:rgba(232,163,61,.34);
+}
+.honor-row.major .honor-year:hover{border-color:rgba(232,163,61,.66);color:#fdf0d2}
+.honor-source{margin-top:calc(var(--space) * 1.2);color:var(--ink-dim)}
+
+/* Contact routes reuse the numbered subteam rows; only the action line below
+   each row is new. The separator is decorative, so it stays out of the tab and
+   underline treatment the prose links get. */
+.contact-actions{
+  display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:calc(var(--space) * .5);
+  margin-top:calc(var(--space) * .8);font-size:var(--t-1);
+}
+.contact-sep{color:var(--ink-dim);opacity:.5}
+
+.team-pair{margin-top:calc(var(--space) * 2.2)}
+.team-wide-shot{margin-top:calc(var(--space) * 1.2)}
+.team-wide-shot .shot img{aspect-ratio:2}
 
 /* ============================================================
    HERO
@@ -751,9 +963,27 @@ body.flags .ph-tag{
   .robot-detail-facts{border-left:0;border-top:1px solid var(--rule);padding:calc(var(--space) * 1.2) 0 0}
   .robot-row-card{grid-template-columns:3.5rem 1fr;gap:calc(var(--space) * .8);margin:0;padding:calc(var(--space) * 1.1) 0}
   .robot-row-arrow{opacity:1;transform:none}
-  .team-gallery{grid-template-columns:1fr}
-  .team-gallery .shot:nth-child(3){grid-column:auto}
-  .role-grid{grid-template-columns:1fr}
+  .subteam{grid-template-columns:1fr;gap:calc(var(--space) * .5);padding:calc(var(--space) * 1.3) 0}
+  /* One group per row on a phone, so let the names themselves run two-up
+     instead of leaving half the line empty. */
+  .roster{gap:calc(var(--space) * 1.4)}
+  .roster-names{grid-template-columns:1fr 1fr;column-gap:calc(var(--space) * 1.2)}
+  .team-roles{grid-template-columns:1fr;gap:calc(var(--space) * 1.4)}
+  /* One card per row on a phone, but the portrait turns into a small square
+     beside the copy instead of a full-width tile. A column-width portrait would
+     push each bio a full screen apart. */
+  .mentor-grid{grid-template-columns:1fr;gap:calc(var(--space) * 2)}
+  .mentor-card{
+    display:grid;grid-template-columns:5.5rem minmax(0,1fr);
+    gap:calc(var(--space) * 1);align-items:start;
+  }
+  .mentor-body{border-top:0;padding-top:0}
+  .mentor-meta-row{grid-template-columns:1fr;gap:.15rem}
+  .mentor-more-list{grid-template-columns:1fr 1fr;gap:calc(var(--space) * .9)}
+  .founder{grid-template-columns:1fr;gap:calc(var(--space) * 2)}
+  .honor-row{grid-template-columns:1fr;gap:.3rem;padding:calc(var(--space) * 1.1) 0}
+  .honor-note,.honor-years{grid-column:1}
+  .team-wide-shot .shot img{aspect-ratio:var(--photo-ratio)}
   .stats-in{grid-template-columns:1fr 1fr}
   .stat{padding:calc(var(--space) * 1.5)}
   .stat:nth-child(odd){border-left:0;padding-left:0}

@@ -2,7 +2,7 @@
 import badge from '../assets/logos/team812-badge.png';
 
 interface Props {
-  current: 'home' | 'sponsors' | 'robots' | 'team';
+  current: 'home' | 'sponsors' | 'robots' | 'team' | 'mentors' | 'contact';
 }
 const { current } = Astro.props;
 
@@ -25,5 +25,7 @@ const { current } = Astro.props;
     <a class:list={['link', { on: current === 'sponsors' }]} href="/sponsors" data-astro-prefetch aria-current={current === 'sponsors' ? 'page' : undefined}>Sponsors</a>
     <a class:list={['link', { on: current === 'robots' }]} href="/robots" data-astro-prefetch aria-current={current === 'robots' ? 'page' : undefined}>Robots</a>
     <a class:list={['link', { on: current === 'team' }]} href="/team" data-astro-prefetch aria-current={current === 'team' ? 'page' : undefined}>Team</a>
+    <a class:list={['link', { on: current === 'mentors' }]} href="/mentors" data-astro-prefetch aria-current={current === 'mentors' ? 'page' : undefined}>Mentors</a>
+    <a class:list={['link', { on: current === 'contact' }]} href="/contact" data-astro-prefetch aria-current={current === 'contact' ? 'page' : undefined}>Contact</a>
   </div>
 </nav>

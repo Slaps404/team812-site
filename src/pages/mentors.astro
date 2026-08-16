@@ -1,0 +1,226 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Shot from '../components/Shot.astro';
+import Mentors from '../components/Mentors.astro';
+import { getAwardDescription } from '../data/robots';
+import { PAIR_IMAGE_SIZES } from '../lib/imageLayout';
+
+import mentorImg from '../assets/photos/2026-states-IMG_1033.jpg';
+import pitImg from '../assets/photos/2026-states-IMG_1045.jpg';
+import rosterImg from '../assets/photos/2026-states-IMG_1011.jpg';
+
+// Every figure below is in the public FIRST record for Team 812
+// (frc-events.firstinspires.org/team/812). The award counts match the honors
+// ledger further down; seasons and Championship trips come from the same record.
+const facts = [
+  ['25', 'Seasons mentored'],
+  ['3', 'Woodie Flowers honors'],
+  ['4', "Chairman's Awards"],
+  ['5', 'Trips to the FIRST Championship'],
+];
+
+// Grouped by award rather than by year: a mentor's contribution shows up as the
+// same award recurring across two decades, which a year-by-year list buries.
+// Student award recipients are deliberately unnamed here — the site only
+// publishes student names with permission — while mentors are named because
+// their own team bios already are.
+const honors = [
+  {
+    award: "Chairman's Award",
+    note: "FIRST's highest team honor, and the one that reads a program rather than a robot.",
+    years: ['2016 Central Valley', '2008 San Diego', '2006 Southern California', '2005 Southern California'],
+    major: true,
+  },
+  {
+    award: 'Woodie Flowers Award',
+    note: 'Given to a mentor by name, on a nomination the students write themselves.',
+    years: ['2019 Finalist — Shaoni Bandyopadhyay', '2006 Championship — Rob Mainieri', '2004 Regional — Rob Mainieri'],
+    major: true,
+  },
+  {
+    award: 'Engineering Inspiration Award',
+    note: 'For advancing respect for engineering inside the school and the neighborhood around it.',
+    years: ['2017 San Francisco', '2013 Utah', '2009 Arizona', '2009 San Diego', '2007 San Diego', '2004 Championship', '2004 Southern California'],
+    major: true,
+  },
+  {
+    award: 'Regional Winner',
+    note: 'First place, Orange County — the team then played the Newton Subdivision in Houston.',
+    years: ['2018 Orange County'],
+    major: true,
+  },
+  {
+    award: "Dean's List Finalist Award",
+    note: 'A student award, and the clearest evidence a mentor is doing the job right.',
+    years: ['2016 San Diego', '2012 San Diego'],
+  },
+  {
+    award: 'Team Spirit Award',
+    years: ['2018 Orange County', '2017 San Diego', '2011 Silicon Valley', '2003 Southern California'],
+  },
+  {
+    award: "Judges' Award",
+    years: ['2019 Orange County', '2003 Arizona'],
+  },
+  {
+    award: 'Gracious Professionalism Award',
+    years: ['2010 Las Vegas'],
+  },
+  {
+    award: 'Rockwell Automation Innovation in Control Award',
+    years: ['2009 Arizona'],
+  },
+  {
+    award: 'Rookie All Star Award',
+    note: 'The first season, 2002. Every award above was won by students who came after.',
+    years: ['2002 Southern California'],
+  },
+];
+---
+<Base
+  title="Mentors | The Midnight Mechanics"
+  description="Thank you to the teachers, engineers, and volunteers who mentor FRC Team 812 at The Preuss School UC San Diego."
+>
+
+<Nav current="mentors" />
+
+<main class="view on" id="v-mentors">
+
+  <section class="team-hero" data-reveal>
+    <div class="wrap split feature-split">
+      <div>
+        <p class="mono eyebrow">MENTORS / TEAM 812</p>
+        <h1>Thank you to the people who stay after the bell.</h1>
+        <p class="body team-lede">Nobody on this page is paid to be here. They show up on build nights, on Saturdays, and in the pit at 7am — and then they hand the tool back to a student.</p>
+        <div class="team-hero-cta">
+          <a class="btn ghost" href="#mentor-list">Meet the mentors</a>
+          <a class="btn ghost" href="#honors">See what they helped win</a>
+        </div>
+      </div>
+      <Shot
+        src={mentorImg}
+        alt="A Team 812 mentor working alongside students on the robot, with TEAM 812 on the bumper."
+        caption="A mentor and students on the drivetrain, 2026 state championship"
+        priority
+      />
+    </div>
+  </section>
+
+  <div class="stats" data-reveal>
+    <div class="stats-in">
+      {facts.map(([value, label]) => (
+        <div class="stat">
+          <div class="n">{value}</div>
+          <div class="k mono">{label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <section data-reveal>
+    <div class="wrap team-sections">
+      <div>
+        <p class="mono eyebrow">WHY THIS PAGE EXISTS</p>
+        <h2>The robot is the students'. The room is theirs.</h2>
+      </div>
+      <div class="team-copy">
+        <p class="body">Preuss students come to Team 812 without a garage full of tools or a parent who machines parts on weekends. What they have instead is a group of adults who decided, season after season, to spend their evenings teaching CAD, crimping, budgets, and how to lose a match and come back for the next one.</p>
+        <p class="body">Mentors here do not build the robot. They ask the next question, keep the shop safe, sign off on a design a student defended, and drive the van. Twenty-five seasons of awards sit downstream of that choice — including the two FIRST gives to mentors by name.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="mentor-list" data-reveal style="padding-top:0">
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <p class="mono eyebrow">THE MENTORS</p>
+          <h2>Who is in the shop.</h2>
+        </div>
+        <p class="body">Teachers, working engineers, and community volunteers. Bios are the mentors' own, from the team's published mentor page.</p>
+      </div>
+      <Mentors />
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section data-reveal>
+    <div class="wrap founder">
+      <div class="founder-copy">
+        <p class="mono eyebrow">WHERE IT STARTED</p>
+        <h2>Rob Mainieri founded this team.</h2>
+        <p class="body">Team 812's founding coach started the first FRC team in San Diego at Preuss, and brought other mentors — including Mr. Rupert — into FIRST behind him. In 2006, at the FIRST Championship, he won the Woodie Flowers Award: the highest honor FIRST gives a mentor, awarded to one person in the world each year, on a nomination written by students. He had already won it at the regional level in 2004.</p>
+        <p class="body">Every award further down this page was won by students he made room for.</p>
+      </div>
+      <aside class="founder-honor">
+        <p class="mono">1 of 1, worldwide</p>
+        <p class="founder-honor-award">Woodie Flowers Award</p>
+        <p class="founder-honor-year">2006 FIRST Championship</p>
+        <p class="founder-honor-note">Regional Woodie Flowers Award, 2004 Southern California</p>
+      </aside>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section id="honors" data-reveal>
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <p class="mono eyebrow">HONORS / 2002 &ndash; 2026</p>
+          <h2>What the students won with them.</h2>
+        </div>
+        <p class="body">Grouped by award, newest first. The same honors keep recurring across two decades, which is the actual measure of a mentor.</p>
+      </div>
+      <ul class="honor-ledger">
+        {honors.map((honor) => (
+          <li class:list={['honor-row', { major: honor.major }]}>
+            <div class="honor-head">
+              <p class="honor-award">{honor.award}</p>
+              <span class="honor-count mono">{honor.years.length}&times;</span>
+            </div>
+            <p class="honor-note">{honor.note ?? getAwardDescription(honor.award)}</p>
+            <ul class="honor-years">
+              {honor.years.map((year) => <li class="honor-year">{year}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ul>
+      <p class="honor-source mono">Source: the FIRST team record for Team 812</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section data-reveal>
+    <div class="wrap">
+      <p class="mono eyebrow">THE JOB, IN PRACTICE</p>
+      <h2>Mostly it looks like this.</h2>
+      <div class="pair team-pair">
+        <Shot src={pitImg} alt="Team 812 students and mentors working around their robot in the pit." caption="Between matches, with the mentors' hands off the robot" sizes={PAIR_IMAGE_SIZES} />
+        <Shot src={rosterImg} alt="The 2026 Team 812 roster in team shirts." caption="The 2026 roster — the reason the shop stays open" sizes={PAIR_IMAGE_SIZES} />
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section data-reveal>
+    <div class="wrap">
+      <h2>Want to mentor?</h2>
+      <p class="body" style="margin-top:calc(var(--space) * 1.2)">You do not need a robotics background. Machining, wiring, Java, budgets, grant writing, graphic design, or a driver's license and a free Saturday — all of it is useful, and the students will teach you the rest.</p>
+      <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6);flex-wrap:wrap">
+        <a class="btn solid" href="mailto:team812@preuss.ucsd.edu">Email the team</a>
+        <a class="btn ghost" href="/team">Meet the students</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<Footer />
+
+</Base>

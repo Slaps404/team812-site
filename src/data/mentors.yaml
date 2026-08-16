@@ -1,0 +1,86 @@
+# Mentors, as published on the team's own site (themidnightmechanics.com/mentors-team812).
+# "order" controls display order; the file content loader does not preserve YAML
+# array order on its own.
+#
+# `featured: true` renders a full card with a portrait, a "known for" line, and a
+# bio. Mentors without a published bio stay `featured: false` and render in the
+# compact row underneath, with `placeholder: true` so the missing bio is flagged
+# by the site's unconfirmed-data treatment instead of shipping silently.
+#
+# PORTRAITS: drop a square photo at src/assets/mentors/<id>.jpg (or .png/.webp)
+# and it is picked up automatically — the id below is the filename. Until then
+# the card falls back to a monogram, so the layout is real before the photos are.
+
+- id: "dan-rupert"
+  order: 1
+  name: "Dan Rupert"
+  role: "Mechanical design"
+  tenure: "Over two decades on the team"
+  knownFor: ["Mechanical design", "CAD", "Gear ratios"]
+  credentials: "B.S. Mechanical Engineering"
+  featured: true
+  placeholder: false
+  bio: >-
+    A retired Preuss teacher who never actually left the shop. Mr. Rupert mentors the
+    mechanical side — CAD, gear ratios, and the fabrication that turns a sketch into a
+    part a student machined themselves. Rob Mainieri, Team 812's founding coach, brought
+    him into FIRST; before that he ran battle bot events with Rancho Bernardo students
+    and later led that school's team. He chose FIRST because it taught engineering and
+    Gracious Professionalism at the same time, and he has stayed with 812 through
+    retirement.
+
+- id: "shaoni-bandy"
+  order: 2
+  name: "Shaoni Bandy"
+  role: "Business and outreach"
+  tenure: "Over six years on the team"
+  knownFor: ["Business", "Outreach", "Team culture"]
+  credentials: "B.S. Biology and Human Development, UC San Diego; M.Ed."
+  honor: "Woodie Flowers Finalist Award — 2019 Orange County Regional"
+  featured: true
+  placeholder: false
+  bio: >-
+    Advises the half of the team that never appears on the field: sponsors, community
+    work, award submissions, and the story students tell about their own season. She
+    double majored in Biology and Human Development at UC San Diego and holds a master's
+    in education. An invitation from another mentor brought her into FIRST. In 2019 the
+    students nominated her for the Woodie Flowers Finalist Award, and the judges agreed.
+
+- id: "dan-oneill"
+  order: 3
+  name: "Dan O'Neill"
+  role: "Software and technology"
+  tenure: "Industry mentor"
+  knownFor: ["Software", "Engineering leadership", "Analytics"]
+  credentials: "BSME and MSCS, Santa Clara University"
+  featured: true
+  placeholder: false
+  bio: >-
+    A software executive and working developer who brings a career of shipped systems to
+    the software subteam. He has been VP of Engineering at The Experience Engine and at
+    Certona, CTO and EVP of Mood Media, and co-founder and CTO of Trusonic. Earlier he
+    was CTO of VU Net USA — MP3.com, Pressplay, eMusic — and VP of Engineering at
+    MP3.com, where he helped build the engineering and analytics teams through a $370M
+    IPO. Santa Clara University named him to its IPO Hall of Fame in 2000 and its
+    Distinguished Engineering Alumnus in 2009.
+
+- id: "dave-harry"
+  order: 4
+  name: "Dave Harry"
+  role: "Mentor"
+  featured: false
+  placeholder: true
+
+- id: "tom-lafleur"
+  order: 5
+  name: "Tom Lafleur"
+  role: "Mentor"
+  featured: false
+  placeholder: true
+
+- id: "mr-huang"
+  order: 6
+  name: "Mr. Huang"
+  role: "Mentor"
+  featured: false
+  placeholder: true
