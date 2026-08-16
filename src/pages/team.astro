@@ -6,53 +6,10 @@ import Shot from '../components/Shot.astro';
 import Roster from '../components/Roster.astro';
 import { PAIR_IMAGE_SIZES } from '../lib/imageLayout';
 
-import rosterImg from '../assets/photos/2026-states-IMG_1011.jpg';
 import schoolImg from '../assets/photos/2026-states-IMG_0935.jpg';
 import pitImg from '../assets/photos/2026-states-IMG_1045.jpg';
 import drivetrainImg from '../assets/photos/2026-states-IMG_1033.jpg';
 
-// Only facts the rest of the site already sources: founding year and San Diego
-// standing from the team record, subteam count from the list below, and the
-// public code archive on the homepage. Nothing here names a student.
-const facts = [
-  ['2001', 'Founded at Preuss'],
-  ['1st', 'FRC team in San Diego'],
-  ['5', 'Subteams'],
-  ['16', 'Seasons of public code'],
-];
-
-const subteams = [
-  {
-    num: '01',
-    name: 'Mechanical',
-    summary: 'Drivetrain, mechanisms, fabrication, and repair.',
-    detail: 'Students move from sketch to CAD to a machined part, then fix it again between matches.',
-  },
-  {
-    num: '02',
-    name: 'Electrical',
-    summary: 'Power, wiring, sensors, and reliable connections.',
-    detail: 'Wiring diagrams, crimping, and the discipline that keeps a robot alive through a full event.',
-  },
-  {
-    num: '03',
-    name: 'Software',
-    summary: 'Controls, version control, testing, and tools.',
-    detail: 'Java on the roboRIO, reviewed in Git, with every season public on GitHub since 2011.',
-  },
-  {
-    num: '04',
-    name: 'Strategy and scouting',
-    summary: 'Match plans, scouting notes, and decisions under pressure.',
-    detail: 'Data collected from the stands turns into alliance picks and a plan for the next match.',
-  },
-  {
-    num: '05',
-    name: 'Business, outreach, and media',
-    summary: 'Sponsors, community work, documentation, and the story around the robot.',
-    detail: 'Budgets, sponsor decks, and the photos and writing that make the season legible to everyone else.',
-  },
-];
 ---
 <Base
   title="Team | The Midnight Mechanics"
@@ -63,68 +20,11 @@ const subteams = [
 
 <main class="view on" id="v-team">
 
-  <section class="team-hero" data-reveal>
-    <div class="wrap split feature-split">
-      <div>
-        <p class="mono eyebrow">TEAM 812 / THE PREUSS SCHOOL UC SAN DIEGO</p>
-        <h1>Students, mentors, and the work between matches.</h1>
-        <p class="body team-lede">Team 812 is where Preuss students meet CAD, motor controllers, version control, and a hard deadline for the first time.</p>
-        <div class="team-hero-cta">
-          <a class="btn ghost" href="#subteams">See the subteams</a>
-          <a class="btn ghost" href="#roster">See the roster</a>
-        </div>
-      </div>
-      <Shot
-        src={rosterImg}
-        alt="The 2026 Team 812 roster in team shirts."
-        caption="The 2026 roster at the FIRST California Southern State Championship"
-        priority
-      />
-    </div>
-  </section>
-
-  <div class="stats" data-reveal>
-    <div class="stats-in">
-      {facts.map(([value, label]) => (
-        <div class="stat">
-          <div class="n">{value}</div>
-          <div class="k mono">{label}</div>
-        </div>
-      ))}
-    </div>
-  </div>
-
-  <section id="subteams" data-reveal>
-    <div class="wrap">
-      <div class="section-heading">
-        <div>
-          <p class="mono eyebrow">HOW THE TEAM IS ORGANIZED</p>
-          <h2>Five subteams, one deadline.</h2>
-        </div>
-        <p class="body">Every student joins a subteam and can move between them. The robot is the shared deadline that forces the work together.</p>
-      </div>
-      <div class="subteams" role="list">
-        {subteams.map((team) => (
-          <article class="subteam" role="listitem">
-            <p class="subteam-num mono">{team.num}</p>
-            <div class="subteam-copy">
-              <h3>{team.name}</h3>
-              <p class="body subteam-summary">{team.summary}</p>
-              <p class="subteam-detail">{team.detail}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <hr class="rule">
-
   <section data-reveal>
     <div class="wrap team-sections">
       <div>
         <p class="mono eyebrow">THE PEOPLE IN THE ROOM</p>
-        <h2>A team is more than the robot.</h2>
+        <h1>A team is more than the robot.</h1>
       </div>
       <div class="team-copy">
         <p class="body">Students design, build, code, test, explain, and repair. Mentors make room for the next question rather than taking the tool away. What a student can do in April is the real output of the season.</p>

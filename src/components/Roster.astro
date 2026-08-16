@@ -11,6 +11,7 @@ const total = groups.reduce((sum, group) => sum + group.data.members.length, 0);
         <h3 id={`roster-${group.id}`}>{group.data.group}</h3>
         <span class="roster-count mono">{group.data.members.length}</span>
       </div>
+      {group.data.summary && <p class="roster-group-summary">{group.data.summary}</p>}
       <ul class="roster-names">
         {group.data.members.map((member) => (
           <li class:list={['roster-name', { lead: member.lead }]}>

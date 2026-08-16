@@ -69,6 +69,8 @@ const roster = defineCollection({
   schema: z.object({
     order: z.number(),
     group: z.string(),
+    // One line on what the subteam actually does, shown under the group name.
+    summary: z.string().default(''),
     members: z
       .array(
         z.object({

@@ -7,12 +7,16 @@
 # the site's unconfirmed-data outline and are counted by the tuning panel, so
 # the page cannot ship with an unfilled slot by accident.
 #
+# `summary` is the one-line description of what the subteam does, shown under
+# the group name in the grid.
+#
 # Add or remove members freely: the grid reflows at any count.
 # `lead: true` marks a student lead. `year` is the graduation year.
 
 - id: "mechanical"
   order: 1
   group: "Mechanical"
+  summary: "Drivetrain, mechanisms, fabrication, and repair."
   members:
     - { name: "Student lead", lead: true }
     - { name: "Student name" }
@@ -26,6 +30,7 @@
 - id: "electrical"
   order: 2
   group: "Electrical"
+  summary: "Power, wiring, sensors, and reliable connections."
   members:
     - { name: "Student lead", lead: true }
     - { name: "Student name" }
@@ -36,6 +41,7 @@
 - id: "software"
   order: 3
   group: "Software"
+  summary: "Controls, version control, testing, and tools."
   members:
     - { name: "Student lead", lead: true }
     - { name: "Student name" }
@@ -47,6 +53,7 @@
 - id: "strategy"
   order: 4
   group: "Strategy and scouting"
+  summary: "Match plans, scouting notes, and decisions under pressure."
   members:
     - { name: "Student lead", lead: true }
     - { name: "Student name" }
@@ -57,6 +64,7 @@
 - id: "business"
   order: 5
   group: "Business, outreach, and media"
+  summary: "Sponsors, community work, documentation, and the story around the robot."
   members:
     - { name: "Student lead", lead: true }
     - { name: "Student name" }
@@ -66,6 +74,7 @@
 - id: "mentors"
   order: 6
   group: "Mentors"
+  summary: "Teachers, parents, and working engineers who coach, unblock, and keep the shop safe."
   members:
     - { name: "Mentor name" }
     - { name: "Mentor name" }

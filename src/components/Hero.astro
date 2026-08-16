@@ -1,25 +1,132 @@
 ---
 import { Image } from 'astro:assets';
-import heroImg from '../assets/photos/2026-states-IMG_1045.jpg';
+import speechImg from '../assets/photos/2026-awards-speech.png';
+import queueImg from '../assets/photos/2026-drive-team-queue.png';
+import studioImg from '../assets/photos/2026-robot-studio.png';
+import bannerImg from '../assets/photos/2026-season-banner.jpg';
 import { HERO_IMAGE_SIZES, HERO_IMAGE_WIDTHS } from '../lib/imageLayout';
+
+/* Order matters: the first slide is the LCP image, so it is the one that gets
+   eager loading and high fetch priority. Everything after it waits. */
+const slides = [
+  {
+    src: speechImg,
+    alt: 'A Team 812 student in a Midnight Mechanics shirt and safety glasses speaking into a microphone in front of a packed competition crowd.',
+    id: 'team-812-season-2026',
+  },
+  {
+    src: queueImg,
+    alt: 'Team 812 students in Midnight Mechanics shirts checking match strategy on their phones in the queue line beside the field.',
+    id: 'team-812-queue-line',
+  },
+  {
+    src: studioImg,
+    alt: 'The Team 812 competition robot on a white studio backdrop, showing its red 812 bumper and Preuss School, Qualcomm, and Nordson decals.',
+    id: 'team-812-robot-studio',
+  },
+  {
+    src: bannerImg,
+    alt: 'A Team 812 student standing with arms crossed in front of the competition robot on a white studio backdrop.',
+    id: 'team-812-season-banner',
+    // This artwork already has "Our Season 2026" set into it, so the hero
+    // headline steps aside while it is up rather than printing twice.
+    ownsHeadline: true,
+  },
+];
 ---
+{/* Full-bleed competition photos that cross-fade on a timer, so the hero runs
+    dark: the scrim carries the bottom of the frame down to the page ground and
+    the headline sits on it. The scrim and headline stay put across slides. */}
 <header class="hero">
-  <Image
-    class="hero-image"
-    src={heroImg}
-    alt="A Team 812 student and mentor working on the robot in the pit at the 2026 state championship."
-    data-gallery-id="team-812-robot-pit"
-    widths={HERO_IMAGE_WIDTHS}
-    sizes={HERO_IMAGE_SIZES}
-    loading="eager"
-    fetchpriority="high"
-  />
+  <div class="hero-slides" aria-roledescription="carousel" aria-label="Team 812 at the 2026 competition">
+    {slides.map((slide, index) => (
+      <div
+        class:list={['hero-slide', { 'is-active': index === 0 }]}
+        aria-hidden={index === 0 ? undefined : 'true'}
+        data-owns-headline={'ownsHeadline' in slide ? 'true' : undefined}
+      >
+        <Image
+          class="hero-image"
+          src={slide.src}
+          alt={slide.alt}
+          data-gallery-id={slide.id}
+          widths={HERO_IMAGE_WIDTHS}
+          sizes={HERO_IMAGE_SIZES}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          fetchpriority={index === 0 ? 'high' : 'low'}
+        />
+      </div>
+    ))}
+  </div>
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-content" data-reveal>
-    <h1>25 seasons of first-generation engineers.</h1>
-    <div class="cta">
-      <a class="btn solid" href="/sponsors">Sponsor Our 2027 Season</a>
-      <a class="btn ghost" href="https://github.com/preuss812" target="_blank" rel="noopener">Read Our Robot Code</a>
-    </div>
+    <h1>Our Season 2026</h1>
+  </div>
+  {/* Controls sit in their own corner cluster rather than on top of the photo,
+      so they never land over a face or compete with the headline. */}
+  <div class="hero-controls">
+    <button class="hero-arrow" type="button" data-hero-prev aria-label="Previous photo">
+      <span aria-hidden="true">&#8592;</span>
+    </button>
+    <button class="hero-arrow" type="button" data-hero-next aria-label="Next photo">
+      <span aria-hidden="true">&#8594;</span>
+    </button>
   </div>
 </header>
+
+<script>
+  const SLIDE_MS = 6000;
+
+  const setupHeroCarousel = () => {
+    const slides = Array.from(document.querySelectorAll<HTMLElement>('.hero-slide'));
+    const prev = document.querySelector<HTMLButtonElement>('[data-hero-prev]');
+    const next = document.querySelector<HTMLButtonElement>('[data-hero-next]');
+    if (slides.length < 2) return;
+
+    // A timed cross-fade is decorative motion, so honour the OS setting. The
+    // arrows still work — only the automatic advance is dropped.
+    const autoplays = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let current = 0;
+    let timer = 0;
+
+    const content = document.querySelector<HTMLElement>('.hero-content');
+
+    const show = (index: number) => {
+      slides[current].classList.remove('is-active');
+      slides[current].setAttribute('aria-hidden', 'true');
+      slides[index].classList.add('is-active');
+      slides[index].removeAttribute('aria-hidden');
+      current = index;
+      content?.classList.toggle('is-muted', slides[index].dataset.ownsHeadline === 'true');
+    };
+
+    const step = (delta: number) => show((current + delta + slides.length) % slides.length);
+
+    const stop = () => window.clearInterval(timer);
+    const start = () => {
+      if (!autoplays) return;
+      stop();
+      timer = window.setInterval(() => step(1), SLIDE_MS);
+    };
+
+    // A click means the reader is driving, so give them a fresh full interval
+    // before the timer takes over again.
+    prev?.addEventListener('click', () => {
+      step(-1);
+      start();
+    });
+    next?.addEventListener('click', () => {
+      step(1);
+      start();
+    });
+
+    // Nothing to animate while the tab is in the background.
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+    document.addEventListener('astro:before-swap', stop, { once: true });
+
+    start();
+  };
+
+  document.addEventListener('astro:page-load', setupHeroCarousel);
+</script>
