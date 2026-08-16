@@ -11,7 +11,8 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: 'npm run build && ASTRO_PREVIEW_BACKGROUND=0 npm run preview -- --host 127.0.0.1 --port 4516',
+    command: 'npm run build && npm run preview -- --host 127.0.0.1 --port 4516',
+    env: { ASTRO_PREVIEW_BACKGROUND: '0' },
     url: 'http://127.0.0.1:4516',
     reuseExistingServer: false,
   },

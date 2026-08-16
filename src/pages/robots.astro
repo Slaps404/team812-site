@@ -68,8 +68,15 @@ import robotPitImg from '../assets/photos/team-812-robot-pit.png';
           <article class="robot-row" role="listitem">
             <p class="robot-row-year">{robot.year}</p>
             <div class="robot-row-copy">
-              <h3>{robot.game ?? `Robot record / ${robot.year}`}</h3>
+              <h3>{robot.game}</h3>
               <p class="body">{robot.description}</p>
+              {robot.awards && robot.awards.length > 0 && (
+                <div class="robot-awards">
+                  {robot.awards.map((award) => (
+                    <span class="robot-award-tag">{award}</span>
+                  ))}
+                </div>
+              )}
             </div>
             <a class="robot-row-link" href={`/robots/${robot.year}`} aria-label={`Open the ${robot.year} robot record`}>Record <span aria-hidden="true">↗</span></a>
           </article>

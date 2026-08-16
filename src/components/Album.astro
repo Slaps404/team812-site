@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets';
+import { CONTENT_IMAGE_WIDTHS, SPLIT_IMAGE_SIZES } from '../lib/imageLayout';
+
+export interface PhotoItem {
+  src: ImageMetadata;
+  alt: string;
+  caption: string;
+}
+
+interface Props {
+  photos?: PhotoItem[];
+  year: number;
+}
+
+const { photos = [], year } = Astro.props;
+const hasPhotos = photos.length > 0;
+const hasMultiple = photos.length > 1;
+---
+
+{hasPhotos ? (
+  <div class="robot-album" data-album>
+    <figure class="shot robot-album-main">
+      <Image
+        class="robot-album-main-img"
+        src={photos[0].src}
+        alt={photos[0].alt}
+        data-gallery-id={photos[0].src.src}
+        widths={CONTENT_IMAGE_WIDTHS}
+        sizes={SPLIT_IMAGE_SIZES}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <figcaption class="mono robot-album-caption">{photos[0].caption}</figcaption>
+    </figure>
+
+    {hasMultiple && (
+      <div class="robot-album-thumbs" role="tablist" aria-label={`${year} season photo album`}>
+        {photos.map((photo, idx) => (
+          <button
+            type="button"
+            class:list={['robot-album-thumb', { active: idx === 0 }]}
+            data-index={idx}
+            data-src={photo.src.src}
+            data-alt={photo.alt}
+            data-caption={photo.caption}
+            role="tab"
+            aria-selected={idx === 0 ? 'true' : 'false'}
+            aria-label={`View photo: ${photo.caption}`}
+          >
+            <Image
+              src={photo.src}
+              alt=""
+              width={160}
+              height={120}
+              loading="lazy"
+            />
+          </button>
+        ))}
+      </div>
+    )}
+  </div>
+) : (
+  <div class="robot-detail-empty" role="status">
+    <p class="mono eyebrow">ARCHIVAL RECORD</p>
+    <p class="empty-heading">No photographic record on file.</p>
+    <p class="body empty-sub">Historical match logs and public code for the {year} season remain archived.</p>
+  </div>
+)}
+
+<script>
+  const setupAlbums = () => {
+    document.querySelectorAll('[data-album]').forEach((album) => {
+      const mainImg = album.querySelector('.robot-album-main-img') as HTMLImageElement;
+      const caption = album.querySelector('.robot-album-caption');
+      const thumbs = album.querySelectorAll('.robot-album-thumb');
+
+      thumbs.forEach((thumb) => {
+        thumb.addEventListener('click', () => {
+          thumbs.forEach((t) => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          thumb.classList.add('active');
+          thumb.setAttribute('aria-selected', 'true');
+
+          const newSrc = thumb.getAttribute('data-src');
+          const newAlt = thumb.getAttribute('data-alt');
+          const newCaption = thumb.getAttribute('data-caption');
+
+          if (mainImg && newSrc) {
+            mainImg.src = newSrc;
+            mainImg.removeAttribute('srcset');
+            if (newAlt) mainImg.alt = newAlt;
+            mainImg.setAttribute('data-gallery-id', newSrc);
+          }
+          if (caption && newCaption) {
+            caption.textContent = newCaption;
+          }
+        });
+      });
+    });
+  };
+
+  document.addEventListener('astro:page-load', setupAlbums);
+</script>
