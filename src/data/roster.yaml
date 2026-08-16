@@ -1,0 +1,73 @@
+# Student and mentor roster, grouped by subteam. "order" controls display order;
+# the file content loader does not preserve YAML array order on its own.
+#
+# Every member starts as a placeholder so the layout is real before the names
+# are. Replace `name` with the student's name and set `placeholder: false` once
+# the name is confirmed and cleared for publication. Placeholders render with
+# the site's unconfirmed-data outline and are counted by the tuning panel, so
+# the page cannot ship with an unfilled slot by accident.
+#
+# Add or remove members freely: the grid reflows at any count.
+# `lead: true` marks a student lead. `year` is the graduation year.
+
+- id: "mechanical"
+  order: 1
+  group: "Mechanical"
+  members:
+    - { name: "Student lead", lead: true }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+
+- id: "electrical"
+  order: 2
+  group: "Electrical"
+  members:
+    - { name: "Student lead", lead: true }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+
+- id: "software"
+  order: 3
+  group: "Software"
+  members:
+    - { name: "Student lead", lead: true }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+
+- id: "strategy"
+  order: 4
+  group: "Strategy and scouting"
+  members:
+    - { name: "Student lead", lead: true }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+
+- id: "business"
+  order: 5
+  group: "Business, outreach, and media"
+  members:
+    - { name: "Student lead", lead: true }
+    - { name: "Student name" }
+    - { name: "Student name" }
+    - { name: "Student name" }
+
+- id: "mentors"
+  order: 6
+  group: "Mentors"
+  members:
+    - { name: "Mentor name" }
+    - { name: "Mentor name" }
+    - { name: "Mentor name" }
+    - { name: "Mentor name" }

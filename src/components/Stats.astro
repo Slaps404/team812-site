@@ -2,21 +2,89 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 const stats = (await getCollection('stats')).sort((a, b) => a.data.order - b.data.order);
+
+function parseStatValue(raw: string) {
+  const match = raw.match(/^([^0-9]*)([0-9]+(?:\.[0-9]+)?)(.*)$/);
+  if (!match) return { num: null, prefix: '', suffix: '', original: raw };
+  return {
+    prefix: match[1] || '',
+    num: parseFloat(match[2]),
+    suffix: match[3] || '',
+    original: raw
+  };
+}
 ---
-<div class="stats" data-reveal>
+<div class="stats" data-reveal id="stats-band">
   <div class="stats-in">
-    {stats.map((s: CollectionEntry<'stats'>) => (
-      <div class="stat">
-        <div class="n">
-          {s.data.flagged ? (
-            <span class="vf">{s.data.value}</span>
-          ) : (
-            <Fragment>{s.data.value}</Fragment>
-          )}
-          {s.data.suffix && <span style="font-size:.5em;vertical-align:.55em">{s.data.suffix}</span>}
+    {stats.map((s: CollectionEntry<'stats'>) => {
+      const parsed = parseStatValue(s.data.value);
+      return (
+        <div class="stat">
+          <div class="n">
+            {parsed.num !== null ? (
+              <span
+                class="stat-counter"
+                data-target={parsed.num}
+                data-prefix={parsed.prefix}
+                data-suffix={parsed.suffix + (s.data.suffix || '')}
+              >
+                {s.data.value}{s.data.suffix || ''}
+              </span>
+            ) : (
+              <Fragment>{s.data.value}{s.data.suffix && <span style="font-size:.5em;vertical-align:.55em">{s.data.suffix}</span>}</Fragment>
+            )}
+          </div>
+          <div class="k mono">{s.data.label}</div>
         </div>
-        <div class="k mono">{s.data.label}</div>
-      </div>
-    ))}
+      );
+    })}
   </div>
 </div>
+
+<script>
+  const setupStatCounters = () => {
+    const section = document.getElementById('stats-band');
+    if (!section) return;
+
+    const counters = section.querySelectorAll<HTMLElement>('.stat-counter');
+    if (!counters.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          observer.unobserve(entry.target);
+
+          counters.forEach((counter) => {
+            const target = parseFloat(counter.dataset.target || '0');
+            const prefix = counter.dataset.prefix || '';
+            const suffix = counter.dataset.suffix || '';
+            const duration = 1200;
+            const startTime = performance.now();
+
+            const update = (currentTime: number) => {
+              const elapsed = currentTime - startTime;
+              const progress = Math.min(1, elapsed / duration);
+              // easeOutExpo curve
+              const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+              const currentVal = Math.round(easeProgress * target);
+
+              counter.textContent = `${prefix}${currentVal.toLocaleString()}${suffix}`;
+
+              if (progress < 1) {
+                requestAnimationFrame(update);
+              } else {
+                counter.textContent = `${prefix}${target.toLocaleString()}${suffix}`;
+              }
+            };
+
+            requestAnimationFrame(update);
+          });
+        }
+      });
+    }, { threshold: 0.25 });
+
+    observer.observe(section);
+  };
+
+  document.addEventListener('astro:page-load', setupStatCounters);
+</script>

@@ -1,0 +1,156 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Shot from '../components/Shot.astro';
+
+import pitImg from '../assets/photos/2026-states-IMG_1045.jpg';
+
+const email = 'team812@preuss.ucsd.edu';
+
+// The site is a static build, so there is no server to accept a form post.
+// Every route below is a real inbox or account the team already checks, and a
+// mailto with a prefilled subject does the work a form would have done.
+const channels = [
+  {
+    num: '01',
+    name: 'Sponsors and donors',
+    summary: 'Sponsorship levels, invoices, W-9s, and in-kind donations.',
+    detail: 'Tell us the level you are considering and who should receive the invoice. Corporate sponsors get a W-9 and a receipt by email.',
+    action: { label: email, href: `mailto:${email}?subject=Sponsorship%20inquiry%20%E2%80%94%20Team%20812` },
+    aside: { label: 'See the tiers first', href: '/sponsors' },
+  },
+  {
+    num: '02',
+    name: 'Preuss students and families',
+    summary: 'Joining the team, meeting times, and what the season asks of you.',
+    detail: 'No engineering experience needed. Say what year you are in and which subteam sounds interesting, and we will point you to the next meeting.',
+    action: { label: email, href: `mailto:${email}?subject=Joining%20Team%20812` },
+    aside: { label: 'Read about the subteams', href: '/team#subteams' },
+  },
+  {
+    num: '03',
+    name: 'Mentors and volunteers',
+    summary: 'Engineers, teachers, and parents who can give time in build season.',
+    detail: 'Mechanical, electrical, software, and business mentors are all useful. A few hours a week during January and February makes a real difference.',
+    action: { label: email, href: `mailto:${email}?subject=Mentoring%20Team%20812` },
+  },
+  {
+    num: '04',
+    name: 'Other FRC teams and press',
+    summary: 'Code questions, event logistics, interviews, and photo requests.',
+    detail: 'Our code is public going back to 2011, so start on GitHub if the question is about the robot. Anything else reaches us at the same address.',
+    action: { label: email, href: `mailto:${email}?subject=Team%20812%20inquiry` },
+    aside: { label: 'Browse the code archive', href: 'https://github.com/preuss812' },
+  },
+];
+---
+<Base
+  title="Contact | The Midnight Mechanics"
+  description="Reach FRC Team 812 at The Preuss School UC San Diego about sponsorship, joining the team, mentoring, or press."
+>
+
+<Nav current="contact" />
+
+<main class="view on" id="v-contact">
+
+  <section class="team-hero" data-reveal>
+    <div class="wrap split feature-split">
+      <div>
+        <p class="mono eyebrow">CONTACT / TEAM 812</p>
+        <h1>One inbox, checked by students and mentors.</h1>
+        <p class="body team-lede">Whether you want to sponsor the team, join it, mentor it, or ask how the robot works, everything reaches us at the same address.</p>
+        <div class="team-hero-cta">
+          <a class="btn solid" href={`mailto:${email}`}>Email {email}</a>
+          <a class="btn ghost" href="#channels">What to send</a>
+        </div>
+      </div>
+      <Shot
+        src={pitImg}
+        alt="Team 812 students and mentors working around their robot at the 2026 state championship."
+        caption="The team in the pit at the FIRST California Southern State Championship"
+        priority
+      />
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section id="channels" data-reveal>
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <p class="mono eyebrow">WHAT ARE YOU WRITING ABOUT</p>
+          <h2>Four reasons people write to us.</h2>
+        </div>
+        <p class="body">They all land in the same inbox. Picking the right subject line just gets your message to the right student faster.</p>
+      </div>
+      <div class="subteams" role="list">
+        {channels.map((channel) => (
+          <article class="subteam" role="listitem">
+            <p class="subteam-num mono">{channel.num}</p>
+            <div class="subteam-copy">
+              <h3>{channel.name}</h3>
+              <p class="body subteam-summary">{channel.summary}</p>
+              <p class="subteam-detail">{channel.detail}</p>
+              <p class="body contact-actions">
+                <a href={channel.action.href}>{channel.action.label}</a>
+                {channel.aside && (
+                  <>
+                    <span class="contact-sep" aria-hidden="true">/</span>
+                    <a
+                      href={channel.aside.href}
+                      target={channel.aside.href.startsWith('http') ? '_blank' : undefined}
+                      rel={channel.aside.href.startsWith('http') ? 'noopener' : undefined}
+                    >{channel.aside.label}</a>
+                  </>
+                )}
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section data-reveal style="padding-top:0">
+    <div class="wrap team-sections">
+      <div>
+        <p class="mono eyebrow">WHERE TO FIND US</p>
+        <h2>We build on campus at Preuss.</h2>
+      </div>
+      <div class="team-copy">
+        <p class="body">Team 812 has built at <a href="https://preuss.ucsd.edu/index.html" target="_blank" rel="noopener">The Preuss School UC San Diego</a> since 2001. The shop runs hardest from January through April, so replies are slower during build season and at competitions — expect a few days rather than a few hours.</p>
+        <div class="team-roles">
+          <div class="team-role">
+            <h3>By mail</h3>
+            <p class="body">FRC Team 812 &mdash; The Midnight Mechanics<br>The Preuss School UC San Diego<br>9500 Gilman Drive, La Jolla, CA 92093</p>
+          </div>
+          <div class="team-role">
+            <h3>Online</h3>
+            <p class="body"><a href="https://github.com/preuss812" target="_blank" rel="noopener">GitHub</a> for every season of robot code since 2011, and <a href="https://instagram.com/midnightmechanics" target="_blank" rel="noopener">Instagram</a> for build season and competition weekends.</p>
+          </div>
+        </div>
+        <p class="note">Visiting campus requires checking in at the front office. Email us first so someone can meet you.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section data-reveal>
+    <div class="wrap">
+      <h2>Back the students who build it.</h2>
+      <p class="body" style="margin-top:calc(var(--space) * 1.2)">Sponsorships fund parts, travel, and registration for the 2027 season.</p>
+      <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6);flex-wrap:wrap">
+        <a class="btn solid" href="/sponsors">View sponsorship tiers</a>
+        <a class="btn ghost" href="/team">Meet the team</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<Footer />
+
+</Base>

@@ -1,10 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import Album, { type PhotoItem } from '../../components/Album.astro';
 import { robotSeasons, type RobotSeason, getAwardDescription } from '../../data/robots';
 
+import bigJiaweiTransparent from '../../assets/photos/big-jiawei-transparent.png';
 import pit from '../../assets/photos/team-812-robot-pit.png';
 import states1026 from '../../assets/photos/2026-states-IMG_1026.jpg';
 import states1033 from '../../assets/photos/2026-states-IMG_1033.jpg';
@@ -24,6 +26,12 @@ const { robot } = Astro.props as { robot: RobotSeason };
 // Photos album registry by year (add any season photos here)
 const seasonAlbums: Record<number, PhotoItem[]> = {
   2026: [
+    {
+      src: bigJiaweiTransparent,
+      alt: 'Team 812 competition robot Big Jiawei with red bumpers and Qualcomm/Nordson decals.',
+      caption: 'Team 812 competition robot Big Jiawei',
+      isTransparent: true,
+    },
     {
       src: pit,
       alt: 'Team 812 students and mentor tuning the robot in the pit at the state championship.',
@@ -62,7 +70,7 @@ const photos = seasonAlbums[robot.year] ?? [];
     <div class="wrap">
       <a class="back-link mono" href="/robots">← Robot archive</a>
       <p class="mono eyebrow">SEASON RECORD / {robot.year}</p>
-      <h1>{robot.game ? `The ${robot.game} robot.` : `The ${robot.year} robot record.`}</h1>
+      <h1>{robot.name ? `${robot.name}.` : (robot.game ? `The ${robot.game} robot.` : `The ${robot.year} robot record.`)}</h1>
       <p class="body archive-lede">{robot.description}</p>
     </div>
   </section>
@@ -93,7 +101,7 @@ const photos = seasonAlbums[robot.year] ?? [];
                 const desc = getAwardDescription(award);
                 return (
                   <span class:list={['robot-award-tag', { major: isMajor }]} tabindex="0">
-                    {isMajor ? `★ ${award}` : award}
+                    {award}
                     <span class="award-tooltip" role="tooltip">{desc}</span>
                   </span>
                 );
@@ -123,7 +131,119 @@ const photos = seasonAlbums[robot.year] ?? [];
     </div>
   </section>
 
-  <hr class="rule">
+  <!-- TECHNICAL SPECIFICATIONS (APPLE SPEC SHEET STYLE) -->
+  {robot.technicalSpecs && robot.technicalSpecs.length > 0 && (
+    <section data-reveal style="padding-top:calc(var(--space) * 3)">
+      <div class="wrap">
+        <p class="mono eyebrow">TECH SPECS</p>
+        <h2>Technical Specifications.</h2>
+        <p class="body" style="max-width:40em;margin-top:calc(var(--space) * .8)">
+          Subsystem architecture, motor power distribution, and control software for {robot.name || robot.game}.
+        </p>
+
+        <div class="apple-specs-table">
+          {robot.technicalSpecs.map((group) => (
+            <div class="apple-spec-row">
+              <div class="apple-spec-category">
+                <h3>{group.category}</h3>
+              </div>
+              <div class="apple-spec-content">
+                <dl class="apple-spec-dl">
+                  {group.specs.map((item) => (
+                    <div class="apple-spec-item">
+                      <dt class="apple-spec-dt">{item.label}</dt>
+                      <dd class="apple-spec-dd">{item.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- COMPETITION EVENT RESULTS (EDITORIAL IMAGE-PAIRED ARTICLES) -->
+  {robot.year === 2026 && (
+    <section data-reveal class="event-recap-section">
+      <div class="wrap">
+        <p class="mono eyebrow">COMPETITION LOGS</p>
+        <h2>Season Event Results.</h2>
+
+        <!-- EVENT 1: SAN DIEGO (Image Left, Text Right) -->
+        <article class="event-recap-article" style="margin-top:calc(var(--space) * 2)">
+          <div class="event-recap-header">
+            <h3 class="event-recap-title">CA District San Diego Event Results</h3>
+            <p class="event-recap-meta">March 2026 • San Diego, CA</p>
+          </div>
+          <div class="event-recap-grid">
+            <figure class="event-recap-figure">
+              <Image src={states1026} alt="Mentor and students calibrating the shooter mechanism" width={600} height={400} />
+              <figcaption class="event-recap-caption">Shooter mechanism calibration and tuning in the pit</figcaption>
+            </figure>
+            <div class="event-recap-body">
+              <p>
+                We kicked off our 2026 campaign at the CA District San Diego Event presented by Qualcomm from March 20–22. Finishing qualification matches with a strong 10-6-0 record, Team 812 secured the 8th seed ranking.
+              </p>
+              <p>
+                During alliance selection, we competed in the playoffs as the Captain of Alliance 6, partnering with Team 5474 as our first pick and Team 4160 as our second pick.
+              </p>
+              <p>
+                In the double elimination bracket, Alliance 6 fought through four intense rounds, clutching elimination victories in Match 6 (147–120) and Match 9 (228–206) before concluding our run in Round 4. Earning 35 total district points, Big Jiawei established a competitive foundation for the rest of the season.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- EVENT 2: SAN GABRIEL VALLEY (Text Left, Image Right) -->
+        <article class="event-recap-article">
+          <div class="event-recap-header">
+            <h3 class="event-recap-title">CA District San Gabriel Valley Event Results</h3>
+            <p class="event-recap-meta">April 2026 • San Gabriel Valley, CA</p>
+          </div>
+          <div class="event-recap-grid">
+            <div class="event-recap-body">
+              <p>
+                Heading into San Gabriel Valley, our software and mechanical subteams delivered key improvements. We deployed updated closed-loop velocity PID curves for Big Jiawei's dual Kraken flywheels, dropping our spin-up time to under 120ms and enabling accurate shooting-while-moving.
+              </p>
+              <p>
+                Advancing through demanding playoff matches, Big Jiawei anchored alliance scoring with rapid ground intake cycles and dependable teleop shooting. Our strong tournament performance and district ranking points officially earned Team 812 a spot at the FIRST California Southern State Championship.
+              </p>
+            </div>
+            <figure class="event-recap-figure">
+              <Image src={states1033} alt="Students and mentor repairing the drivetrain" width={600} height={400} />
+              <figcaption class="event-recap-caption">Drivetrain servicing between playoff elimination matches</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- EVENT 3: STATE CHAMPIONSHIP (Image Left, Text Right) -->
+        <article class="event-recap-article">
+          <div class="event-recap-header">
+            <h3 class="event-recap-title">Southern California State Championship Results</h3>
+            <p class="event-recap-meta">April 2026 • State Championship Tournament</p>
+          </div>
+          <div class="event-recap-grid">
+            <figure class="event-recap-figure">
+              <Image src={states1045} alt="Team 812 members and robot at State Championship" width={600} height={400} />
+              <figcaption class="event-recap-caption">Team 812 pit crew and drive team at the State Championship</figcaption>
+            </figure>
+            <div class="event-recap-body">
+              <p>
+                The pinnacle of our 2026 season brought Big Jiawei to the FIRST California Southern State Championship, competing head-to-head against the top-ranked programs in the state.
+              </p>
+              <p>
+                Facing elite defense in the playoff division, our drive team pushed the swerve chassis to maximum velocity while our pit crew maintained peak motor thermals and gear mesh between tight queue times. Qualifying for and competing at States represents a landmark achievement for Team 812 and The Preuss School UC San Diego—demonstrating what first-generation students can accomplish through engineering discipline and teamwork.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  )}
+
+  <hr class="rule" style="margin-top:calc(var(--space) * 4)">
 
   <section data-reveal>
     <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:calc(var(--space) * 1.5)">

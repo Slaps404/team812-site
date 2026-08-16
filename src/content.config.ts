@@ -61,4 +61,46 @@ const sponsors = defineCollection({
   }),
 });
 
-export const collections = { stats, tiers, funds, reasons, sponsors };
+// Roster groups on the team page. Members default to placeholders so an
+// unfilled slot renders with the site's unconfirmed-data treatment instead of
+// silently shipping as a real name.
+const roster = defineCollection({
+  loader: file('src/data/roster.yaml'),
+  schema: z.object({
+    order: z.number(),
+    group: z.string(),
+    members: z
+      .array(
+        z.object({
+          name: z.string(),
+          year: z.string().default(''),
+          lead: z.boolean().default(false),
+          placeholder: z.boolean().default(true),
+        }),
+      )
+      .default([]),
+  }),
+});
+
+// Mentors on the mentors page. Everything here comes from the team's own
+// published mentor bios; a mentor with no published bio stays `featured: false`
+// and `placeholder: true`, which renders in the compact row with the site's
+// unconfirmed-data treatment rather than an invented biography.
+const mentors = defineCollection({
+  loader: file('src/data/mentors.yaml'),
+  schema: z.object({
+    order: z.number(),
+    name: z.string(),
+    role: z.string(),
+    tenure: z.string().default(''),
+    knownFor: z.array(z.string()).default([]),
+    credentials: z.string().default(''),
+    // A FIRST award given to this mentor by name, not to the team.
+    honor: z.string().default(''),
+    bio: z.string().default(''),
+    featured: z.boolean().default(false),
+    placeholder: z.boolean().default(true),
+  }),
+});
+
+export const collections = { stats, tiers, funds, reasons, sponsors, roster, mentors };

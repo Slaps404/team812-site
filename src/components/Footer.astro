@@ -36,5 +36,80 @@ const preussLogo = 'https://upload.wikimedia.org/wikipedia/en/b/be/The_Preuss_Sc
           <span>Instagram <small>@midnightmechanics</small></span>
         </a>
       </nav>
+      <p class="chant" id="footer-chant">
+        <span class="chant-word" id="word-what">What</span>
+        <span class="chant-word" id="word-time">time</span>
+        <span class="chant-karaoke-word" id="word-is">is</span>
+        <span class="chant-word" id="word-it">it?...</span>
+        <span class="chant-word chant-highlight" id="midnight-word">Midnight!</span>
+      </p>
     </div>
   </footer>
+
+  <script>
+    const setupChant = () => {
+      const chant = document.getElementById('footer-chant');
+      if (!chant) return;
+
+      const wordWhat = document.getElementById('word-what');
+      const wordTime = document.getElementById('word-time');
+      const wordIs = document.getElementById('word-is');
+      const wordIt = document.getElementById('word-it');
+      const midnightWord = document.getElementById('midnight-word');
+
+      if (wordIs) wordIs.textContent = "is";
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            observer.unobserve(entry.target);
+
+            // 1. "What" lights up
+            setTimeout(() => {
+              wordWhat?.classList.add('is-active');
+            }, 150);
+
+            // 2. "time" lights up
+            setTimeout(() => {
+              wordTime?.classList.add('is-active');
+            }, 350);
+
+            // 3. "is" turns into "isss" and smoothly sweeps highlight across it
+            setTimeout(() => {
+              if (wordIs) {
+                wordIs.textContent = "isss";
+                const startTime = performance.now();
+                const duration = 450; // fast & snappy 450ms sweep
+
+                const animateFill = (now: number) => {
+                  const elapsed = now - startTime;
+                  const progress = Math.min(100, (elapsed / duration) * 100);
+                  wordIs.style.setProperty('--fill-pct', `${progress}%`);
+
+                  if (progress < 100) {
+                    requestAnimationFrame(animateFill);
+                  } else {
+                    wordIs.classList.add('is-active');
+
+                    // 4. "it?..." lights up
+                    setTimeout(() => {
+                      wordIt?.classList.add('is-active');
+
+                      // 5. Short punchy suspense pause then BAM: "Midnight!"
+                      setTimeout(() => {
+                        midnightWord?.classList.add('is-active');
+                      }, 400);
+                    }, 200);
+                  }
+                };
+                requestAnimationFrame(animateFill);
+              }
+            }, 600);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      observer.observe(chant);
+    };
+    document.addEventListener('astro:page-load', setupChant);
+  </script>

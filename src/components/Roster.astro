@@ -1,0 +1,26 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const groups = (await getCollection('roster')).sort((a, b) => a.data.order - b.data.order);
+const total = groups.reduce((sum, group) => sum + group.data.members.length, 0);
+---
+<div class="roster">
+  {groups.map((group: CollectionEntry<'roster'>) => (
+    <div class="roster-group" role="group" aria-labelledby={`roster-${group.id}`}>
+      <div class="roster-group-head">
+        <h3 id={`roster-${group.id}`}>{group.data.group}</h3>
+        <span class="roster-count mono">{group.data.members.length}</span>
+      </div>
+      <ul class="roster-names">
+        {group.data.members.map((member) => (
+          <li class:list={['roster-name', { lead: member.lead }]}>
+            <span class:list={{ ph: member.placeholder }}>{member.name}</span>
+            {member.year && <span class="roster-year">'{member.year.slice(-2)}</span>}
+            {member.lead && <span class="roster-lead-tag">Lead</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>
+<p class="roster-total mono">{total} people on the 2026 roster</p>

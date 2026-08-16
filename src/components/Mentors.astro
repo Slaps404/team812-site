@@ -1,0 +1,114 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+// Portraits are optional and matched by id: src/assets/mentors/dan-rupert.jpg
+// fills Dan Rupert's card. Nothing here has to change when a photo arrives —
+// dropping the file in is the whole edit. Until then the card renders a
+// monogram, which keeps the grid rhythm identical either way.
+const portraitModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/mentors/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true },
+);
+const portraits = new Map(
+  Object.entries(portraitModules).map(([path, module]) => [
+    path.split('/').pop()!.replace(/\.[^.]+$/, ''),
+    module.default,
+  ]),
+);
+
+// Titles are dropped so "Mr. Huang" reads as H rather than MH.
+const initials = (name: string) =>
+  name
+    .replace(/^(Mr|Mrs|Ms|Dr)\.?\s+/i, '')
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join('');
+
+// Resolved here rather than in the markup: the template stays expression-only,
+// which is what the rest of the components do.
+const mentors = (await getCollection('mentors'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((mentor) => ({
+    ...mentor.data,
+    portrait: portraits.get(mentor.id),
+    monogram: initials(mentor.data.name),
+  }));
+
+const featured = mentors.filter((mentor) => mentor.featured);
+const others = mentors.filter((mentor) => !mentor.featured);
+---
+<div class="mentor-grid">
+  {featured.map((mentor) => (
+    <article class="mentor-card">
+      <div class:list={['mentor-portrait', { 'is-monogram': !mentor.portrait }]}>
+        {mentor.portrait ? (
+          <Image
+            src={mentor.portrait}
+            alt={`${mentor.name}, ${mentor.role} mentor for Team 812.`}
+            widths={[240, 480, 720]}
+            sizes="(max-width: 820px) 45vw, 21rem"
+            loading="lazy"
+          />
+        ) : (
+          <span class="mentor-monogram" aria-hidden="true">{mentor.monogram}</span>
+        )}
+      </div>
+      <div class="mentor-body">
+        <h3>{mentor.name}</h3>
+        <p class="mentor-role mono">{mentor.role}</p>
+        {mentor.knownFor.length > 0 && (
+          <ul class="mentor-tags" aria-label={`What ${mentor.name} is known for`}>
+            {mentor.knownFor.map((tag) => <li>{tag}</li>)}
+          </ul>
+        )}
+        {mentor.bio && <p class="mentor-bio">{mentor.bio}</p>}
+        <dl class="mentor-meta">
+          {mentor.tenure && (
+            <div class="mentor-meta-row">
+              <dt class="mono">With 812</dt>
+              <dd>{mentor.tenure}</dd>
+            </div>
+          )}
+          {mentor.credentials && (
+            <div class="mentor-meta-row">
+              <dt class="mono">Background</dt>
+              <dd>{mentor.credentials}</dd>
+            </div>
+          )}
+          {mentor.honor && (
+            <div class="mentor-meta-row honor">
+              <dt class="mono">Honored</dt>
+              <dd>{mentor.honor}</dd>
+            </div>
+          )}
+        </dl>
+      </div>
+    </article>
+  ))}
+</div>
+
+{others.length > 0 && (
+  <div class="mentor-more">
+    <p class="mono mentor-more-label">Also in the shop</p>
+    <ul class="mentor-more-list">
+      {others.map((mentor) => (
+        <li class="mentor-chip">
+          <span class="mentor-chip-face">
+            {mentor.portrait ? (
+              <Image src={mentor.portrait} alt="" widths={[96, 192]} sizes="3rem" loading="lazy" />
+            ) : (
+              <span aria-hidden="true">{mentor.monogram}</span>
+            )}
+          </span>
+          <span class="mentor-chip-copy">
+            <span class:list={['mentor-chip-name', { ph: mentor.placeholder }]}>{mentor.name}</span>
+            <span class="mentor-chip-role mono">{mentor.role}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+    <p class="mentor-more-note">Bios for these mentors are still being collected. Thank you all the same.</p>
+  </div>
+)}

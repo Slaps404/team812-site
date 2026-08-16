@@ -1,76 +1,235 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import Shot from '../components/Shot.astro';
+import Album, { type PhotoItem } from '../components/Album.astro';
 import { robotSeasons, getAwardDescription } from '../data/robots';
 
-import robotPitImg from '../assets/photos/team-812-robot-pit.png';
+import bigJiaweiTransparent from '../assets/photos/big-jiawei-transparent.png';
+import pit from '../assets/photos/team-812-robot-pit.png';
+import states1026 from '../assets/photos/2026-states-IMG_1026.jpg';
+import states1033 from '../assets/photos/2026-states-IMG_1033.jpg';
+import states1045 from '../assets/photos/2026-states-IMG_1045.jpg';
+import tbaFavicon from '../assets/logos/tba-favicon.ico';
+import githubFavicon from '../assets/logos/github-favicon.svg';
+
+const currentRobot = robotSeasons[0];
+const pastRobots = robotSeasons.slice(1);
+
+const photos2026: PhotoItem[] = [
+  {
+    src: bigJiaweiTransparent,
+    alt: 'Team 812 competition robot Big Jiawei with red bumpers and Qualcomm/Nordson decals.',
+    caption: 'Team 812 competition robot Big Jiawei',
+    isTransparent: true,
+  },
+  {
+    src: pit,
+    alt: 'Team 812 students and mentor tuning the robot in the pit at the state championship.',
+    caption: 'Pit crew tuning at the FIRST California Southern State Championship',
+  },
+  {
+    src: states1026,
+    alt: "A mentor and students working on Team 812's shooter mechanism.",
+    caption: 'Shooter mechanism calibration between matches',
+  },
+  {
+    src: states1033,
+    alt: 'Students and mentor repairing the drivetrain in the pit.',
+    caption: 'Drivetrain repair in the pits before queueing',
+  },
+  {
+    src: states1045,
+    alt: 'Team 812 members and robot at the 2026 state championship.',
+    caption: 'Team 812 pit crew at the State Championship',
+  },
+];
 ---
 <Base
   title="Robots | The Midnight Mechanics"
-  description="A year-by-year archive of Team 812 competition robots and the code behind them."
+  description="Explore Team 812's 2026 competition robot Big Jiawei, state championship run, and 16-season archive."
 >
 
 <Nav current="robots" />
 
 <main class="view on" id="v-robots">
-  <section class="archive-hero" data-reveal>
-    <div class="wrap split feature-split">
-      <div>
-        <h1>Every robot we've built.</h1>
-        <p class="body archive-lede">An archive of our competition robots, match results, and code repositories dating back to 2011.</p>
-        <a class="btn ghost" href="#robot-seasons">View all seasons</a>
-      </div>
-      <Shot
-        src={robotPitImg}
-        alt="A Team 812 student and mentor working on the robot in the pit at the 2026 state championship."
-        caption="Pit crew tuning at the FIRST California Southern State Championship"
-        priority
-      />
-    </div>
-  </section>
-
-  <section data-reveal>
+  <!-- 2026 SPOTLIGHT HERO -->
+  <section class="archive-hero" data-reveal style="padding-bottom:calc(var(--space) * 2)">
     <div class="wrap">
-      <p class="mono eyebrow">FEATURED RECORD</p>
-      <div class="robot-feature">
-        <div>
-          <p class="robot-year">2026 <span>/ {robotSeasons[0].game}</span></p>
-          <h2>The current machine, under pressure.</h2>
-          <p class="body">{robotSeasons[0].description}</p>
-          <a class="btn solid" href={robotSeasons[0].repoUrl} target="_blank" rel="noopener">Read the 2026 Code</a>
-        </div>
-        <div class="robot-facts" aria-label="2026 robot record status">
-          <p class="label">Record status</p>
-          <p class="robot-fact-value">Photo documented</p>
-          <p class="label">Next additions</p>
-          <p class="robot-fact-value">Robot name, specs, and build notes</p>
+      <h1 style="max-width:16em">{currentRobot.name || currentRobot.game}.</h1>
+      <p class="body archive-lede" style="max-width:44em">
+        {currentRobot.description}
+      </p>
+    </div>
+  </section>
+
+  <!-- 2026 INTERACTIVE MEDIA & SPECS GRID -->
+  <section data-reveal style="padding-top:0">
+    <div class="wrap robot-detail-grid">
+      <Album photos={photos2026} year={2026} />
+
+      <div class="robot-detail-facts">
+        <p class="label">Competition events</p>
+        <ul style="margin:0 0 calc(var(--space) * 1.5);padding-left:1.2rem;font-size:var(--t-1);color:var(--ink-dim);line-height:1.6">
+          {currentRobot.events.map((evt) => (
+            <li style="margin-bottom:calc(var(--space) * .4)">{evt}</li>
+          ))}
+        </ul>
+
+        <p class="label">External records & code</p>
+        <div style="display:flex;flex-direction:column;gap:calc(var(--space) * .6);margin-top:calc(var(--space) * .3)">
+          <a class="robot-ext-btn" href={`https://www.thebluealliance.com/team/812/${currentRobot.year}`} target="_blank" rel="noopener noreferrer">
+            <div class="robot-ext-left">
+              <img src={tbaFavicon.src} alt="" class="robot-ext-icon" width="20" height="20" />
+              <span>View 2026 on The Blue Alliance</span>
+            </div>
+            <span class="robot-ext-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="robot-ext-btn" href={currentRobot.repoUrl} target="_blank" rel="noopener noreferrer">
+            <div class="robot-ext-left">
+              <img src={githubFavicon.src} alt="" class="robot-ext-icon" width="20" height="20" />
+              <span>Open 2026 GitHub code</span>
+            </div>
+            <span class="robot-ext-arrow" aria-hidden="true">↗</span>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <hr class="rule">
+  <!-- 2026 TECHNICAL SPECIFICATIONS (APPLE SPEC SHEET STYLE) -->
+  {currentRobot.technicalSpecs && currentRobot.technicalSpecs.length > 0 && (
+    <section data-reveal style="padding-top:calc(var(--space) * 3)">
+      <div class="wrap">
+        <p class="mono eyebrow">TECH SPECS</p>
+        <h2>Technical Specifications.</h2>
+        <p class="body" style="max-width:40em;margin-top:calc(var(--space) * .8)">
+          Subsystem architecture, motor power distribution, and control software for Big Jiawei.
+        </p>
 
+        <div class="apple-specs-table">
+          {currentRobot.technicalSpecs.map((group) => (
+            <div class="apple-spec-row">
+              <div class="apple-spec-category">
+                <h3>{group.category}</h3>
+              </div>
+              <div class="apple-spec-content">
+                <dl class="apple-spec-dl">
+                  {group.specs.map((item) => (
+                    <div class="apple-spec-item">
+                      <dt class="apple-spec-dt">{item.label}</dt>
+                      <dd class="apple-spec-dd">{item.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 2026 COMPETITION EVENT RESULTS (EDITORIAL IMAGE-PAIRED ARTICLES) -->
+  <section data-reveal class="event-recap-section">
+    <div class="wrap">
+      <p class="mono eyebrow">COMPETITION LOGS</p>
+      <h2>Season Event Results.</h2>
+
+      <!-- EVENT 1: SAN DIEGO (Image Left, Text Right) -->
+      <article class="event-recap-article" style="margin-top:calc(var(--space) * 2)">
+        <div class="event-recap-header">
+          <h3 class="event-recap-title">CA District San Diego Event Results</h3>
+          <p class="event-recap-meta">March 2026 • San Diego, CA</p>
+        </div>
+        <div class="event-recap-grid">
+          <figure class="event-recap-figure">
+            <Image src={states1026} alt="Mentor and students calibrating the shooter mechanism" width={600} height={400} />
+            <figcaption class="event-recap-caption">Shooter mechanism calibration and tuning in the pit</figcaption>
+          </figure>
+          <div class="event-recap-body">
+            <p>
+              We kicked off our 2026 campaign at the CA District San Diego Event presented by Qualcomm from March 20–22. Finishing qualification matches with a strong 10-6-0 record, Team 812 secured the 8th seed ranking.
+            </p>
+            <p>
+              During alliance selection, we competed in the playoffs as the Captain of Alliance 6, partnering with Team 5474 as our first pick and Team 4160 as our second pick.
+            </p>
+            <p>
+              In the double elimination bracket, Alliance 6 fought through four intense rounds, clutching elimination victories in Match 6 (147–120) and Match 9 (228–206) before concluding our run in Round 4. Earning 35 total district points, Big Jiawei established a competitive foundation for the rest of the season.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- EVENT 2: SAN GABRIEL VALLEY (Text Left, Image Right) -->
+      <article class="event-recap-article">
+        <div class="event-recap-header">
+          <h3 class="event-recap-title">CA District San Gabriel Valley Event Results</h3>
+          <p class="event-recap-meta">April 2026 • San Gabriel Valley, CA</p>
+        </div>
+        <div class="event-recap-grid">
+          <div class="event-recap-body">
+            <p>
+              Heading into San Gabriel Valley, our software and mechanical subteams delivered key improvements. We deployed updated closed-loop velocity PID curves for Big Jiawei's dual Kraken flywheels, dropping our spin-up time to under 120ms and enabling accurate shooting-while-moving.
+            </p>
+            <p>
+              Advancing through demanding playoff matches, Big Jiawei anchored alliance scoring with rapid ground intake cycles and dependable teleop shooting. Our strong tournament performance and district ranking points officially earned Team 812 a spot at the FIRST California Southern State Championship.
+            </p>
+          </div>
+          <figure class="event-recap-figure">
+            <Image src={states1033} alt="Students and mentor repairing the drivetrain" width={600} height={400} />
+            <figcaption class="event-recap-caption">Drivetrain servicing between playoff elimination matches</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- EVENT 3: STATE CHAMPIONSHIP (Image Left, Text Right) -->
+      <article class="event-recap-article">
+        <div class="event-recap-header">
+          <h3 class="event-recap-title">Southern California State Championship Results</h3>
+          <p class="event-recap-meta">April 2026 • State Championship Tournament</p>
+        </div>
+        <div class="event-recap-grid">
+          <figure class="event-recap-figure">
+            <Image src={states1045} alt="Team 812 members and robot at State Championship" width={600} height={400} />
+            <figcaption class="event-recap-caption">Team 812 pit crew and drive team at the State Championship</figcaption>
+          </figure>
+          <div class="event-recap-body">
+            <p>
+              The pinnacle of our 2026 season brought Big Jiawei to the FIRST California Southern State Championship, competing head-to-head against the top-ranked programs in the state.
+            </p>
+            <p>
+              Facing elite defense in the playoff division, our drive team pushed the swerve chassis to maximum velocity while our pit crew maintained peak motor thermals and gear mesh between tight queue times. Qualifying for and competing at States represents a landmark achievement for Team 812 and The Preuss School UC San Diego—demonstrating what first-generation students can accomplish through engineering discipline and teamwork.
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <hr class="rule" style="margin-top:calc(var(--space) * 4)">
+
+  <!-- PAST SEASONS ARCHIVE SECTION -->
   <section id="robot-seasons" data-reveal>
     <div class="wrap">
       <div class="section-heading">
         <div>
           <p class="mono eyebrow">SEASON ARCHIVE</p>
-          <h2>All of our robots.</h2>
+          <h2>All past robots.</h2>
         </div>
         <p class="body">16 seasons of competition history, public code repositories, and recorded match data.</p>
       </div>
+
       <div class="robot-archive" role="list">
-        {robotSeasons.map((robot) => (
+        {pastRobots.map((robot) => (
           <article class="robot-row-card" role="listitem">
             <p class="robot-row-year">{robot.year}</p>
             <div class="robot-row-copy">
               <div class="robot-row-header">
                 <h3>
                   <a class="robot-row-title-link" href={`/robots/${robot.year}`} aria-label={`View the ${robot.year} ${robot.game} season record`}>
-                    {robot.game}
+                    {robot.name ? `${robot.name} (${robot.game})` : robot.game}
                   </a>
                 </h3>
                 <span class="robot-row-arrow" aria-hidden="true">→</span>
@@ -84,7 +243,7 @@ import robotPitImg from '../assets/photos/team-812-robot-pit.png';
                     const desc = getAwardDescription(award);
                     return (
                       <span class:list={['robot-award-tag', { major: isMajor }]} tabindex="0">
-                        {isMajor ? `★ ${award}` : award}
+                        {award}
                         <span class="award-tooltip" role="tooltip">{desc}</span>
                       </span>
                     );
