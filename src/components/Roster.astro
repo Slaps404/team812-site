@@ -2,7 +2,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 const groups = (await getCollection('roster')).sort((a, b) => a.data.order - b.data.order);
-const total = groups.reduce((sum, group) => sum + group.data.members.length, 0);
 ---
 <div class="roster">
   {groups.map((group: CollectionEntry<'roster'>) => (
@@ -14,13 +13,16 @@ const total = groups.reduce((sum, group) => sum + group.data.members.length, 0);
       <ul class="roster-names">
         {group.data.members.map((member) => (
           <li class:list={['roster-name', { lead: member.lead }]}>
-            <span class:list={{ ph: member.placeholder }}>{member.name}</span>
-            {member.year && <span class="roster-year">'{member.year.slice(-2)}</span>}
-            {member.lead && <span class="roster-lead-tag">Lead</span>}
+            <span class="roster-member-name">
+              <span class:list={{ ph: member.placeholder }}>{member.name}</span>
+              {member.lead && <span class="roster-lead-tag">Lead</span>}
+            </span>
+            {(member.year || member.lead) && (
+              <span class="roster-member-detail">{member.year ? `Class of ${member.year}` : 'Subteam lead'}</span>
+            )}
           </li>
         ))}
       </ul>
     </div>
   ))}
 </div>
-<p class="roster-total mono">{total} people on the 2026 roster</p>

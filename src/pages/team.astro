@@ -2,190 +2,87 @@
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import Shot from '../components/Shot.astro';
 import Roster from '../components/Roster.astro';
-import { PAIR_IMAGE_SIZES } from '../lib/imageLayout';
 
-import rosterImg from '../assets/photos/2026-states-IMG_1011.jpg';
-import schoolImg from '../assets/photos/2026-states-IMG_0935.jpg';
-import pitImg from '../assets/photos/2026-states-IMG_1045.jpg';
-import drivetrainImg from '../assets/photos/2026-states-IMG_1033.jpg';
-
-// Only facts the rest of the site already sources: founding year and San Diego
-// standing from the team record, subteam count from the list below, and the
-// public code archive on the homepage. Nothing here names a student.
-const facts = [
-  ['2001', 'Founded at Preuss'],
-  ['1st', 'FRC team in San Diego'],
-  ['5', 'Subteams'],
-  ['16', 'Seasons of public code'],
+const people = [
+  { name: 'Student Name', role: 'Mechanical Lead', quote: 'I learned to weld before I learned to drive.' },
+  { name: 'Student Name', role: 'Software Lead', quote: 'The robot does exactly what you told it to, which is the problem.' },
+  { name: 'Student Name', role: 'Electrical', quote: 'Every wire has a label now. That was my idea.' },
+  { name: 'Student Name', role: 'Strategy and Scouting', quote: 'We win matches on the whiteboard before we win them on the field.' },
+  { name: 'Student Name', role: 'Mechanical', quote: 'Nothing fits the first time. That is the job.' },
+  { name: 'Student Name', role: 'Software', quote: 'My first pull request took three days to merge.' },
+  { name: 'Student Name', role: 'Business and Outreach', quote: 'I cold-emailed nine companies before one said yes.' },
+  { name: 'Student Name', role: 'Media', quote: 'Someone has to prove the robot worked.' },
 ];
 
-const subteams = [
-  {
-    num: '01',
-    name: 'Mechanical',
-    summary: 'Drivetrain, mechanisms, fabrication, and repair.',
-    detail: 'Students move from sketch to CAD to a machined part, then fix it again between matches.',
-  },
-  {
-    num: '02',
-    name: 'Electrical',
-    summary: 'Power, wiring, sensors, and reliable connections.',
-    detail: 'Wiring diagrams, crimping, and the discipline that keeps a robot alive through a full event.',
-  },
-  {
-    num: '03',
-    name: 'Software',
-    summary: 'Controls, version control, testing, and tools.',
-    detail: 'Java on the roboRIO, reviewed in Git, with every season public on GitHub since 2011.',
-  },
-  {
-    num: '04',
-    name: 'Strategy and scouting',
-    summary: 'Match plans, scouting notes, and decisions under pressure.',
-    detail: 'Data collected from the stands turns into alliance picks and a plan for the next match.',
-  },
-  {
-    num: '05',
-    name: 'Business, outreach, and media',
-    summary: 'Sponsors, community work, documentation, and the story around the robot.',
-    detail: 'Budgets, sponsor decks, and the photos and writing that make the season legible to everyone else.',
-  },
+const mentors = [
+  { name: 'Mentor Name', role: 'Lead Mentor', quote: 'They build it. I keep the room open until they finish.' },
+  { name: 'Mentor Name', role: 'Engineering Mentor', quote: 'The best answer I give is another question.' },
+  { name: 'Mentor Name', role: 'Software Mentor', quote: 'Version control is the first thing we teach.' },
 ];
+
 ---
+
 <Base
   title="Team | The Midnight Mechanics"
-  description="Meet the students, mentors, and subteams behind FRC Team 812 at The Preuss School UC San Diego."
+  description="Meet the students, mentors, and work behind FRC Team 812 at The Preuss School UC San Diego."
 >
 
 <Nav current="team" />
 
 <main class="view on" id="v-team">
-
-  <section class="team-hero" data-reveal>
-    <div class="wrap split feature-split">
-      <div>
-        <p class="mono eyebrow">TEAM 812 / THE PREUSS SCHOOL UC SAN DIEGO</p>
-        <h1>Students, mentors, and the work between matches.</h1>
-        <p class="body team-lede">Team 812 is where Preuss students meet CAD, motor controllers, version control, and a hard deadline for the first time.</p>
-        <div class="team-hero-cta">
-          <a class="btn ghost" href="#subteams">See the subteams</a>
-          <a class="btn ghost" href="#roster">See the roster</a>
-        </div>
-      </div>
-      <Shot
-        src={rosterImg}
-        alt="The 2026 Team 812 roster in team shirts."
-        caption="The 2026 roster at the FIRST California Southern State Championship"
-        priority
-      />
+  <section class="team-directory-hero" data-reveal>
+    <div class="wrap">
+      <p class="mono eyebrow">TEAM 812 / THE PREUSS SCHOOL UC SAN DIEGO</p>
+      <h1>Students, mentors, and the work between matches.</h1>
+      <p class="body team-directory-lede">Team 812 is where Preuss students meet CAD, motor controllers, version control, and a hard deadline for the first time. Everyone on this page builds, wires, codes, scouts, or writes.</p>
+      <p class="team-directory-meta mono">24 students <span aria-hidden="true">/</span> 5 mentors <span aria-hidden="true">/</span> 5 subteams <span aria-hidden="true">/</span> 6-week build season</p>
     </div>
   </section>
 
-  <div class="stats" data-reveal>
-    <div class="stats-in">
-      {facts.map(([value, label]) => (
-        <div class="stat">
-          <div class="n">{value}</div>
-          <div class="k mono">{label}</div>
-        </div>
-      ))}
-    </div>
-  </div>
-
-  <section id="subteams" data-reveal>
+  <section class="team-profiles-section" data-reveal aria-labelledby="student-profiles-heading">
     <div class="wrap">
-      <div class="section-heading">
-        <div>
-          <p class="mono eyebrow">HOW THE TEAM IS ORGANIZED</p>
-          <h2>Five subteams, one deadline.</h2>
-        </div>
-        <p class="body">Every student joins a subteam and can move between them. The robot is the shared deadline that forces the work together.</p>
-      </div>
-      <div class="subteams" role="list">
-        {subteams.map((team) => (
-          <article class="subteam" role="listitem">
-            <p class="subteam-num mono">{team.num}</p>
-            <div class="subteam-copy">
-              <h3>{team.name}</h3>
-              <p class="body subteam-summary">{team.summary}</p>
-              <p class="subteam-detail">{team.detail}</p>
+      <h2 class="sr-only" id="student-profiles-heading">Student profiles</h2>
+      <div class="team-profile-grid">
+        {people.map((person) => (
+          <article class="team-profile">
+            <div class="team-profile-avatar" aria-hidden="true">
+              <span class="team-profile-avatar-head"></span>
+              <span class="team-profile-avatar-body"></span>
             </div>
+            <h3>{person.name}</h3>
+            <p class="team-profile-role mono">{person.role}</p>
+            <p class="team-profile-quote">“{person.quote}”</p>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <hr class="rule">
-
-  <section data-reveal>
-    <div class="wrap team-sections">
-      <div>
-        <p class="mono eyebrow">THE PEOPLE IN THE ROOM</p>
-        <h2>A team is more than the robot.</h2>
-      </div>
-      <div class="team-copy">
-        <p class="body">Students design, build, code, test, explain, and repair. Mentors make room for the next question rather than taking the tool away. What a student can do in April is the real output of the season.</p>
-        <div class="team-roles">
-          <div class="team-role">
-            <h3>Students</h3>
-            <p class="body">Own the design decisions, the code, and the pit. Most arrive with no engineering experience and leave able to run a subteam.</p>
-          </div>
-          <div class="team-role">
-            <h3>Mentors</h3>
-            <p class="body">Teachers, parents, and working engineers who coach, unblock, and keep the shop safe — without building the robot for anyone.</p>
-            <a class="btn ghost team-role-link" href="/mentors" data-astro-prefetch>Meet the mentors</a>
-          </div>
-        </div>
-        <p class="note">Names below are published with school permission, and only for students who opt in.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="roster" data-reveal style="padding-top:0">
+  <section class="team-directory-section" data-reveal aria-labelledby="mentors-heading">
     <div class="wrap">
-      <div class="section-heading">
-        <div>
-          <p class="mono eyebrow">2026 ROSTER</p>
-          <h2>Everyone on the team.</h2>
-        </div>
-        <p class="body">Students are listed with the subteam they spend the most time on. Most work across more than one.</p>
+      <h2 class="team-directory-heading" id="mentors-heading">Mentors</h2>
+      <div class="team-profile-grid">
+        {mentors.map((mentor) => (
+          <article class="team-profile">
+            <div class="team-profile-avatar" aria-hidden="true">
+              <span class="team-profile-avatar-head"></span>
+              <span class="team-profile-avatar-body"></span>
+            </div>
+            <h3>{mentor.name}</h3>
+            <p class="team-profile-role mono">{mentor.role}</p>
+            <p class="team-profile-quote">“{mentor.quote}”</p>
+          </article>
+        ))}
       </div>
-      <Roster />
+
+      <h2 class="team-directory-heading team-roster-heading" id="full-roster-heading">Full roster</h2>
+      <div id="roster">
+        <Roster />
+      </div>
+      <p class="team-placeholder-note">Placeholder roster. Names, photos, and quotes get swapped for the real team once portraits are shot and students approve what goes public.</p>
     </div>
   </section>
-
-  <hr class="rule">
-
-  <section data-reveal>
-    <div class="wrap">
-      <p class="mono eyebrow">IN THE PIT</p>
-      <h2>What a competition weekend looks like.</h2>
-      <div class="pair team-pair">
-        <Shot src={pitImg} alt="Team 812 students and mentors working around their robot at the 2026 state championship." caption="Build crew preparing the robot between matches" sizes={PAIR_IMAGE_SIZES} />
-        <Shot src={drivetrainImg} alt="Students and a mentor working on the robot, with TEAM 812 on the bumper." caption="Drivetrain repair in the pit area" sizes={PAIR_IMAGE_SIZES} />
-      </div>
-      <div class="team-wide-shot">
-        <Shot src={schoolImg} alt="Team members at The Preuss School UC San Diego entrance sign." caption="Team 812 at The Preuss School UC San Diego, where the team has built since 2001" sizes="(max-width: 820px) calc(100vw - 3rem), min(100vw, 68rem)" />
-      </div>
-    </div>
-  </section>
-
-  <hr class="rule">
-
-  <section data-reveal>
-    <div class="wrap">
-      <h2>Back the students who build it.</h2>
-      <p class="body" style="margin-top:calc(var(--space) * 1.2)">Sponsorships fund parts, travel, and registration for the 2027 season. Preuss students and families can reach us by email about joining.</p>
-      <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6);flex-wrap:wrap">
-        <a class="btn solid" href="/sponsors">View sponsorship tiers</a>
-        <a class="btn ghost" href="mailto:team812@preuss.ucsd.edu">team812@preuss.ucsd.edu</a>
-      </div>
-    </div>
-  </section>
-
 </main>
 
 <Footer />
