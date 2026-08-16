@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import { CONTENT_IMAGE_WIDTHS, SPLIT_IMAGE_SIZES } from '../lib/imageLayout';
+import { robotSeasons } from '../data/robots';
+
+const season = robotSeasons[0];
+
+/* The robot photo is not shot yet. Drop the file in as
+   src/assets/photos/big-jiawei.<jpg|jpeg|png|webp> and this section swaps the
+   placeholder frame for the real image with no other edit. */
+const robotImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/photos/big-jiawei.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+const robotImage = Object.values(robotImages)[0]?.default;
+
+const specs = [
+  { label: 'Drivetrain', value: 'WCP X2C Swerve' },
+  { label: 'Top Speed', value: '16.1 ft/s' },
+  { label: 'Shooter', value: 'Turret + Variable Hood' },
+  { label: 'Intake Rate', value: '10 fuel / second' },
+];
+---
+<section class="season-robot" data-reveal>
+  <div class="wrap">
+    <p class="mono eyebrow">{season.year} SEASON ROBOT / {season.game}</p>
+
+    <div class="season-robot-grid">
+      <div class="season-robot-copy">
+        <h2>Big Jiawei</h2>
+        <p class="body" style="margin-top:calc(var(--space) * 1.2)">Built around a 360° vision-guided turret shooter, a high-throughput roller intake, and an omnidirectional swerve drivetrain. A physics-based adaptive shot controller automatically adjusts shooter velocity and hood angle in real time, compensating for robot motion to deliver accurate shots from anywhere on the field.</p>
+        <a class="btn solid" href={`/robots/${season.year}`}>Robot Details</a>
+      </div>
+
+      <div class="season-robot-frame">
+        {robotImage ? (
+          <figure class="shot" style="margin:0">
+            <Image
+              src={robotImage}
+              alt={`Team 812's ${season.year} competition robot, Big Jiawei.`}
+              data-gallery-id={robotImage.src}
+              widths={CONTENT_IMAGE_WIDTHS}
+              sizes={SPLIT_IMAGE_SIZES}
+              loading="lazy"
+            />
+            <figcaption class="mono">Big Jiawei, our {season.year} {season.game} robot</figcaption>
+          </figure>
+        ) : (
+          <div class="season-robot-placeholder" role="img" aria-label="Photo of Big Jiawei coming soon">
+            <p class="empty-heading">Photo coming soon</p>
+            <p class="empty-sub">Big Jiawei is being photographed. The image lands here once it is ready.</p>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <dl class="season-robot-specs">
+      {specs.map((spec) => (
+        <div class="season-robot-spec">
+          <dt class="label">{spec.label}</dt>
+          <dd class="season-robot-spec-value">{spec.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>

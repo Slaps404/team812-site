@@ -6,6 +6,7 @@ import Hero from '../components/Hero.astro';
 import Stats from '../components/Stats.astro';
 import Split from '../components/Split.astro';
 import Shot from '../components/Shot.astro';
+import SeasonRobot from '../components/SeasonRobot.astro';
 import LogoWall from '../components/LogoWall.astro';
 import Tune from '../components/Tune.astro';
 import { PAIR_IMAGE_SIZES } from '../lib/imageLayout';
@@ -38,6 +39,11 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=98e77c65-0221-4
       </div>
     </div>
   </section>
+
+  <hr class="rule">
+
+  <!-- This season's machine only. Older robots live in the archive. -->
+  <SeasonRobot />
 
   <hr class="rule">
 

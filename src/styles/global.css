@@ -237,6 +237,29 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
   visibility:visible;opacity:1;
   transform:translateX(-50%) translateY(0);
 }
+/* Current-season robot block on the homepage. Same 6fr/4fr split and rule
+   language as the archive feature, with a spec row borrowed from the stat
+   band so the numbers read as measurements, not marketing. */
+.season-robot-grid{display:grid;grid-template-columns:6fr 4fr;gap:calc(var(--space) * 3);align-items:start}
+.season-robot-copy h2{max-width:14em}
+.season-robot-copy .btn{margin-top:calc(var(--space) * 1.6)}
+.season-robot-placeholder{
+  display:flex;flex-direction:column;justify-content:center;
+  gap:calc(var(--space) * .5);padding:calc(var(--space) * 2);
+  aspect-ratio:var(--photo-ratio);
+  background:rgba(242,241,236,.02);
+  border:1px dashed var(--rule);border-radius:var(--radius);
+}
+.season-robot-specs{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  margin:calc(var(--space) * 3) 0 0;
+  border-top:1px solid var(--rule);
+}
+.season-robot-spec{padding:calc(var(--space) * 1.4) calc(var(--space) * 1.5);border-left:1px solid var(--rule)}
+.season-robot-spec:first-child{border-left:0;padding-left:0}
+.season-robot-spec:last-child{padding-right:0}
+.season-robot-spec .label{margin:0 0 calc(var(--space) * .45)}
+.season-robot-spec-value{margin:0;font-size:var(--t1);line-height:1.2;color:var(--ink)}
 .robot-detail-hero{padding:calc(var(--space) * 4) 0 calc(var(--space) * 5)}
 .back-link{display:inline-block;margin-bottom:calc(var(--space) * 3);color:var(--ink-dim)}
 .back-link:hover{color:var(--accent)}
@@ -675,7 +698,12 @@ body.flags .ph-tag{
   .hero{min-height:min(72svh,680px)}
   .hero-content{padding:calc(var(--space) * 3) calc(var(--space) * 1.5) calc(var(--space) * 2.5)}
   .sponsor-hero{min-height:0;padding:calc(var(--space) * 3) 0}
-  .robot-feature,.section-heading,.team-sections,.robot-detail-grid{grid-template-columns:1fr;gap:calc(var(--space) * 1.5)}
+  .robot-feature,.section-heading,.team-sections,.robot-detail-grid,.season-robot-grid{grid-template-columns:1fr;gap:calc(var(--space) * 1.5)}
+  .season-robot-specs{grid-template-columns:1fr 1fr;margin-top:calc(var(--space) * 2)}
+  .season-robot-spec{padding:calc(var(--space) * 1.2)}
+  .season-robot-spec:nth-child(odd){border-left:0;padding-left:0}
+  .season-robot-spec:nth-child(even){padding-right:0}
+  .season-robot-spec:nth-child(n + 3){border-top:1px solid var(--rule)}
   .robot-facts{border-left:0;border-top:1px solid var(--rule);padding:calc(var(--space) * 1.2) 0 0}
   .robot-detail-facts{border-left:0;border-top:1px solid var(--rule);padding:calc(var(--space) * 1.2) 0 0}
   .robot-row-card{grid-template-columns:3.5rem 1fr;gap:calc(var(--space) * .8);margin:0;padding:calc(var(--space) * 1.1) 0}
