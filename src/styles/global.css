@@ -49,8 +49,8 @@ p{margin:0}
    movement entirely. */
 html.js [data-reveal]{
   position:relative;
-  transform:translateY(calc(var(--space) * 0.4));
-  transition:transform 280ms var(--ease);
+  transform:translateY(calc(var(--space) * 1.1));
+  transition:transform 1000ms var(--ease);
   transition-delay:var(--reveal-delay,0ms);
 }
 html.js [data-reveal]::after{
@@ -60,14 +60,14 @@ html.js [data-reveal]::after{
   z-index:3;
   pointer-events:none;
   background:var(--reveal-cover,var(--ground));
-  transition:opacity 280ms var(--ease);
+  transition:opacity 1000ms var(--ease);
   transition-delay:var(--reveal-delay,0ms);
 }
 html.js [data-reveal].is-revealed{transform:none}
 html.js [data-reveal].is-revealed::after{opacity:0}
 html.js .panel[data-reveal]{--reveal-cover:var(--panel)}
-html.js .reason:nth-child(2),html.js .tier:nth-child(2){--reveal-delay:40ms}
-html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:80ms}
+html.js .reason:nth-child(2),html.js .tier:nth-child(2){--reveal-delay:80ms}
+html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 
 /* ============================================================
    NAV
