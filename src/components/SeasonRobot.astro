@@ -2,17 +2,9 @@
 import { Image } from 'astro:assets';
 import { CONTENT_IMAGE_WIDTHS, SPLIT_IMAGE_SIZES } from '../lib/imageLayout';
 import { robotSeasons } from '../data/robots';
+import robotImage from '../assets/photos/big-jiawei-robot.png';
 
 const season = robotSeasons[0];
-
-/* The robot photo is not shot yet. Drop the file in as
-   src/assets/photos/big-jiawei.<jpg|jpeg|png|webp> and this section swaps the
-   placeholder frame for the real image with no other edit. */
-const robotImages = import.meta.glob<{ default: ImageMetadata }>(
-  '../assets/photos/big-jiawei.{jpg,jpeg,png,webp}',
-  { eager: true },
-);
-const robotImage = Object.values(robotImages)[0]?.default;
 
 const specs = [
   { label: 'Drivetrain', value: 'WCP X2C Swerve' },
@@ -33,24 +25,17 @@ const specs = [
       </div>
 
       <div class="season-robot-frame">
-        {robotImage ? (
-          <figure class="shot" style="margin:0">
-            <Image
-              src={robotImage}
-              alt={`Team 812's ${season.year} competition robot, Big Jiawei.`}
-              data-gallery-id={robotImage.src}
-              widths={CONTENT_IMAGE_WIDTHS}
-              sizes={SPLIT_IMAGE_SIZES}
-              loading="lazy"
-            />
-            <figcaption class="mono">Big Jiawei, our {season.year} {season.game} robot</figcaption>
-          </figure>
-        ) : (
-          <div class="season-robot-placeholder" role="img" aria-label="Photo of Big Jiawei coming soon">
-            <p class="empty-heading">Photo coming soon</p>
-            <p class="empty-sub">Big Jiawei is being photographed. The image lands here once it is ready.</p>
-          </div>
-        )}
+        <figure class="shot season-robot-shot" style="margin:0">
+          <Image
+            src={robotImage}
+            alt={`Team 812's ${season.year} competition robot, Big Jiawei.`}
+            data-gallery-id={robotImage.src}
+            widths={CONTENT_IMAGE_WIDTHS}
+            sizes={SPLIT_IMAGE_SIZES}
+            loading="lazy"
+          />
+          <figcaption class="mono">Big Jiawei, our {season.year} {season.game} robot</figcaption>
+        </figure>
       </div>
     </div>
 
