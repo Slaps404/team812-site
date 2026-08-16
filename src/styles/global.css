@@ -82,10 +82,10 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 }
 /* The badge is sized off --t1 rather than a fixed pixel height, so it grows and
    shrinks with the type scale instead of drifting out of step with the wordmark
-   next to it. 2.1 lands it just under the nav's own padded height. */
+   next to it. 2.3 lands it just under the nav's own padded height. */
 .mark{display:flex;align-items:center;gap:.6em;margin-right:auto;text-decoration:none !important}
 .mark img{height:calc(var(--t1) * 2.3);width:auto}
-.mark span{font-family:var(--font-display);font-weight:600;font-size:var(--t1);letter-spacing:.06em;text-transform:none;color:var(--ink-dim);text-decoration:none !important}
+.mark span{font-family:var(--font-display);font-weight:600;font-size:var(--t1);letter-spacing:.06em;text-transform:uppercase;color:color-mix(in srgb,var(--ink) 70%,var(--ink-dim));text-decoration:none !important}
 .nav-links{display:flex;align-items:center;gap:0}
 .nav a.link{
   display:inline-flex;align-items:center;justify-content:center;min-height:2.15rem;padding:.42rem .78rem;
@@ -689,7 +689,7 @@ body.flags .ph-tag{
   .mark img{height:2rem}
   .mark span{font-size:.68rem;letter-spacing:.03em;white-space:nowrap}
   .nav-links{width:auto;flex:0 0 auto;justify-content:flex-start;gap:0}
-  .nav a.link{flex:0 0 auto;min-height:2rem;padding-inline:.2rem;font-size:.58rem;letter-spacing:.02em;white-space:nowrap}
+  .nav a.link{flex:0 0 auto;min-height:2rem;padding-inline:.16rem;font-size:.6rem;letter-spacing:.02em;white-space:nowrap}
   .nav a.link.soon{display:none}
   .nav .btn{margin-left:auto}
   .hero h1{overflow-wrap:break-word}
