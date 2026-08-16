@@ -16,7 +16,7 @@ const { current } = Astro.props;
 <nav class="nav">
   <div class="nav-in">
     <a class="mark" href="/" data-astro-prefetch>
-      {/* The source is 1000px wide but the nav slot is ~44px. width is pinned to
+      {/* The source is 1500px wide but the nav slot is ~44px. width is pinned to
           3x that so the emitted asset is a few kB instead of the full-size logo,
           and still sharp on high-density screens. */}
       <Image src={badge} alt="Team 812 badge" width={132} loading="eager" />
