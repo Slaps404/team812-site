@@ -84,18 +84,17 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
    shrinks with the type scale instead of drifting out of step with the wordmark
    next to it. 2.1 lands it just under the nav's own padded height. */
 .mark{display:flex;align-items:center;gap:.6em;margin-right:auto;text-decoration:none !important}
-.mark img{height:calc(var(--t1) * 2.1);width:auto}
-.mark span{font-family:var(--font-display);font-weight:600;font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);text-decoration:none !important}
+.mark img{height:calc(var(--t1) * 2.3);width:auto}
+.mark span{font-family:var(--font-display);font-weight:600;font-size:var(--t1);letter-spacing:.06em;text-transform:none;color:var(--ink-dim);text-decoration:none !important}
 .nav-links{display:flex;align-items:center;gap:0}
 .nav a.link{
   display:inline-flex;align-items:center;justify-content:center;min-height:2.15rem;padding:.42rem .78rem;
   position:relative;border:1px solid transparent;border-radius:3px;
-  font-family:var(--font-chrome);font-size:var(--t-2);font-weight:600;
-  letter-spacing:var(--chrome-track);text-transform:uppercase;color:var(--ink-dim);
+  font-family:var(--font-chrome);font-size:var(--t-1);font-weight:600;
+  letter-spacing:.035em;text-transform:none;color:var(--ink-dim);
   transition:color var(--motion) var(--ease),background var(--motion) var(--ease),border-color var(--motion) var(--ease),transform var(--motion) var(--ease);
   text-decoration:none !important;
 }
-.nav a.link + a.link{border-left-color:rgba(242,241,236,.2);border-radius:0 3px 3px 0}
 .nav a.link:hover{color:var(--ink);background:rgba(242,241,236,.08);text-decoration:none !important}
 .nav a.link.on{color:var(--ink);background:transparent;box-shadow:none;text-decoration:none !important}
 .nav a.link.on:hover{color:var(--ink);background:rgba(242,241,236,.12);transform:none}
@@ -688,9 +687,9 @@ body.flags .ph-tag{
   .nav-in{flex-wrap:nowrap;gap:.55rem}
   .mark{flex:1 1 auto;min-width:0;margin-right:0;gap:.35em}
   .mark img{height:2rem}
-  .mark span{font-size:.62rem;letter-spacing:.04em;white-space:nowrap}
+  .mark span{font-size:.68rem;letter-spacing:.03em;white-space:nowrap}
   .nav-links{width:auto;flex:0 0 auto;justify-content:flex-start;gap:0}
-  .nav a.link{flex:0 0 auto;min-height:2rem;padding-inline:.22rem;font-size:.58rem;white-space:nowrap}
+  .nav a.link{flex:0 0 auto;min-height:2rem;padding-inline:.2rem;font-size:.58rem;letter-spacing:.02em;white-space:nowrap}
   .nav a.link.soon{display:none}
   .nav .btn{margin-left:auto}
   .hero h1{overflow-wrap:break-word}
