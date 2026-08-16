@@ -85,9 +85,9 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
    next to it. 2.1 lands it just under the nav's own padded height. */
 .mark{display:flex;align-items:center;gap:.6em;margin-right:auto;text-decoration:none !important}
 .mark img{height:calc(var(--t1) * 2.1);width:auto}
-.mark span{font-family:var(--font-chrome);font-size:var(--t-2);letter-spacing:calc(var(--chrome-track) + .02em);text-transform:uppercase;color:var(--ink-dim);text-decoration:none !important}
+.mark span{font-family:var(--font-display);font-weight:600;font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);text-decoration:none !important}
 .nav a.link{
-  font-family:var(--font-chrome);font-size:var(--t-2);
+  font-family:var(--font-chrome);font-size:var(--t-2);font-weight:600;
   letter-spacing:var(--chrome-track);text-transform:uppercase;color:var(--ink-dim);
   transition:color var(--motion) var(--ease);
   text-decoration:none !important;
