@@ -609,8 +609,8 @@ footer{padding:calc(var(--space) * 2.4) 0 0;border-top:1px solid var(--rule)}
 .footer-brand-copy{min-width:0}
 .footer-kicker{margin:0;color:var(--accent);font-family:var(--font-chrome);font-size:var(--t-2);font-weight:600;letter-spacing:var(--chrome-track);text-transform:uppercase}
 .footer-team-name{margin-top:.16rem;font-family:var(--font-display);font-size:var(--t1);line-height:1;color:var(--ink)}
-.footer-school-logo{display:block;width:clamp(3.8rem,6vw,5rem);margin-top:calc(var(--space) * .45)}
-.footer-school-logo img{width:100%;height:auto;filter:invert(1);opacity:.86;transition:opacity var(--motion) var(--ease)}
+.footer-school-logo{display:block;width:clamp(3.8rem,6vw,5rem);margin-top:calc(var(--space) * .45);padding:.2rem;background:#fff;border-radius:2px}
+.footer-school-logo img{width:100%;height:auto;filter:none;opacity:1;transition:opacity var(--motion) var(--ease)}
 .footer-school-logo:hover img,.footer-school-logo:focus-visible img{opacity:1}
 .footer-contact,.footer-links{display:flex;align-items:center;gap:calc(var(--space) * 1.1);min-width:0}
 .footer-contact-link,.footer-social-link{display:flex;align-items:center;gap:.55em;color:var(--ink);font-size:var(--t-1);transition:color var(--motion) var(--ease)}
