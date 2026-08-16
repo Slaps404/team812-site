@@ -87,7 +87,7 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 .mark img{height:calc(var(--t1) * 2.1);width:auto}
 .mark span{font-family:var(--font-chrome);font-size:var(--t-2);letter-spacing:calc(var(--chrome-track) + .02em);text-transform:uppercase;color:var(--ink-dim);text-decoration:none !important}
 .nav a.link{
-  font-family:var(--font-chrome);font-size:var(--t-2);
+  font-family:var(--font-chrome);font-size:var(--t-2);font-weight:600;
   letter-spacing:var(--chrome-track);text-transform:uppercase;color:var(--ink-dim);
   transition:color var(--motion) var(--ease);
   text-decoration:none !important;
