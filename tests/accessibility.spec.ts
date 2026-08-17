@@ -5,7 +5,6 @@ const routes = [
   { path: '/', currentPath: '/', minimumProseLinks: 0 },
   { path: '/sponsors', currentPath: '/sponsors', minimumProseLinks: 1 },
   { path: '/team', currentPath: '/team', minimumProseLinks: 0 },
-  { path: '/mentors', currentPath: '/mentors', minimumProseLinks: 0 },
   { path: '/contact', currentPath: '/contact', minimumProseLinks: 1 },
 ];
 
