@@ -900,6 +900,12 @@ h3{font-size:var(--t1)}
 }
 .funds.compact .fund.total{padding-top:calc(var(--space) * .5)}
 
+.funding-ask{margin-bottom:calc(var(--space) * 3)}
+.funding-ask-amount{
+  font-family:var(--font-mono);font-size:var(--t4);line-height:1;
+  letter-spacing:-.05em;color:var(--accent)
+}
+
 /* Marks a figure the team has not confirmed yet. Not a placeholder flag: the
    number is real, its precision is not. */
 .flag-note{

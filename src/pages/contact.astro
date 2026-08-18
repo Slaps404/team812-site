@@ -15,13 +15,11 @@ const channels = [
     num: '01',
     name: 'Sponsors and donors',
     summary: 'Sponsorship levels, invoices, W-9s, and in-kind donations.',
-    subject: 'Sponsorship inquiry',
   },
   {
     num: '02',
     name: 'Preuss students and families',
     summary: 'Joining the team, meeting times, and what the season asks of you.',
-subject: 'Joining Team 812',
     detail: 'No engineering experience needed. Say what year you are in and which subteam sounds interesting, and we will point you to the next meeting.',
     action: { label: email, href: `mailto:${email}?subject=Joining%20Team%20812` },
     aside: { label: 'Read about the subteams', href: '/team#roster' },
@@ -30,13 +28,11 @@ subject: 'Joining Team 812',
     num: '03',
     name: 'Mentors and volunteers',
     summary: 'Engineers, teachers, and parents who can give time in build season.',
-    subject: 'Mentoring Team 812',
   },
   {
     num: '04',
     name: 'Other FRC teams and press',
     summary: 'Code questions, event logistics, interviews, and photo requests.',
-    subject: 'Team 812 inquiry',
   },
 ];
 ---
@@ -52,7 +48,6 @@ subject: 'Joining Team 812',
   <section class="team-hero" data-reveal>
     <div class="wrap split feature-split">
       <div>
-        <p class="mono eyebrow">CONTACT / TEAM 812</p>
         <h1>One inbox, checked by students and mentors.</h1>
         <p class="body team-lede">Whether you want to sponsor the team, join it, mentor it, or ask how the robot works, everything reaches us at the same address.</p>
         <div class="team-hero-cta">
@@ -75,7 +70,6 @@ subject: 'Joining Team 812',
     <div class="wrap">
       <div class="section-heading">
         <div>
-          <p class="mono eyebrow">START WITH A SUBJECT</p>
           <h2>Tell us what you need.</h2>
         </div>
         <p class="body">One inbox for sponsorship, joining the team, mentoring, and robot questions. A clear subject helps us route it.</p>
@@ -87,7 +81,6 @@ subject: 'Joining Team 812',
             <div class="subteam-copy">
               <h3>{channel.name}</h3>
               <p class="body subteam-summary">{channel.summary}</p>
-              <p class="mono subteam-subject">SUBJECT: {channel.subject}</p>
             </div>
           </article>
         ))}
@@ -98,7 +91,6 @@ subject: 'Joining Team 812',
   <section data-reveal style="padding-top:0">
     <div class="wrap team-sections">
       <div>
-        <p class="mono eyebrow">WHERE TO FIND US</p>
         <h2>We build on campus at Preuss.</h2>
       </div>
       <div class="team-copy">
@@ -136,10 +128,3 @@ subject: 'Joining Team 812',
 <Footer />
 
 </Base>
-
-<style>
-  .subteam-subject {
-    margin-top: calc(var(--space) * .55);
-    color: var(--ink-dim);
-  }
-</style>
