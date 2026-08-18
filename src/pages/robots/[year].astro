@@ -69,7 +69,6 @@ const photos = seasonAlbums[robot.year] ?? [];
   <section class="robot-detail-hero" data-reveal>
     <div class="wrap">
       <a class="back-link mono" href="/robots">← Robot archive</a>
-      <p class="mono eyebrow">SEASON RECORD / {robot.year}</p>
       <h1>{robot.name ? `${robot.name}.` : (robot.game ? `The ${robot.game} robot.` : `The ${robot.year} robot record.`)}</h1>
       <p class="body archive-lede">{robot.description}</p>
     </div>
@@ -135,7 +134,6 @@ const photos = seasonAlbums[robot.year] ?? [];
   {robot.technicalSpecs && robot.technicalSpecs.length > 0 && (
     <section data-reveal style="padding-top:calc(var(--space) * 3)">
       <div class="wrap">
-        <p class="mono eyebrow">TECH SPECS</p>
         <h2>Technical Specifications.</h2>
         <p class="body" style="max-width:40em;margin-top:calc(var(--space) * .8)">
           Subsystem architecture, motor power distribution, and control software for {robot.name || robot.game}.
@@ -168,7 +166,6 @@ const photos = seasonAlbums[robot.year] ?? [];
   {robot.year === 2026 && (
     <section data-reveal class="event-recap-section">
       <div class="wrap">
-        <p class="mono eyebrow">COMPETITION LOGS</p>
         <h2>Season Event Results.</h2>
 
         <!-- EVENT 1: SAN DIEGO (Image Left, Text Right) -->
@@ -248,7 +245,6 @@ const photos = seasonAlbums[robot.year] ?? [];
   <section data-reveal>
     <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:calc(var(--space) * 1.5)">
       <div>
-        <p class="mono eyebrow">TEAM 812 ARCHIVE</p>
         <h2>Explore other seasons.</h2>
       </div>
       <a class="btn solid" href="/robots" style="align-self:center">
