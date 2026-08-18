@@ -4,7 +4,7 @@ import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import Album, { type PhotoItem } from '../../components/Album.astro';
-import { robotSeasons, type RobotSeason, getAwardDescription } from '../../data/robots';
+import { robotSeasons, type RobotSeason } from '../../data/robots';
 
 import bigJiaweiTransparent from '../../assets/photos/big-jiawei-transparent-newest.png';
 import pit from '../../assets/photos/team-812-robot-pit.png';
@@ -87,25 +87,6 @@ const photos = seasonAlbums[robot.year] ?? [];
             <ul style="margin:0 0 calc(var(--space) * 1.4);padding-left:1.2rem;font-size:var(--t-1);color:var(--ink-dim);line-height:1.6">
               {robot.events.map((evt) => <li>{evt}</li>)}
             </ul>
-          </div>
-        )}
-
-        {robot.awards && robot.awards.length > 0 && (
-          <div>
-            <p class="label">Awards & Honors</p>
-            <div class="robot-awards" style="margin-bottom:calc(var(--space) * 1.4)">
-              {robot.awards.map((award) => {
-                const l = award.toLowerCase();
-                const isMajor = l.includes('chairman') || l.includes('winner') || l.includes('inspiration') || l.includes('flowers') || l.includes('dean');
-                const desc = getAwardDescription(award);
-                return (
-                  <span class:list={['robot-award-tag', { major: isMajor }]} tabindex="0">
-                    {award}
-                    <span class="award-tooltip" role="tooltip">{desc}</span>
-                  </span>
-                );
-              })}
-            </div>
           </div>
         )}
 
