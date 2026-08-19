@@ -211,6 +211,12 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 .robot-detail-facts{border-left:1px solid var(--rule);padding-left:calc(var(--space) * 1.5)}
 .robot-album{display:flex;flex-direction:column;gap:calc(var(--space) * .85)}
 .robot-album-main{margin:0;position:relative}
+.robot-album-controls{
+  position:absolute;z-index:1;inset:50% 0 auto;display:flex;justify-content:space-between;
+  padding:0 calc(var(--space) * .85);transform:translateY(-50%);pointer-events:none;
+}
+.robot-album-arrow{background:color-mix(in srgb,var(--ground) 34%,transparent);opacity:.8}
+.robot-album-arrow:hover,.robot-album-arrow:focus-visible{background:color-mix(in srgb,var(--ground) 72%,transparent);opacity:1}
 .robot-album-main.transparent-machine{
   background:transparent;
   border:1px solid rgba(255,255,255,0.06);

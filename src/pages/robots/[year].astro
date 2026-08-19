@@ -7,7 +7,10 @@ import Album, { type PhotoItem } from '../../components/Album.astro';
 import { robotSeasons, type RobotSeason } from '../../data/robots';
 
 import bigJiaweiTransparent from '../../assets/photos/big-jiawei-transparent-newest.png';
-import pit from '../../assets/photos/team-812-robot-pit.png';
+import robotField from '../../assets/photos/2026-season-robot-field.jpg';
+import robotMatch from '../../assets/photos/2026-season-robot-match.jpg';
+import robotMechanism from '../../assets/photos/2026-season-robot-mechanism.jpg';
+import competitionPit from '../../assets/photos/2026-season-competition-pit.jpg';
 import states1026 from '../../assets/photos/2026-states-IMG_1026.jpg';
 import states1033 from '../../assets/photos/2026-states-IMG_1033.jpg';
 import states1045 from '../../assets/photos/2026-states-IMG_1045.jpg';
@@ -33,24 +36,24 @@ const seasonAlbums: Record<number, PhotoItem[]> = {
       isTransparent: true,
     },
     {
-      src: pit,
-      alt: 'Team 812 students and mentor tuning the robot in the pit at the state championship.',
-      caption: 'Pit crew tuning at the FIRST California Southern State Championship',
+      src: robotField,
+      alt: 'Team 812 competition robot Big Jiawei alone on the REBUILT practice field.',
+      caption: 'Big Jiawei on the REBUILT practice field',
     },
     {
-      src: states1026,
-      alt: "A mentor and students working on Team 812's shooter mechanism.",
-      caption: 'Shooter mechanism calibration between matches',
+      src: robotMatch,
+      alt: 'Team 812 competition robot Big Jiawei lined up on the REBUILT field during a match.',
+      caption: 'Big Jiawei ready for a REBUILT match',
     },
     {
-      src: states1033,
-      alt: 'Students and mentor repairing the drivetrain in the pit.',
-      caption: 'Drivetrain repair in the pits before queueing',
+      src: robotMechanism,
+      alt: 'Top-down view of Big Jiawei showing its shooter, wiring, and drivetrain.',
+      caption: 'Big Jiawei\'s shooter, wiring, and drivetrain',
     },
     {
-      src: states1045,
-      alt: 'Team 812 members and robot at the 2026 state championship.',
-      caption: 'Team 812 pit crew at the State Championship',
+      src: competitionPit,
+      alt: 'Team 812 students and mentor working beside Big Jiawei in the competition pit.',
+      caption: 'Pit-side work on Big Jiawei',
     },
   ],
   // 2025: [ ... ] - easily add your 2025 photos here!

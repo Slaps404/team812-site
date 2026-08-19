@@ -33,6 +33,16 @@ const isFirstTransparent = photos[0]?.isTransparent ?? false;
         loading="eager"
         fetchpriority="high"
       />
+      {hasMultiple && (
+        <div class="robot-album-controls" aria-label={`${year} season photo controls`}>
+          <button class="hero-arrow robot-album-arrow" type="button" data-album-prev aria-label="Previous robot photo">
+            <span aria-hidden="true">&#8592;</span>
+          </button>
+          <button class="hero-arrow robot-album-arrow" type="button" data-album-next aria-label="Next robot photo">
+            <span aria-hidden="true">&#8594;</span>
+          </button>
+        </div>
+      )}
       <figcaption class="mono robot-album-caption">{photos[0].caption}</figcaption>
     </figure>
 
@@ -73,13 +83,23 @@ const isFirstTransparent = photos[0]?.isTransparent ?? false;
 <script>
   const setupAlbums = () => {
     document.querySelectorAll('[data-album]').forEach((album) => {
+      if ((album as HTMLElement).dataset.albumSetup === 'true') return;
+      (album as HTMLElement).dataset.albumSetup = 'true';
+
       const mainFig = album.querySelector('.robot-album-main');
       const mainImg = album.querySelector('.robot-album-main-img') as HTMLImageElement;
       const caption = album.querySelector('.robot-album-caption');
-      const thumbs = album.querySelectorAll('.robot-album-thumb');
+      const thumbs = [...album.querySelectorAll('.robot-album-thumb')];
+      let current = 0;
+
+      const show = (index: number) => {
+        current = (index + thumbs.length) % thumbs.length;
+        thumbs[current]?.dispatchEvent(new Event('click'));
+      };
 
       thumbs.forEach((thumb) => {
         thumb.addEventListener('click', () => {
+          current = Number(thumb.getAttribute('data-index') ?? 0);
           thumbs.forEach((t) => {
             t.classList.remove('active');
             t.setAttribute('aria-selected', 'false');
@@ -110,6 +130,14 @@ const isFirstTransparent = photos[0]?.isTransparent ?? false;
             caption.textContent = newCaption;
           }
         });
+      });
+
+      album.querySelector('[data-album-prev]')?.addEventListener('click', () => show(current - 1));
+      album.querySelector('[data-album-next]')?.addEventListener('click', () => show(current + 1));
+      mainFig?.addEventListener('keydown', (event) => {
+        const key = (event as KeyboardEvent).key;
+        if (key === 'ArrowLeft') show(current - 1);
+        if (key === 'ArrowRight') show(current + 1);
       });
     });
   };
