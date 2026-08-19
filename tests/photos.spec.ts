@@ -62,7 +62,7 @@ for (const width of [390, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
 
-    const tall = page.getByAltText("A mentor and two students working on the robot's shooter mechanism in the pit.");
+    const tall = page.getByAltText('Team 812 members with their competition robot at a REBUILT event.');
     const regular = page.getByAltText('Students and a mentor working on the robot, with TEAM 812 on the bumper.');
 
     expect(await renderedRatio(tall)).toBeCloseTo(tallRatio, 2);
@@ -90,7 +90,7 @@ test('each route exposes its likely LCP image eagerly in the initial HTML', asyn
   const sponsorsMarkup = await (await request.get('/sponsors/')).text();
   const homeLead = imageTagFor(homeMarkup, 'Team 812 members in matching team shirts posing together in a hotel lobby.');
   const sponsorLead = imageTagFor(sponsorsMarkup, 'The 2026 Team 812 roster in team shirts.');
-  const belowFold = imageTagFor(homeMarkup, "A mentor and two students working on the robot's shooter mechanism in the pit.");
+  const belowFold = imageTagFor(homeMarkup, 'Team 812 members with their competition robot at a REBUILT event.');
 
   for (const lead of [homeLead, sponsorLead]) {
     expect(lead).toContain('loading="eager"');
@@ -129,7 +129,7 @@ test('homepage hero does not auto-advance', async ({ page }) => {
 test('responsive source sets select a right-sized resource for every photo slot', async ({ page }) => {
   const alts = [
     'Team 812 members in matching team shirts posing together in a hotel lobby.',
-    "A mentor and two students working on the robot's shooter mechanism in the pit.",
+    'Team 812 members with their competition robot at a REBUILT event.',
     'Students and a mentor working on the robot, with TEAM 812 on the bumper.',
   ];
 

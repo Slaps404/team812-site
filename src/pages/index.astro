@@ -11,7 +11,7 @@ import LogoWall from '../components/LogoWall.astro';
 import Tune from '../components/Tune.astro';
 import { PAIR_IMAGE_SIZES } from '../lib/imageLayout';
 
-import shooterImg from '../assets/photos/2026-states-IMG_1026.jpg';
+import teamRobotImg from '../assets/photos/2026-states-team-robot-arena.jpg';
 import drivetrainImg from '../assets/photos/2026-states-IMG_1033.jpg';
 import workbenchImg from '../assets/photos/2026-season-workbench.jpeg';
 const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=f84b6f44-4eb5-43e6-9468-5e756a2d4696';
@@ -73,7 +73,7 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=f84b6f44-4eb5-4
         </div>
       </Fragment>
       <Fragment slot="right">
-        <Shot src={shooterImg} alt="A mentor and two students working on the robot's shooter mechanism in the pit." caption="Shooter mechanism calibration between matches" tall />
+        <Shot src={teamRobotImg} alt="Team 812 members with their competition robot at a REBUILT event." caption="Team 812 with Big Jiawei at a REBUILT event" tall />
       </Fragment>
     </Split>
   </section>
@@ -94,7 +94,7 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=f84b6f44-4eb5-4
       <p class="body" style="margin-top:calc(var(--space) * 1.2)">Help fund Team 812’s 2027 season at The Preuss School.</p>
       <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6);flex-wrap:wrap">
         <a class="btn solid" href={donationUrl} target="_blank" rel="noopener noreferrer">Give to Team 812</a>
-        <a class="btn ghost" href="/sponsors">View Sponsorship Tiers</a>
+        <a class="btn ghost" href="/sponsors#tiers">View Sponsorship Tiers</a>
       </div>
     </div>
   </section>
