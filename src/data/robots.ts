@@ -79,7 +79,7 @@ export const robotSeasons: RobotSeason[] = [
       {
         category: 'Vision & Control',
         specs: [
-          { label: 'Targeting', value: 'Dual Limelight 3 (MegaTag2 AprilTag tracking)' },
+          { label: 'Targeting', value: 'Arducam cameras (AprilTag tracking)' },
           { label: 'Autonomous', value: 'WPILib Java + Choreo pathing' },
         ],
       },
@@ -95,7 +95,7 @@ export const robotSeasons: RobotSeason[] = [
         phase: 'March 2026',
         title: 'CA District San Diego Event: Trial by Fire on Home Turf',
         content:
-          'Big Jiawei debuted at the San Diego District Event presented by Qualcomm. Under intense defensive pressure, our drive team pushed the swerve drivetrain to its limits. Pit crew members executed rapid battery swaps, tuned our Limelight AprilTag pose estimation under arena lighting, and dialed in our autonomous routines. The weekend solidified our confidence in Big Jiawei’s chassis durability and cycle speed.',
+          'Big Jiawei debuted at the San Diego District Event presented by Qualcomm. Under intense defensive pressure, our drive team pushed the swerve drivetrain to its limits. Pit crew members executed rapid battery swaps, tuned our Arducam AprilTag pose estimation under arena lighting, and dialed in our autonomous routines. The weekend solidified our confidence in Big Jiawei’s chassis durability and cycle speed.',
       },
       {
         phase: 'April 2026',
