@@ -1,36 +1,33 @@
 ---
 import { Image } from 'astro:assets';
-import speechImg from '../assets/photos/2026-awards-speech.png';
-import queueImg from '../assets/photos/2026-drive-team-queue.png';
-import studioImg from '../assets/photos/2026-robot-studio.png';
-import bannerImg from '../assets/photos/2026-season-banner.jpg';
+import teamImg from '../assets/photos/2026-states-team-hotel-hero.jpg';
+import arenaTeamRobotImg from '../assets/photos/2026-states-team-robot-arena.jpg';
+import fieldCloseImg from '../assets/photos/2026-states-robot-field-close.jpg';
+import robotTeamImg from '../assets/photos/2026-states-robot-team.jpg';
 import { HERO_IMAGE_SIZES, HERO_IMAGE_WIDTHS } from '../lib/imageLayout';
 
 /* Order matters: the first slide is the LCP image, so it is the one that gets
    eager loading and high fetch priority. Everything after it waits. */
 const slides = [
   {
-    src: speechImg,
-    alt: 'A Team 812 student in a Midnight Mechanics shirt and safety glasses speaking into a microphone in front of a packed competition crowd.',
-    id: 'team-812-season-2026',
+    src: teamImg,
+    alt: 'Team 812 members in matching team shirts posing together in a hotel lobby.',
+    id: 'team-812-hotel-team',
   },
   {
-    src: queueImg,
-    alt: 'Team 812 students in Midnight Mechanics shirts checking match strategy on their phones in the queue line beside the field.',
-    id: 'team-812-queue-line',
+    src: arenaTeamRobotImg,
+    alt: 'Team 812 members posing with their competition robot in the arena at a REBUILT event.',
+    id: 'team-812-arena-team-robot',
   },
   {
-    src: studioImg,
-    alt: 'The Team 812 competition robot on a white studio backdrop, showing its red 812 bumper and Preuss School, Qualcomm, and Nordson decals.',
-    id: 'team-812-robot-studio',
+    src: robotTeamImg,
+    alt: 'Team 812 students and a mentor moving their competition robot through the arena.',
+    id: 'team-812-robot-team',
   },
   {
-    src: bannerImg,
-    alt: 'A Team 812 student standing with arms crossed in front of the competition robot on a white studio backdrop.',
-    id: 'team-812-season-banner',
-    // This artwork already has "Our Season 2026" set into it, so the hero
-    // headline steps aside while it is up rather than printing twice.
-    ownsHeadline: true,
+    src: fieldCloseImg,
+    alt: "Team 812's competition robot collecting yellow game pieces beside the field wall.",
+    id: 'team-812-robot-field-close',
   },
 ];
 ---
@@ -43,7 +40,6 @@ const slides = [
       <div
         class:list={['hero-slide', { 'is-active': index === 0 }]}
         aria-hidden={index === 0 ? undefined : 'true'}
-        data-owns-headline={'ownsHeadline' in slide ? 'true' : undefined}
       >
         <Image
           class="hero-image"
@@ -90,15 +86,12 @@ const slides = [
     let current = 0;
     let timer = 0;
 
-    const content = document.querySelector<HTMLElement>('.hero-content');
-
     const show = (index: number) => {
       slides[current].classList.remove('is-active');
       slides[current].setAttribute('aria-hidden', 'true');
       slides[index].classList.add('is-active');
       slides[index].removeAttribute('aria-hidden');
       current = index;
-      content?.classList.toggle('is-muted', slides[index].dataset.ownsHeadline === 'true');
     };
 
     const step = (delta: number) => show((current + delta + slides.length) % slides.length);

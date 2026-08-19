@@ -88,7 +88,7 @@ test('sponsor roster uses the regular desktop photo slot', async ({ page }) => {
 test('each route exposes its likely LCP image eagerly in the initial HTML', async ({ request }) => {
   const homeMarkup = await (await request.get('/')).text();
   const sponsorsMarkup = await (await request.get('/sponsors/')).text();
-  const homeLead = imageTagFor(homeMarkup, 'A Team 812 student in a Midnight Mechanics shirt and safety glasses speaking into a microphone in front of a packed competition crowd.');
+  const homeLead = imageTagFor(homeMarkup, 'Team 812 members in matching team shirts posing together in a hotel lobby.');
   const sponsorLead = imageTagFor(sponsorsMarkup, 'The 2026 Team 812 roster in team shirts.');
   const belowFold = imageTagFor(homeMarkup, "A mentor and two students working on the robot's shooter mechanism in the pit.");
 
@@ -100,9 +100,26 @@ test('each route exposes its likely LCP image eagerly in the initial HTML', asyn
   expect(belowFold).not.toContain('fetchpriority="high"');
 });
 
+test('homepage hero uses four alternating team and robot photos', async ({ page }) => {
+  await page.goto('/');
+
+  await expect(page.locator('.hero-slide')).toHaveCount(4);
+  await expect(page.locator('.hero-slide img')).toHaveCount(4);
+  const heroAlts = await page.locator('.hero-slide img').evaluateAll((images) => images.map((image) => image.alt));
+  expect(heroAlts).toEqual([
+    'Team 812 members in matching team shirts posing together in a hotel lobby.',
+    'Team 812 members posing with their competition robot in the arena at a REBUILT event.',
+    'Team 812 students and a mentor moving their competition robot through the arena.',
+    "Team 812's competition robot collecting yellow game pieces beside the field wall.",
+  ]);
+});
+
 test('responsive source sets select a right-sized resource for every photo slot', async ({ page }) => {
   const alts = [
-    'A Team 812 student in a Midnight Mechanics shirt and safety glasses speaking into a microphone in front of a packed competition crowd.',
+    'Team 812 members in matching team shirts posing together in a hotel lobby.',
+    'Team 812 members posing with their competition robot in the arena at a REBUILT event.',
+    'Team 812 students and a mentor moving their competition robot through the arena.',
+    "Team 812's competition robot collecting yellow game pieces beside the field wall.",
     "A mentor and two students working on the robot's shooter mechanism in the pit.",
     'Students and a mentor working on the robot, with TEAM 812 on the bumper.',
   ];
@@ -121,7 +138,7 @@ test('responsive source sets select a right-sized resource for every photo slot'
 
 test('mobile browsers transfer materially smaller lead photos', async ({ browser }) => {
   const leads = [
-    ['/', 'A Team 812 student in a Midnight Mechanics shirt and safety glasses speaking into a microphone in front of a packed competition crowd.'],
+    ['/', 'Team 812 members in matching team shirts posing together in a hotel lobby.'],
     ['/sponsors/', 'The 2026 Team 812 roster in team shirts.'],
   ] as const;
 

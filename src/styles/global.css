@@ -578,10 +578,6 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 @media (prefers-reduced-motion:reduce){
   .hero-slide{transition:none}
 }
-/* Slides whose artwork already carries the season wording take the headline's
-   place while they are up. */
-/* Beats the reveal rule's `html.js [data-reveal].is-revealed` specificity. */
-html.js .hero-content[data-reveal].is-muted{opacity:0;transition:opacity 400ms var(--ease)}
 .hero-controls{
   position:absolute;z-index:3;inset:50% 0 auto;
   display:flex;justify-content:space-between;align-items:center;
