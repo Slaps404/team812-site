@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import teamImg from '../assets/photos/2026-states-team-hotel-hero.jpg';
 import arenaTeamRobotImg from '../assets/photos/2026-states-team-robot-arena.jpg';
 import fieldCloseImg from '../assets/photos/2026-states-robot-field-close.jpg';
-import robotTeamImg from '../assets/photos/2026-states-robot-team.jpg';
+import workshopImg from '../assets/photos/2026-states-student-workshop.jpg';
 import { HERO_IMAGE_SIZES, HERO_IMAGE_WIDTHS } from '../lib/imageLayout';
 
 /* Order matters: the first slide is the LCP image, so it is the one that gets
@@ -15,25 +15,26 @@ const slides = [
     id: 'team-812-hotel-team',
   },
   {
+    src: fieldCloseImg,
+    alt: "Team 812's competition robot collecting yellow game pieces beside the field wall.",
+    id: 'team-812-robot-field-close',
+  },
+  {
     src: arenaTeamRobotImg,
     alt: 'Team 812 members posing with their competition robot in the arena at a REBUILT event.',
     id: 'team-812-arena-team-robot',
   },
   {
-    src: robotTeamImg,
-    alt: 'Team 812 students and a mentor moving their competition robot through the arena.',
-    id: 'team-812-robot-team',
-  },
-  {
-    src: fieldCloseImg,
-    alt: "Team 812's competition robot collecting yellow game pieces beside the field wall.",
-    id: 'team-812-robot-field-close',
+    src: workshopImg,
+    alt: 'A Team 812 student wearing hearing protection works at a saw in the workshop.',
+    id: 'team-812-student-workshop',
   },
 ];
 ---
-{/* Full-bleed competition photos that cross-fade on a timer, so the hero runs
-    dark: the scrim carries the bottom of the frame down to the page ground and
-    the headline sits on it. The scrim and headline stay put across slides. */}
+{/* Full-bleed competition photos cross-fade when a visitor uses the controls,
+    so the hero runs dark: the scrim carries the bottom of the frame down to the
+    page ground and the headline sits on it. The scrim and headline stay put
+    across slides. */}
 <header class="hero">
   <div class="hero-slides" aria-roledescription="carousel" aria-label="Team 812 at the 2026 competition">
     {slides.map((slide, index) => (
@@ -71,20 +72,13 @@ const slides = [
 </header>
 
 <script>
-  const SLIDE_MS = 6000;
-
   const setupHeroCarousel = () => {
     const slides = Array.from(document.querySelectorAll<HTMLElement>('.hero-slide'));
     const prev = document.querySelector<HTMLButtonElement>('[data-hero-prev]');
     const next = document.querySelector<HTMLButtonElement>('[data-hero-next]');
     if (slides.length < 2) return;
 
-    // A timed cross-fade is decorative motion, so honour the OS setting. The
-    // arrows still work — only the automatic advance is dropped.
-    const autoplays = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
     let current = 0;
-    let timer = 0;
 
     const show = (index: number) => {
       slides[current].classList.remove('is-active');

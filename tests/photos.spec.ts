@@ -105,21 +105,30 @@ test('homepage hero uses four alternating team and robot photos', async ({ page 
 
   await expect(page.locator('.hero-slide')).toHaveCount(4);
   await expect(page.locator('.hero-slide img')).toHaveCount(4);
-  const heroAlts = await page.locator('.hero-slide img').evaluateAll((images) => images.map((image) => image.alt));
+  const heroAlts = await page.locator('.hero-slide img').evaluateAll((images) => images.map((image) => (image as HTMLImageElement).alt));
   expect(heroAlts).toEqual([
     'Team 812 members in matching team shirts posing together in a hotel lobby.',
-    'Team 812 members posing with their competition robot in the arena at a REBUILT event.',
-    'Team 812 students and a mentor moving their competition robot through the arena.',
     "Team 812's competition robot collecting yellow game pieces beside the field wall.",
+    'Team 812 members posing with their competition robot in the arena at a REBUILT event.',
+    'A Team 812 student wearing hearing protection works at a saw in the workshop.',
   ]);
+});
+
+test('homepage hero does not auto-advance', async ({ page }) => {
+  await page.goto('/');
+
+  const activeSlide = page.locator('.hero-slide.is-active img');
+  await expect(activeSlide).toHaveAttribute('alt', 'Team 812 members in matching team shirts posing together in a hotel lobby.');
+  await page.waitForTimeout(6500);
+  await expect(activeSlide).toHaveAttribute('alt', 'Team 812 members in matching team shirts posing together in a hotel lobby.');
+
+  await page.getByRole('button', { name: 'Next photo' }).click();
+  await expect(page.locator('.hero-slide.is-active img')).toHaveAttribute('alt', "Team 812's competition robot collecting yellow game pieces beside the field wall.");
 });
 
 test('responsive source sets select a right-sized resource for every photo slot', async ({ page }) => {
   const alts = [
     'Team 812 members in matching team shirts posing together in a hotel lobby.',
-    'Team 812 members posing with their competition robot in the arena at a REBUILT event.',
-    'Team 812 students and a mentor moving their competition robot through the arena.',
-    "Team 812's competition robot collecting yellow game pieces beside the field wall.",
     "A mentor and two students working on the robot's shooter mechanism in the pit.",
     'Students and a mentor working on the robot, with TEAM 812 on the bumper.',
   ];
