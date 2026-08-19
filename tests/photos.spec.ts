@@ -110,7 +110,7 @@ test('homepage hero uses four alternating team and robot photos', async ({ page 
     'Team 812 members in matching team shirts posing together in a hotel lobby.',
     "Team 812's competition robot collecting yellow game pieces beside the field wall.",
     'Team 812 members posing with their competition robot in the arena at a REBUILT event.',
-    'A Team 812 student wearing hearing protection works at a saw in the workshop.',
+    'Team 812 students and a mentor moving their competition robot through the arena.',
   ]);
 });
 
