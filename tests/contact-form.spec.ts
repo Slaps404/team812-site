@@ -11,6 +11,7 @@ test('contact page keeps one simple sponsor-focused form', async ({ page }) => {
   const form = page.locator('#contact-form');
   await expect(form).toHaveAttribute('action', 'https://formsubmit.co/team812@preuss.ucsd.edu');
   await expect(form).toHaveAttribute('method', 'POST');
+  await expect(form).toHaveAttribute('target', '_blank');
   await expect(form.locator('input')).toHaveCount(6);
   await expect(form.locator('select')).toHaveCount(1);
   await expect(form.locator('textarea')).toHaveCount(1);
