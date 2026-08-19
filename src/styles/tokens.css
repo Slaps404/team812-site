@@ -35,6 +35,17 @@
   --type-base:     17px;
   --type-scale:    1.24;
   --display:       4.6vw;     /* hero headline, scales with window */
+  --hero-title-size:       clamp(var(--t3),5.6vw,4.25rem);
+  --hero-title-track:      -.055em;
+  --hero-caption-font:    "Helvetica Neue",Arial,sans-serif;
+  --hero-caption-size:    clamp(var(--t1),1.8vw,var(--t2));
+  --hero-caption-weight:  500;
+  --hero-caption-color:   color-mix(in srgb,var(--accent) 25%,var(--ink-dim) 75%);
+  --hero-caption-track:    .04em;
+  --hero-caption-offset:   calc(var(--space) * .65);
+  --hero-caption-shift:    .75rem;
+  --hero-caption-motion:   700ms;
+  --hero-caption-delay:    220ms;
 
   /* hero crop. The photo slot is tall, so these pan the frame for real. */
   --hero-x:        50%;

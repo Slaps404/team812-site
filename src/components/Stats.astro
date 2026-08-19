@@ -1,5 +1,5 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 
 const stats = (await getCollection('stats')).sort((a, b) => a.data.order - b.data.order);
 
@@ -13,12 +13,15 @@ function parseStatValue(raw: string) {
     original: raw
   };
 }
+
+const statsWithParsedValues = stats.map((stat) => ({
+  stat,
+  parsed: parseStatValue(stat.data.value),
+}));
 ---
 <div class="stats" data-reveal id="stats-band">
   <div class="stats-in">
-    {stats.map((s: CollectionEntry<'stats'>) => {
-      const parsed = parseStatValue(s.data.value);
-      return (
+    {statsWithParsedValues.map(({ stat: s, parsed }) => (
         <div class="stat">
           <div class="n">
             {parsed.num !== null ? (
@@ -34,10 +37,9 @@ function parseStatValue(raw: string) {
               <Fragment>{s.data.value}{s.data.suffix && <span style="font-size:.5em;vertical-align:.55em">{s.data.suffix}</span>}</Fragment>
             )}
           </div>
-          <div class="k mono">{s.data.label}</div>
+          <div class="k mono stat-label">{s.data.label}</div>
         </div>
-      );
-    })}
+    ))}
   </div>
 </div>
 

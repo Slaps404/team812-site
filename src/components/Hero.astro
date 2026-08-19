@@ -57,7 +57,8 @@ const slides = [
   </div>
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-content" data-reveal>
-    <h1>Our Season 2026</h1>
+    <h1 class="hero-title">THE MIDNIGHT MECHANICS</h1>
+    <p class="hero-subcaption" data-hero-subcaption>Built After Hours</p>
   </div>
   {/* Controls sit in their own corner cluster rather than on top of the photo,
       so they never land over a face or compete with the headline. */}
@@ -90,30 +91,31 @@ const slides = [
 
     const step = (delta: number) => show((current + delta + slides.length) % slides.length);
 
-    const stop = () => window.clearInterval(timer);
-    const start = () => {
-      if (!autoplays) return;
-      stop();
-      timer = window.setInterval(() => step(1), SLIDE_MS);
-    };
+    prev?.addEventListener('click', () => step(-1));
+    next?.addEventListener('click', () => step(1));
+  };
 
-    // A click means the reader is driving, so give them a fresh full interval
-    // before the timer takes over again.
-    prev?.addEventListener('click', () => {
-      step(-1);
-      start();
-    });
-    next?.addEventListener('click', () => {
-      step(1);
-      start();
-    });
+  const setupHeroSubcaption = () => {
+    const subcaption = document.querySelector<HTMLElement>('[data-hero-subcaption]');
+    if (!subcaption) return;
 
-    // Nothing to animate while the tab is in the background.
-    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
-    document.addEventListener('astro:before-swap', stop, { once: true });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      subcaption.classList.add('is-revealed');
+      return;
+    }
 
-    start();
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        subcaption.classList.add('is-revealed');
+        obs.unobserve(entry.target);
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -35% 0px' });
+
+    observer.observe(subcaption);
+    document.addEventListener('astro:before-swap', () => observer.disconnect(), { once: true });
   };
 
   document.addEventListener('astro:page-load', setupHeroCarousel);
+  document.addEventListener('astro:page-load', setupHeroSubcaption);
 </script>
