@@ -3,7 +3,7 @@ import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 
-const siteOrigin = 'https://themidnightmechanics.com';
+const siteOrigin = 'https://team812.com';
 const dist = path.resolve('dist');
 
 const routes = [
@@ -65,7 +65,7 @@ test('built routes expose complete, distinct production metadata', async () => {
     assert.equal(meta(html, 'property', 'og:title'), route.title);
     assert.equal(meta(html, 'property', 'og:description'), route.description);
     assert.equal(meta(html, 'property', 'og:url'), route.canonical);
-    assert.match(meta(html, 'property', 'og:image'), /^https:\/\/themidnightmechanics\.com\//);
+    assert.match(meta(html, 'property', 'og:image'), /^https:\/\/team812\.com\//);
     assert.equal(
       meta(html, 'property', 'og:image:alt'),
       'A Team 812 student and mentor working on the robot in the pit.',
