@@ -72,7 +72,7 @@ export const robotSeasons: RobotSeason[] = [
       {
         category: 'Shooter & Intake',
         specs: [
-          { label: 'Shooter', value: 'Dual Kraken X60 (6,200 RPM)' },
+          { label: 'Shooter', value: 'Dual NEO Vortex (6,784 RPM)' },
           { label: 'Intake', value: 'Dual-roller ground intake (< 0.25s pickup)' },
         ],
       },
