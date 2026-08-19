@@ -1095,7 +1095,7 @@ body.flags .ph-tag{
   display:flex;flex-direction:column;gap:calc(var(--space) * 1.2);
 }
 .event-recap-body p{
-  color:var(--ink-dim);line-height:1.6;font-size:var(--t-1);margin:0;
+  color:var(--ink);line-height:1.6;font-size:calc(var(--t-1) * 1.08);margin:0;
 }
 .event-recap-figure{
   margin:0;border-radius:6px;overflow:hidden;border:1px solid var(--rule);background:#000;
