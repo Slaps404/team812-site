@@ -74,7 +74,6 @@ export const robotSeasons: RobotSeason[] = [
         specs: [
           { label: 'Shooter', value: 'Dual Kraken X60 (6,200 RPM)' },
           { label: 'Intake', value: 'Dual-roller ground intake (< 0.25s pickup)' },
-          { label: 'Hood', value: 'Variable servo hood (20° to 75°)' },
         ],
       },
       {
