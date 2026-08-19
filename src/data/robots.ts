@@ -64,7 +64,7 @@ export const robotSeasons: RobotSeason[] = [
       {
         category: 'Drivetrain',
         specs: [
-          { label: 'Type', value: 'SDS Mk4i L3 Swerve (Kraken X60)' },
+          { label: 'Type', value: 'SDS MK3 Swerve Module' },
           { label: 'Top Speed', value: '15.6 ft/s (4.75 m/s)' },
           { label: 'Weight', value: '118.4 lbs' },
         ],
