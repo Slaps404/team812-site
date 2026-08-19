@@ -20,7 +20,7 @@ test('contact page keeps one simple sponsor-focused form', async ({ page }) => {
   await expect(form.locator('textarea[name="message"]')).toHaveAttribute('required', '');
   await expect(form.getByRole('button', { name: 'Submit' })).toBeVisible();
   await expect(page.locator('.contact-email-link')).toHaveAttribute('href', 'mailto:team812@preuss.ucsd.edu');
-  await expect(page.locator('.footer-contact-link')).toHaveText('Contact us!');
+  await expect(page.locator('.footer-contact-link')).toHaveText('team812@preuss.ucsd.edu');
 
   await form.locator('textarea').focus();
   await expect(form.locator('textarea')).toHaveCSS('outline-style', 'none');
