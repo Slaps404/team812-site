@@ -2,6 +2,8 @@
 # the file content loader does not preserve YAML array order on its own.
 - id: "5000"
   order: 1
+  name: "Midnight"
+  image: "midnight_milky_way_lake.avif"
   precede: "Includes the $2,500 benefits, plus"
   amount: "$5,000"
   top: true
@@ -12,6 +14,8 @@
     - "Logo on this site's homepage"
 - id: "2500"
   order: 2
+  name: "Starlight"
+  image: "starlight_city.avif"
   precede: "Includes the $1,000 benefits, plus"
   amount: "$2,500"
   top: false
@@ -21,6 +25,8 @@
     - "Thank-you post on our social accounts"
 - id: "1000"
   order: 3
+  name: "Twilight"
+  image: "starlight_clouds.avif"
   precede: ""
   amount: "$1,000"
   top: false

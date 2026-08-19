@@ -1,18 +1,126 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
+import midnightMilkyWayLake from '../assets/sky/midnight_milky_way_lake.avif?url';
+import starlightCity from '../assets/sky/starlight_city.avif?url';
+import starlightClouds from '../assets/sky/starlight_clouds.avif?url';
+
+const SKY_SRC: Record<string, string> = {
+  'midnight_milky_way_lake.avif': midnightMilkyWayLake,
+  'starlight_city.avif': starlightCity,
+  'starlight_clouds.avif': starlightClouds,
+};
 
 const tiers = (await getCollection('tiers')).sort((a, b) => a.data.order - b.data.order);
 ---
 <div class="tiers">
   {tiers.map((t: CollectionEntry<'tiers'>) => (
-    <div class:list={['tier', { top: t.data.top }]} data-reveal>
-      <div class="amt">{t.data.amount}</div>
-      {t.data.precede && <p class="tier-precede">{t.data.precede}</p>}
-      <ul>
-        {t.data.items.map((item: string) => (
-          <li set:html={item} />
-        ))}
-      </ul>
+    <div
+      class:list={['tier', { top: t.data.top }]}
+      style={`background-image:${t.data.top ? 'linear-gradient(rgba(9,10,12,.5), rgba(9,10,12,.5)), ' : ''}url(${SKY_SRC[t.data.image]})`}
+      data-reveal
+    >
+      <div class="tier-veil"></div>
+      <div class="tier-in">
+        <div class="tier-name">{t.data.name}</div>
+        <div class:list={['amt', { top: t.data.top }]}>{t.data.amount}</div>
+        {t.data.precede && <p class="tier-precede">{t.data.precede}</p>}
+        <ul>
+          {t.data.items.map((item: string) => (
+            <li set:html={item} />
+          ))}
+        </ul>
+      </div>
     </div>
   ))}
 </div>
+
+<style>
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: calc(var(--space) * 1.2);
+    align-items: stretch;
+  }
+
+  .tier {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 34rem;
+    overflow: hidden;
+    border-radius: var(--radius);
+    border-top: 1px solid var(--ink);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .tier.top {
+    border-top: 3px solid var(--accent);
+  }
+
+  .tier-veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(9, 10, 12, .94) 0%, rgba(9, 10, 12, .72) 46%, rgba(9, 10, 12, .18) 100%);
+  }
+
+  .tier-in {
+    position: relative;
+    padding: calc(var(--space) * 1.6);
+  }
+
+  .tier-name {
+    font-family: var(--font-display);
+    font-size: var(--t2);
+    font-weight: 600;
+    letter-spacing: .01em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .amt {
+    font-family: var(--font-mono);
+    font-size: var(--t1);
+    letter-spacing: -.03em;
+    line-height: 1;
+    color: #fff;
+    margin-top: calc(var(--space) * .3);
+  }
+
+  .amt.top {
+    font-size: var(--t3);
+    color: var(--accent);
+  }
+
+  .tier-precede {
+    margin: calc(var(--space) * .55) 0 0;
+    color: rgba(255, 255, 255, .66);
+    font-size: var(--t-1);
+    letter-spacing: 0;
+  }
+
+  .tier ul {
+    list-style: none;
+    margin: calc(var(--space) * 1.1) 0 0;
+    padding: 0;
+    color: #fff;
+  }
+
+  .tier li {
+    font-size: var(--t-1);
+    padding: calc(var(--space) * .5) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .18);
+    opacity: .88;
+  }
+
+  .tier li:last-child {
+    border-bottom: none;
+  }
+
+  .tier li b {
+    color: #fff;
+    font-weight: 500;
+  }
+</style>

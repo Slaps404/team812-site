@@ -16,6 +16,8 @@ const tiers = defineCollection({
   loader: file('src/data/tiers.yaml'),
   schema: z.object({
     order: z.number(),
+    name: z.string(),
+    image: z.string(),
     precede: z.string(),
     amount: z.string(),
     top: z.boolean().default(false),
