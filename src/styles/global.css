@@ -543,15 +543,30 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
 .honor-row.major .honor-year:hover{border-color:rgba(232,163,61,.66);color:#fdf0d2}
 .honor-source{margin-top:calc(var(--space) * 1.2);color:var(--ink-dim)}
 
-/* Contact routes reuse the numbered subteam rows; only the action line below
-   each row is new. The separator is decorative, so it stays out of the tab and
-   underline treatment the prose links get. */
-.contact-actions{
-  display:flex;flex-wrap:wrap;align-items:baseline;
-  gap:calc(var(--space) * .5);
-  margin-top:calc(var(--space) * .8);font-size:var(--t-1);
+/* Contact form. A hosted form endpoint handles the POST for this static site. */
+.contact-page{padding:calc(var(--space) * 6.5) 0}
+.contact-page-layout{display:grid;grid-template-columns:4fr 6fr;gap:calc(var(--space) * 3);align-items:start}
+.contact-page-intro h1{max-width:7em;font-size:var(--t4)}
+.contact-page-intro .team-lede{margin-top:calc(var(--space) * 1.4)}
+.contact-hero-copy{margin-top:calc(var(--space) * .9);max-width:31em}
+.contact-form{border-top:1px solid var(--rule);padding-top:calc(var(--space) * 1.5)}
+.contact-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(var(--space) * 1.25) calc(var(--space) * 1.1)}
+.contact-field{display:flex;flex-direction:column;gap:.45rem;min-width:0}
+.contact-field-full{grid-column:1 / -1}
+.contact-field label{font-size:var(--t-1);font-weight:600;line-height:1.3;color:var(--ink)}
+.contact-field label span{color:var(--accent)}
+.contact-field input,.contact-field select,.contact-field textarea{
+  width:100%;border:1px solid var(--rule);border-radius:var(--radius);background:var(--ground-2);color:var(--ink);
+  font:inherit;font-size:var(--t-1);line-height:1.4;padding:.72rem .8rem;transition:border-color var(--motion) var(--ease),background var(--motion) var(--ease);
 }
-.contact-sep{color:var(--ink-dim);opacity:.5}
+.contact-field textarea{min-height:10rem;resize:vertical}
+.contact-field input::placeholder,.contact-field textarea::placeholder{color:var(--ink-dim);opacity:.9}
+.contact-field input:hover,.contact-field select:hover,.contact-field textarea:hover{border-color:var(--ink-dim)}
+.contact-field input:focus,.contact-field select:focus,.contact-field textarea:focus{outline:none;border-color:var(--accent);background:var(--ground)}
+.contact-form-action{display:flex;align-items:center;gap:calc(var(--space) * 1);margin-top:calc(var(--space) * 1.4)}
+.contact-email-link{color:var(--ink);text-decoration-line:underline !important;text-decoration-thickness:var(--link-underline) !important;text-underline-offset:var(--link-underline-offset)}
+.contact-email-link:hover,.contact-email-link:focus-visible{color:var(--accent);text-decoration-thickness:var(--link-underline-active) !important}
+.contact-honey{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 
 .team-pair{margin-top:calc(var(--space) * 2.2)}
 .team-wide-shot{margin-top:calc(var(--space) * 1.2)}
@@ -1111,7 +1126,9 @@ body.flags .ph-tag{
   .hero{min-height:min(70svh,660px)}
   .hero-content{padding:calc(var(--space) * 3) calc(var(--space) * 1.5) calc(var(--space) * 2.5)}
   .sponsor-hero{min-height:0;padding:calc(var(--space) * 3) 0}
-  .robot-feature,.section-heading,.team-sections,.robot-detail-grid,.season-robot-grid{grid-template-columns:1fr;gap:calc(var(--space) * 1.5)}
+  .robot-feature,.section-heading,.team-sections,.robot-detail-grid,.season-robot-grid,.contact-page-layout{grid-template-columns:1fr;gap:calc(var(--space) * 1.5)}
+  .contact-form-grid{grid-template-columns:1fr}
+  .contact-field-full{grid-column:auto}
   .season-robot-specs{grid-template-columns:1fr 1fr;margin-top:calc(var(--space) * 2)}
   .season-robot-spec{padding:calc(var(--space) * 1.2)}
   .season-robot-spec:nth-child(odd){border-left:0;padding-left:0}

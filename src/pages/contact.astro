@@ -2,124 +2,77 @@
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import Shot from '../components/Shot.astro';
-
-import pitImg from '../assets/photos/2026-states-IMG_1045.jpg';
 
 const email = 'team812@preuss.ucsd.edu';
 
-// The site is a static build, so there is no server to accept a form post.
-// One clear inbox and a short routing list keep the contact path simple.
-const channels = [
-  {
-    num: '01',
-    name: 'Sponsors and donors',
-    summary: 'Sponsorship levels, invoices, W-9s, and in-kind donations.',
-  },
-  {
-    num: '02',
-    name: 'Preuss students and families',
-    summary: 'Joining the team, meeting times, and what the season asks of you.',
-    detail: 'No engineering experience needed. Say what year you are in and which subteam sounds interesting, and we will point you to the next meeting.',
-    action: { label: email, href: `mailto:${email}?subject=Joining%20Team%20812` },
-    aside: { label: 'Read about the subteams', href: '/team#roster' },
-  },
-  {
-    num: '03',
-    name: 'Mentors and volunteers',
-    summary: 'Engineers, teachers, and parents who can give time in build season.',
-  },
-  {
-    num: '04',
-    name: 'Other FRC teams and press',
-    summary: 'Code questions, event logistics, interviews, and photo requests.',
-  },
+const contactTopics = [
+  'Sponsorship information',
+  'In-kind donation',
+  'Partnership or outreach',
+  'Team 812 question',
+  'Other',
 ];
 ---
 <Base
   title="Contact | The Midnight Mechanics"
-  description="Reach FRC Team 812 at The Preuss School UC San Diego about sponsorship, joining the team, mentoring, or press."
+  description="Contact FRC Team 812 at The Preuss School UC San Diego about sponsorships, in-kind donations, partnerships, or other team questions."
 >
 
 <Nav current="contact" />
 
 <main class="view on" id="v-contact">
-
-  <section class="team-hero" data-reveal>
-    <div class="wrap split feature-split">
-      <div>
-        <h1>One inbox, checked by students and mentors.</h1>
-        <p class="body team-lede">Whether you want to sponsor the team, join it, mentor it, or ask how the robot works, everything reaches us at the same address.</p>
-        <div class="team-hero-cta">
-          <a class="btn solid" href={`mailto:${email}`}>Email {email}</a>
-          <a class="btn ghost" href="#channels">What to send</a>
-        </div>
+  <section class="contact-page">
+    <div class="wrap contact-page-layout">
+      <div class="contact-page-intro">
+        <h1>Want to reach out?</h1>
+        <p class="body team-lede">Please leave a message below.</p>
+        <p class="body contact-hero-copy">Interested in sponsoring Team 812 or supporting the team with a donation, service, or partnership? Tell us a little about yourself and how we can help. Prefer to draft it yourself? <a class="contact-email-link" href={`mailto:${email}`}>{email}</a></p>
       </div>
-      <Shot
-        src={pitImg}
-        alt="Team 812 students and mentors working around their robot at the 2026 state championship."
-        caption="The team in the pit at the FIRST California Southern State Championship"
-        priority
-      />
-    </div>
-  </section>
 
-  <hr class="rule">
+      <form
+        class="contact-form"
+        id="contact-form"
+        action={`https://formsubmit.co/${email}`}
+        method="POST"
+      >
+        <input type="hidden" name="_subject" value="New Team 812 contact form submission">
+        <input type="hidden" name="_template" value="table">
+        <input class="contact-honey" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-  <section id="channels" data-reveal>
-    <div class="wrap">
-      <div class="section-heading">
-        <div>
-          <h2>Tell us what you need.</h2>
-        </div>
-        <p class="body">One inbox for sponsorship, joining the team, mentoring, and robot questions. A clear subject helps us route it.</p>
-      </div>
-      <div class="subteams" role="list">
-        {channels.map((channel) => (
-          <article class="subteam" role="listitem">
-            <p class="subteam-num mono">{channel.num}</p>
-            <div class="subteam-copy">
-              <h3>{channel.name}</h3>
-              <p class="body subteam-summary">{channel.summary}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section data-reveal style="padding-top:0">
-    <div class="wrap team-sections">
-      <div>
-        <h2>We build on campus at Preuss.</h2>
-      </div>
-      <div class="team-copy">
-        <p class="body">Team 812 has built at <a href="https://preuss.ucsd.edu/index.html" target="_blank" rel="noopener">The Preuss School UC San Diego</a> since 2001. The shop runs hardest from January through April, so replies are slower during build season and at competitions — expect a few days rather than a few hours.</p>
-        <div class="team-roles">
-          <div class="team-role">
-            <h3>By mail</h3>
-            <p class="body">FRC Team 812 &mdash; The Midnight Mechanics<br>The Preuss School UC San Diego<br>9500 Gilman Drive, La Jolla, CA 92093</p>
+        <div class="contact-form-grid">
+          <div class="contact-field">
+            <label for="contact-name">Your name <span aria-hidden="true">*</span></label>
+            <input id="contact-name" name="name" type="text" autocomplete="name" required>
           </div>
-          <div class="team-role">
-            <h3>Online</h3>
-            <p class="body"><a href="https://github.com/preuss812" target="_blank" rel="noopener">GitHub</a> for every season of robot code since 2011, and <a href="https://instagram.com/midnightmechanics" target="_blank" rel="noopener">Instagram</a> for build season and competition weekends.</p>
+
+          <div class="contact-field">
+            <label for="contact-email">Email <span aria-hidden="true">*</span></label>
+            <input id="contact-email" name="email" type="email" autocomplete="email" required>
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-organization">Company or organization</label>
+            <input id="contact-organization" name="organization" type="text" autocomplete="organization">
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-topic">I am interested in <span aria-hidden="true">*</span></label>
+            <select id="contact-topic" name="topic" required>
+              <option value="" selected disabled>Select one</option>
+              {contactTopics.map((topic) => <option value={topic}>{topic}</option>)}
+            </select>
+          </div>
+
+          <div class="contact-field contact-field-full">
+            <label for="contact-message">Message <span aria-hidden="true">*</span></label>
+            <textarea id="contact-message" name="message" rows="7" required placeholder="Tell us what you would like to discuss, including the kind of support you have in mind."></textarea>
           </div>
         </div>
-        <p class="note">Visiting campus requires checking in at the front office. Email us first so someone can meet you.</p>
-      </div>
-    </div>
-  </section>
 
-  <hr class="rule">
-
-  <section data-reveal>
-    <div class="wrap">
-      <h2>Back the students who build it.</h2>
-      <p class="body" style="margin-top:calc(var(--space) * 1.2)">Sponsorships fund parts, travel, and registration for the 2027 season.</p>
-      <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6);flex-wrap:wrap">
-        <a class="btn solid" href="/sponsors">View sponsorship tiers</a>
-        <a class="btn ghost" href="/team">Meet the team</a>
-      </div>
+        <div class="contact-form-action">
+          <button class="btn solid" type="submit">Submit</button>
+        </div>
+      </form>
     </div>
   </section>
 
