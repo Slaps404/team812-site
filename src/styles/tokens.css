@@ -9,8 +9,9 @@
   --ground:        #0e0f11;   /* page background */
   --ground-2:      #16181b;   /* raised blocks */
   --ink:           #f2f1ec;   /* main text, warm not pure white */
-  --ink-dim:       #8f9296;   /* metadata, captions */
+  --ink-dim:       #b6b8bb;   /* metadata, captions */
   --accent:        #0f9f99;   /* darker teal for the ask and UI accents */
+  --footer-ink:    #032b2a;   /* readable dark teal on the accent footer */
   --panel:         #e9e8e1;   /* muted panel behind sponsor logos */
   --panel-ink:     #1a1a18;
   --flag:          #e8a33d;   /* marks unconfirmed data */

@@ -5,10 +5,13 @@ import { robotSeasons } from '../data/robots';
 import robotImage from '../assets/photos/big-jiawei-transparent-newest.png';
 
 const season = robotSeasons[0];
+const seasonSpecValues = Object.fromEntries(
+  season.technicalSpecs?.flatMap((category) => category.specs.map((spec) => [spec.label, spec.value])) ?? [],
+);
 
 const specs = [
-  { label: 'Drivetrain', value: 'SDS MK3 Swerve Module' },
-  { label: 'Top Speed', value: '16.1 ft/s' },
+  { label: 'Drivetrain', value: seasonSpecValues.Type ?? 'Not published' },
+  { label: 'Top Speed', value: seasonSpecValues['Top Speed'] ?? 'Not published' },
   { label: 'Shooter', value: 'Double + ~8 fuel/second' },
   { label: 'Intake Rate', value: '10 fuel / second' },
 ];

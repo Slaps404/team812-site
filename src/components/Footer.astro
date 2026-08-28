@@ -66,35 +66,20 @@ const preussLogo = 'https://brand.ucsd.edu/_images/logos-and-brand-elements/addi
               wordTime?.classList.add('is-active');
             }, 350);
 
-            // 3. "is" turns into "isss" and smoothly sweeps highlight across it
+            // 3. "is" completes the chant, then the final word lights up
             setTimeout(() => {
               if (wordIs) {
-                wordIs.textContent = "isss";
-                const startTime = performance.now();
-                const duration = 450; // fast & snappy 450ms sweep
+                wordIs.classList.add('is-active');
 
-                const animateFill = (now: number) => {
-                  const elapsed = now - startTime;
-                  const progress = Math.min(100, (elapsed / duration) * 100);
-                  wordIs.style.setProperty('--fill-pct', `${progress}%`);
+                // 4. "it?..." lights up
+                setTimeout(() => {
+                  wordIt?.classList.add('is-active');
 
-                  if (progress < 100) {
-                    requestAnimationFrame(animateFill);
-                  } else {
-                    wordIs.classList.add('is-active');
-
-                    // 4. "it?..." lights up
-                    setTimeout(() => {
-                      wordIt?.classList.add('is-active');
-
-                      // 5. Short punchy suspense pause then BAM: "Midnight!"
-                      setTimeout(() => {
-                        midnightWord?.classList.add('is-active');
-                      }, 400);
-                    }, 200);
-                  }
-                };
-                requestAnimationFrame(animateFill);
+                  // 5. Short punchy suspense pause then BAM: "Midnight!"
+                  setTimeout(() => {
+                    midnightWord?.classList.add('is-active');
+                  }, 400);
+                }, 200);
               }
             }, 600);
           }

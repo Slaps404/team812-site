@@ -2,30 +2,12 @@
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import Roster from '../components/Roster.astro';
-
-const people = [
-  { name: 'Bao Nguyen', role: 'Co-President', quote: 'I learned to weld before I learned to drive.' },
-  { name: 'Zeke Sears', role: 'Co-President', quote: 'It works ... somehow.' },
-  { name: 'Noah Boulter', role: 'Senior Team Manager', quote: 'Every wire has a label now. That was my idea.' },
-  { name: 'Jianan Wang', role: 'Electrical Lead', quote: 'We win matches on the whiteboard before we win them on the field.' },
-  { name: 'Student Name', role: 'Mechanical', quote: 'Nothing fits the first time. That is the job.' },
-  { name: 'Student Name', role: 'Software', quote: 'My first pull request took three days to merge.' },
-  { name: 'Student Name', role: 'Business and Outreach', quote: 'I cold-emailed nine companies before one said yes.' },
-  { name: 'Student Name', role: 'Media', quote: 'Someone has to prove the robot worked.' },
-];
-
-const mentors = [
-  { name: 'Mentor Name', role: 'Lead Mentor', quote: 'They build it. I keep the room open until they finish.' },
-  { name: 'Mentor Name', role: 'Engineering Mentor', quote: 'The best answer I give is another question.' },
-  { name: 'Mentor Name', role: 'Software Mentor', quote: 'Version control is the first thing we teach.' },
-];
 
 ---
 
 <Base
   title="Team | The Midnight Mechanics"
-  description="Meet the students, mentors, and work behind FRC Team 812 at The Preuss School UC San Diego."
+  description="Learn about FRC Team 812 at The Preuss School UC San Diego and find out when team profiles are ready."
 >
 
 <Nav current="team" />
@@ -34,52 +16,16 @@ const mentors = [
   <section class="team-directory-hero" data-reveal>
     <div class="wrap">
       <h1 class="team-directory-title">TEAM 812</h1>
-      <p class="body team-directory-lede">Team 812 is where Preuss students meet CAD, motor controllers, version control, and a hard deadline for the first time. Everyone on this page builds, wires, codes, scouts, or helps get the team the funds we need.</p>
+      <p class="body team-directory-lede">Team 812 is where Preuss students meet CAD, motor controllers, version control, and a hard deadline for the first time. Students build, wire, code, scout, and help bring the team to competition.</p>
       <p class="team-directory-meta mono">24 students <span aria-hidden="true">/</span> 5 mentors <span aria-hidden="true">/</span> 5 subteams <span aria-hidden="true">/</span> 6-week build season</p>
     </div>
   </section>
 
-  <section class="team-profiles-section" data-reveal aria-labelledby="student-profiles-heading">
+  <section class="team-directory-section team-coming-soon-section" data-reveal aria-labelledby="profiles-heading">
     <div class="wrap">
-      <h2 class="sr-only" id="student-profiles-heading">Student profiles</h2>
-      <div class="team-profile-grid">
-        {people.map((person) => (
-          <article class="team-profile">
-            <div class="team-profile-avatar" aria-hidden="true">
-              <span class="team-profile-avatar-head"></span>
-              <span class="team-profile-avatar-body"></span>
-            </div>
-            <h3>{person.name}</h3>
-            <p class="team-profile-role mono">{person.role}</p>
-            <p class="team-profile-quote">“{person.quote}”</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="team-directory-section" data-reveal aria-labelledby="mentors-heading">
-    <div class="wrap">
-      <h2 class="team-directory-heading" id="mentors-heading">Mentors</h2>
-      <div class="team-profile-grid">
-        {mentors.map((mentor) => (
-          <article class="team-profile">
-            <div class="team-profile-avatar" aria-hidden="true">
-              <span class="team-profile-avatar-head"></span>
-              <span class="team-profile-avatar-body"></span>
-            </div>
-            <h3>{mentor.name}</h3>
-            <p class="team-profile-role mono">{mentor.role}</p>
-            <p class="team-profile-quote">“{mentor.quote}”</p>
-          </article>
-        ))}
-      </div>
-
-      <h2 class="team-directory-heading team-roster-heading" id="full-roster-heading">Full roster</h2>
-      <div id="roster">
-        <Roster />
-      </div>
-      <p class="team-placeholder-note">Placeholder roster. Names, photos, and quotes get swapped for the real team once portraits are shot and students approve what goes public.</p>
+      <h2 class="team-directory-heading" id="profiles-heading">Team profiles</h2>
+      <p class="body team-coming-soon-copy">Student and mentor profiles are coming soon. We are collecting names, photos, roles, and bios with approval before publishing them.</p>
+      <a class="btn ghost" href="/contact" style="margin-top:calc(var(--space) * 1.6)">Contact Team 812</a>
     </div>
   </section>
 </main>

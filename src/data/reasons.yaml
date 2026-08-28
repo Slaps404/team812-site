@@ -3,15 +3,15 @@
 - id: "01"
   order: 1
   num: "01"
-  title: "Your money goes to students who need it."
-  body: "The Preuss School serves low-income students who will be first in their families to finish college. For many, Team 812 is their first opportunity to work with engineering tools and mentors."
+  title: "You are funding a student-run engineering program."
+  body: "The Preuss School serves low-income students who will be first in their families to finish college. For many students, Team 812 is their first chance to use engineering tools and work with mentors."
 - id: "02"
   order: 2
   num: "02"
-  title: "Our work is public and auditable."
-  body: 'Sixteen seasons of robot code are public on <a href="https://github.com/preuss812" target="_blank" rel="noopener" style="color:var(--accent)">GitHub</a>, along with two tools we built ourselves. Your engineers can see exactly how we work.'
+  title: "Our robot code is public."
+  body: 'Sixteen seasons of robot code are public on <a href="https://github.com/preuss812" target="_blank" rel="noopener" style="color:var(--ink)">GitHub</a>, along with two tools we built ourselves. Engineers can inspect how we build and test.'
 - id: "03"
   order: 3
   num: "03"
-  title: "25 years means we will still be here."
-  body: 'San Diego''s first FRC team, competing since 2001, with 51 events and 5 trips to the World Championship. Your logo supports a team with 25 years of experience and a proven track record.'
+  title: "We have been building in San Diego since 2001."
+  body: 'Team 812 is San Diego''s first FRC team. We have competed in 51 events and made five trips to the World Championship. Your sponsorship helps keep that student-run program going.'
