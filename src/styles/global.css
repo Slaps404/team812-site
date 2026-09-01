@@ -96,8 +96,8 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
   text-decoration:none !important;
 }
 .nav a.link:hover{color:var(--ink);background:rgba(242,241,236,.08);text-decoration:none !important}
-.nav a.link.on{color:var(--ink);background:color-mix(in srgb,var(--accent) 12%,transparent);border-color:color-mix(in srgb,var(--accent) 70%,transparent);box-shadow:none;text-decoration:none !important}
-.nav a.link.on:hover{color:var(--ink);background:rgba(242,241,236,.12);transform:none}
+.nav a.link.on{color:var(--ink);background:transparent;border-color:transparent;box-shadow:none;font-weight:700;text-decoration:none !important}
+.nav a.link.on:hover{color:var(--ink);background:rgba(242,241,236,.08);transform:none}
 .nav a.link.soon{opacity:var(--disabled-opacity);cursor:not-allowed}
 .btn{
   display:inline-block;
