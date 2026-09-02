@@ -21,6 +21,27 @@ const routes = [
       'Learn about sponsoring The Midnight Mechanics for the 2027 FRC season at The Preuss School UC San Diego.',
     canonical: `${siteOrigin}/sponsors/`,
   },
+  {
+    output: 'robots/index.html',
+    title: 'Robots | The Midnight Mechanics',
+    description:
+      "Explore Team 812's 2026 competition robot Big Jiawei, state championship run, and 16-season archive.",
+    canonical: `${siteOrigin}/robots/`,
+  },
+  {
+    output: 'team/index.html',
+    title: 'Team | The Midnight Mechanics',
+    description:
+      'Learn about FRC Team 812 at The Preuss School UC San Diego and find out when team profiles are ready.',
+    canonical: `${siteOrigin}/team/`,
+  },
+  {
+    output: 'contact/index.html',
+    title: 'Contact | The Midnight Mechanics',
+    description:
+      'Contact FRC Team 812 at The Preuss School UC San Diego about sponsorships, in-kind donations, partnerships, or other team questions.',
+    canonical: `${siteOrigin}/contact/`,
+  },
 ];
 
 function tags(html, name) {
@@ -28,8 +49,8 @@ function tags(html, name) {
 }
 
 function attribute(tag, name) {
-  const match = tag.match(new RegExp(`\\b${name}=["']([^"']*)["']`, 'i'));
-  return match?.[1];
+  const match = tag.match(new RegExp(`\\b${name}=(?:"([^"]*)"|'([^']*)')`, 'i'));
+  return match?.[1] ?? match?.[2];
 }
 
 function meta(html, attributeName, attributeValue) {

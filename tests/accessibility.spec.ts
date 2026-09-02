@@ -1,11 +1,19 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-const routes = [
-  { path: '/', currentPath: '/', minimumProseLinks: 0 },
-  { path: '/sponsors', currentPath: '/sponsors', minimumProseLinks: 1 },
-  { path: '/team', currentPath: '/team', minimumProseLinks: 0 },
-  { path: '/contact', currentPath: '/contact', minimumProseLinks: 1 },
+interface RouteConfig {
+  path: string;
+  currentPath?: string;
+  inPrimaryNav?: boolean;
+  minimumProseLinks: number;
+}
+
+const routes: RouteConfig[] = [
+  { path: '/', currentPath: '/', inPrimaryNav: true, minimumProseLinks: 0 },
+  { path: '/sponsors', currentPath: '/sponsors', inPrimaryNav: true, minimumProseLinks: 1 },
+  { path: '/robots', currentPath: '/robots', inPrimaryNav: true, minimumProseLinks: 0 },
+  { path: '/team', inPrimaryNav: false, minimumProseLinks: 0 },
+  { path: '/contact', currentPath: '/contact', inPrimaryNav: true, minimumProseLinks: 1 },
 ];
 
 for (const route of routes) {
@@ -22,8 +30,12 @@ for (const route of routes) {
       await page.goto(route.path);
 
       const currentLink = page.locator('nav a[aria-current="page"]');
-      await expect(currentLink).toHaveCount(1);
-      await expect(currentLink).toHaveAttribute('href', route.currentPath);
+      if (route.inPrimaryNav) {
+        await expect(currentLink).toHaveCount(1);
+        await expect(currentLink).toHaveAttribute('href', route.currentPath!);
+      } else {
+        await expect(currentLink).toHaveCount(0);
+      }
     });
 
     test('has a meaningful, sequential heading hierarchy', async ({ page }) => {

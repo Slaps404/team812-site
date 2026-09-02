@@ -50,7 +50,7 @@ const photos = [
   </div>
 </dialog>
 
-<script define:vars={{ photos }}>
+<script is:inline define:vars={{ photos }}>
   const setupGallery = () => {
     const viewer = document.querySelector('#image-viewer');
     const viewerImage = viewer?.querySelector('.image-viewer-image');
