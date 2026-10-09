@@ -3,8 +3,9 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import qualcomm from '../assets/logos/qualcomm.svg?url';
 import nordson from '../assets/logos/nordson.svg?url';
 import leidos from '../assets/logos/leidos.svg?url';
+import baeSystems from '../assets/logos/bae-systems.svg?url';
 
-const LOGO_SRC: Record<string, string> = { qualcomm, nordson, leidos };
+const LOGO_SRC: Record<string, string> = { qualcomm, nordson, leidos, 'bae-systems': baeSystems };
 
 const all = await getCollection('sponsors');
 const current = all

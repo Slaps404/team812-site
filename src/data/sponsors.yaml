@@ -1,4 +1,4 @@
-# Sponsor wall entries. "logo" keys map to the three SVGs in
+# Sponsor wall entries. "logo" keys map to the SVGs in
 # src/assets/logos/ (imports are static in LogoWall.astro). "order"
 # controls display order; the file content loader does not preserve
 # YAML array order on its own.
@@ -23,8 +23,15 @@
   url: "https://www.leidos.com/"
   logo: "leidos"
   widthClass: "w-leidos"
-- id: "cluely"
+- id: "bae-systems"
   order: 4
+  name: "BAE Systems"
+  tier: "current"
+  url: "https://www.baesystems.com/"
+  logo: "bae-systems"
+  widthClass: "w-bae-systems"
+- id: "cluely"
+  order: 5
   name: "Cluely"
   tier: "past"
   url: "https://cluely.com/"
