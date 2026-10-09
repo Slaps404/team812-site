@@ -18,6 +18,11 @@ export default defineConfig({
   },
   projects: [
     {
+      name: 'mobile-safari',
+      testMatch: 'sponsors-layout.spec.ts',
+      use: { ...devices['iPhone 13'], channel: undefined },
+    },
+    {
       name: 'mobile',
       use: { ...devices['Desktop Chrome'], viewport: { width: 390, height: 844 } },
     },

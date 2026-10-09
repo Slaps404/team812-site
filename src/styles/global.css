@@ -190,7 +190,7 @@ html.js .reason:nth-child(3),html.js .tier:nth-child(3){--reveal-delay:160ms}
   border:1px dashed var(--rule);border-radius:var(--radius);
 }
 .season-robot-specs{
-  display:grid;grid-template-columns:repeat(4,1fr);
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
   margin:calc(var(--space) * 3) 0 0;
   border-top:1px solid var(--rule);
 }
@@ -772,15 +772,16 @@ h3{font-size:var(--t1)}
 }
 .logo{
   background:var(--panel);
-  aspect-ratio:2.6;
+  min-width:0;
+  height:calc(var(--space) * 7);
   display:flex;align-items:center;justify-content:center;
   padding:calc(var(--space) * 2.2);
 }
 /* Optical size matching. Widths are sqrt(aspect-ratio), normalised, so every
    logo occupies the same ink AREA. Equal widths would make the chunky Nordson
    mark read twice as large as the wide Qualcomm wordmark. */
-.logo img{width:100%;max-height:100%;object-fit:contain}
-.logo a{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.logo img{width:100%;height:100%;min-width:0;object-fit:contain}
+.logo a{display:flex;align-items:center;justify-content:center;min-width:0;width:100%;height:100%}
 .logo.w-qualcomm img{max-width:100%}
 .logo.w-leidos   img{max-width:88%}
 .logo.w-nordson  img{max-width:73%}
@@ -1175,8 +1176,9 @@ body.flags .ph-tag{
   .stat:nth-child(even){padding-right:0}
   .stat:nth-child(n + 3){border-top:1px solid var(--rule)}
   .split,.split.flip{grid-template-columns:1fr;gap:calc(var(--space) * 2)}
-  .wall,.tiers{grid-template-columns:1fr}
-  .logo{aspect-ratio:3.4}
+  .wall,.tiers{grid-template-columns:minmax(0,1fr)}
+  .logo{height:calc(var(--space) * 7)}
+  .season-robot-shot img{transform:none}
   .pair{grid-template-columns:1fr}
   .footer-banner{grid-template-columns:1fr;gap:calc(var(--space) * .9);padding:calc(var(--space) * 1.1)}
   .footer-contact,.footer-links{justify-content:flex-start}
