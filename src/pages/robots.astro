@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 import Album, { type PhotoItem } from '../components/Album.astro';
 import { robotSeasons } from '../data/robots';
 
-import bigJiaweiTransparent from '../assets/photos/big-jiawei-transparent-newest.png';
+import bigJiaweiHero from '../assets/photos/big-jiawei-hero.jpg';
 import robotField from '../assets/photos/2026-season-robot-field.jpg';
 import robotMatch from '../assets/photos/2026-season-robot-match.jpg';
 import robotMechanism from '../assets/photos/2026-season-robot-mechanism.jpg';
@@ -22,10 +22,9 @@ const pastRobots = robotSeasons.slice(1);
 
 const photos2026: PhotoItem[] = [
   {
-    src: bigJiaweiTransparent,
+    src: bigJiaweiHero,
     alt: 'Team 812 competition robot Big Jiawei with red bumpers and Qualcomm/Nordson decals.',
     caption: 'Team 812 competition robot Big Jiawei',
-    isTransparent: true,
   },
   {
     src: robotField,
