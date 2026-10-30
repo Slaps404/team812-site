@@ -6,7 +6,7 @@ for (const route of ['/', '/sponsors/']) {
     const wall = page.locator('.wall');
     await wall.scrollIntoViewIfNeeded();
     await expect(wall.locator('.logo')).toHaveCount(5);
-    await expect(wall.getByRole('link', { name: 'General Atomics', exact: true })).toHaveAttribute('href', 'https://www.ga.com/');
+    await expect(wall.getByRole('link', { name: 'General Atomics Sciences Education Foundation', exact: true })).toHaveAttribute('href', 'https://www.sci-ed-ga.org/');
     await expect(wall.getByRole('link', { name: 'BAE Systems' })).toHaveAttribute('href', 'https://www.baesystems.com/');
 
     const issues = await wall.evaluate((element) => {

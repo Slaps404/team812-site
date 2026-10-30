@@ -32,9 +32,9 @@
   widthClass: "w-bae-systems"
 - id: "general-atomics"
   order: 5
-  name: "General Atomics"
+  name: "General Atomics Sciences Education Foundation"
   tier: "current"
-  url: "https://www.ga.com/"
+  url: "https://www.sci-ed-ga.org/"
   logo: "general-atomics"
 - id: "cluely"
   order: 6
