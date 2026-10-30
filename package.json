@@ -9,14 +9,15 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/strip-packet-page.mjs",
     "typecheck": "astro check",
     "test:site-output": "npm run build && node --test tests/site-output.test.mjs",
     "preview": "astro preview",
     "test": "playwright test",
     "test:photos": "playwright test tests/photos.spec.ts",
     "test:a11y": "playwright test tests/accessibility.spec.ts",
-    "astro": "astro"
+    "astro": "astro",
+    "packet": "astro build && node scripts/generate-packet.mjs"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",

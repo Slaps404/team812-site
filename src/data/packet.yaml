@@ -1,0 +1,97 @@
+# 2027 sponsorship packet copy.
+# Shared numbers live in the other YAML files in this folder
+# (stats, funds, tiers, sponsors, mentors). After editing, run:
+#   npm run packet
+#
+# Voice comes from the team's cold outreach letter in
+# Documents/Team 812 Funding/HANDOFF-REMAINING.md.
+# Write "UC San Diego", never "UCSD".
+
+- id: "2027"
+  season: 2027
+  kicker: FRC Team 812
+  team: The Midnight Mechanics
+  number: "812"
+  school: The Preuss School UC San Diego
+  location: La Jolla, California
+  email: team812@preuss.ucsd.edu
+  site: https://team812.com
+  instagram: midnightmechanics
+  github: https://github.com/preuss812
+  donate_url: https://giveto.ucsd.edu/giving/home/?linkId=f84b6f44-4eb5-43e6-9468-5e756a2d4696
+  donate_label: Give through the UC San Diego Foundation portal
+  irs_letter_url: https://foundation.ucsd.edu/_files/taxexemptletter.pdf
+  legal_name: UC San Diego Foundation
+  ein: 95-2872494
+  cover_line: San Diego's first FRC team. Still student-run.
+  cover_season: 2027 Sponsorship Packet
+  description: >-
+    FRC Team 812 at The Preuss School UC San Diego is about $10,000 short for
+    the 2027 season. Mentors, parts, or a gift through the UC San Diego
+    Foundation.
+
+  pitch: >
+    We are the Midnight Mechanics, Team 812 at The Preuss School UC San Diego.
+    Our school serves low-income students who will be the first in their
+    families to graduate from a four-year college. On our team, we learn
+    engineering by building and competing together.
+
+  shortfall: >
+    We need about $10,000 more to build our robot and travel to competitions
+    in the 2027 season.
+
+  ask: >
+    Help us close our $10,000 funding gap for 2027. Your support helps pay for
+    robot parts, competition fees, and transportation. You can also help by
+    mentoring or donating parts and tools.
+
+  about_headline: Who we are
+  about_body: >
+    Team 812 started in 2001 and first competed in FIRST in 2002. FIRST lists
+    us as San Diego's first FRC team. We design, machine, wire, and program
+    our robots, with guidance from our mentors.
+
+  first_headline: Building for competition
+  first_body: >
+    In FIRST Robotics Competition, a new game is announced in January.
+    We design and build a robot to play it, then test and improve it
+    as we prepare for competitions.
+  first_points:
+    - Design, machine, wire, and program our robot
+    - Learn from engineers and teachers in the shop
+    - Use engineering tools and share our code on GitHub
+    - Compete at district events and work toward states
+
+  season_year: 2026
+  robot: Big Jiawei
+  game: REBUILT
+  record: 24-19-0
+  season_body: >
+    In 2026 we built Big Jiawei for REBUILT. We finished with a 24-19-0 record. We
+    captained playoff alliances at both district events and competed at the
+    FIRST California Southern State Championship in Anaheim.
+  season_events:
+    - { label: "CA District San Diego", result: "Rank 8 · 10-6-0 · Alliance 6 captain" }
+    - { label: "CA District San Gabriel Valley", result: "Rank 7 · 9-6-0 · Alliance 5 captain" }
+    - { label: "Southern State Championship", result: "Rank 38 · 5-7-0 · Anaheim" }
+
+  awards:
+    - { year: "2018", name: "Orange County Regional Winner" }
+    - { year: "2016", name: "Regional Chairman's Award" }
+    - { year: "2017", name: "Regional Engineering Inspiration Award" }
+    - { year: "2019", name: "Woodie Flowers Finalist Award" }
+
+  extra_stats:
+    - { value: "39", label: "Students and mentors" }
+    - { value: "24", label: "FIRST awards" }
+    - { value: "16", label: "Seasons of public code" }
+
+  give_headline: How to give
+  give_body: >
+    Donations to Team 812 are administered through the UC San Diego Foundation,
+    a 501(c)(3) nonprofit. Give at team812.com, or email us and we will send
+    the gift link. The amounts shown here estimate how we would use the
+    additional $10,000 we are raising.
+  invoice_note: Need an invoice or W-9? Email us.
+  inkind_note: To offer parts, tools, shop time, or mentoring, email us.
+  stacking_note: Each tier includes the benefits below it. Gifts under $1,000 are recognized at the Supporter level.

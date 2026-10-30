@@ -26,6 +26,19 @@ page.
 
 You do not need a local setup to change text. Edit the file on github.com.
 
+## Sponsorship packet
+
+Not a site page. Edit `src/data/packet.yaml`, then:
+
+```bash
+npm run packet   # writes and syncs both packet PDFs
+```
+
+The packet page description is the `description` field in `src/data/packet.yaml`.
+The main site route descriptions are on each page's `<Base>` component in
+`src/pages/`. Budget, tiers, stats, sponsors, and mentors still come from the
+other YAML files in `src/data/`.
+
 ## Design tokens
 
 Every colour, size, and spacing value is one CSS custom property in

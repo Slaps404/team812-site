@@ -1,0 +1,40 @@
+---
+import '@fontsource-variable/dm-sans/wght.css';
+import '@fontsource/barlow-condensed/600.css';
+import '../styles/tokens.css';
+import '../styles/packet.css';
+import favicon from '../assets/logos/team812-badge.png';
+import socialImage from '../assets/photos/2026-states-IMG_1045.jpg';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+const socialImageUrl = new URL(socialImage.src, Astro.site ?? Astro.url);
+---
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<meta name="robots" content="noindex">
+<link rel="canonical" href={canonicalUrl}>
+<link rel="icon" href={favicon.src} type="image/png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Midnight Mechanics">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonicalUrl}>
+<meta property="og:image" content={socialImageUrl}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+</head>
+<body class="packet-body">
+<slot />
+</body>
+</html>
