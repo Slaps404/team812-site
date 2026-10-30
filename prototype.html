@@ -6,7 +6,7 @@
 <title>Team 812 site prototype</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    DESIGN TOKENS
@@ -31,7 +31,6 @@
 
   /* type */
   --font-sans:     'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono:     'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --type-base:     17px;
   --type-scale:    1.24;
   --display:       4.3vw;     /* hero headline, scales with window */
@@ -78,12 +77,12 @@ a{color:inherit;text-decoration:none}
 h1,h2,h3{margin:0;font-weight:500;line-height:1.02;letter-spacing:-.022em}
 p{margin:0}
 
-/* mono label. used for all metadata, nav, numbers, captions. */
+/* compact label. used for metadata, numbers, and captions. */
 .mono{
-  font-family:var(--font-mono);
+  font-family:var(--font-sans);
   font-size:var(--t-2);
-  letter-spacing:.11em;
-  text-transform:uppercase;
+  letter-spacing:0;
+  text-transform:none;
   color:var(--ink-dim);
 }
 
@@ -106,10 +105,10 @@ p{margin:0}
   display:flex;align-items:center;gap:calc(var(--space) * 1.6);
 }
 .mark{display:flex;align-items:baseline;gap:.5em;margin-right:auto}
-.mark b{font-family:var(--font-mono);font-size:var(--t1);font-weight:500;letter-spacing:-.03em}
-.mark span{font-family:var(--font-mono);font-size:var(--t-2);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)}
+.mark b{font-family:var(--font-sans);font-size:var(--t1);font-weight:500;letter-spacing:-.03em}
+.mark span{font-family:var(--font-sans);font-size:var(--t-2);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)}
 .nav a.link{
-  font-family:var(--font-mono);font-size:var(--t-2);
+  font-family:var(--font-sans);font-size:var(--t-2);
   letter-spacing:.11em;text-transform:uppercase;color:var(--ink-dim);
   transition:color var(--motion) var(--ease);
 }
@@ -118,7 +117,7 @@ p{margin:0}
 .nav a.link.soon{opacity:.32;cursor:not-allowed}
 .btn{
   display:inline-block;
-  font-family:var(--font-mono);font-size:var(--t-2);
+  font-family:var(--font-sans);font-size:var(--t-2);
   letter-spacing:.11em;text-transform:uppercase;
   padding:calc(var(--space) * .55) calc(var(--space) * .95);
   border:1px solid var(--accent);color:var(--accent);
@@ -189,7 +188,7 @@ p{margin:0}
 .stat{padding:calc(var(--space) * 2) calc(var(--space) * 1.2);border-left:1px solid var(--rule)}
 .stat:first-child{border-left:0}
 .stat .n{
-  font-family:var(--font-mono);font-size:var(--t3);font-weight:500;
+  font-family:var(--font-sans);font-size:var(--t3);font-weight:500;
   line-height:1;letter-spacing:-.04em;color:var(--ink);
 }
 .stat .k{margin-top:calc(var(--space) * .5)}
@@ -199,7 +198,7 @@ p{margin:0}
    ============================================================ */
 section{padding:calc(var(--space) * 5) 0}
 .label{
-  font-family:var(--font-mono);
+  font-family:var(--font-sans);
   font-size:var(--t-2);
   font-weight:400;
   letter-spacing:.11em;
@@ -226,7 +225,7 @@ h3{font-size:var(--t1)}
 /* year chips for the code archive */
 .years{display:flex;flex-wrap:wrap;gap:calc(var(--space) * .4);margin-top:calc(var(--space) * 1.4)}
 .years a{
-  font-family:var(--font-mono);font-size:var(--t-2);
+  font-family:var(--font-sans);font-size:var(--t-2);
   padding:calc(var(--space) * .3) calc(var(--space) * .55);
   border:1px solid var(--rule);border-radius:var(--radius);
   color:var(--ink-dim);
@@ -280,7 +279,7 @@ h3{font-size:var(--t1)}
 .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--space) * 1.5);margin-top:calc(var(--space) * 2.4)}
 .tier{border-top:1px solid var(--rule);padding-top:calc(var(--space) * .9);align-self:start}
 .tier .mono{display:block;margin-bottom:calc(var(--space) * .7);font-size:9px}
-.tier .amt{font-family:var(--font-mono);font-size:var(--t1);letter-spacing:-.03em;color:var(--ink);line-height:1}
+.tier .amt{font-family:var(--font-sans);font-size:var(--t1);letter-spacing:-.03em;color:var(--ink);line-height:1}
 .tier.top{border-top-width:3px;border-top-color:var(--accent)}
 .tier.top .amt{font-size:var(--t3);color:var(--accent)}
 .tier ul{list-style:none;margin:calc(var(--space) * 1.1) 0 0;padding:0}
@@ -298,7 +297,7 @@ h3{font-size:var(--t1)}
   padding:calc(var(--space) * .85) 0;border-bottom:1px solid var(--rule);
   align-items:baseline;
 }
-.fund .amt{font-family:var(--font-mono);font-size:var(--type-base);color:var(--ink)}
+.fund .amt{font-family:var(--font-sans);font-size:var(--type-base);color:var(--ink)}
 .fund.total .amt,.fund.total .lab{color:var(--accent);font-weight:500}
 
 /* numbered reasons. deliberately NOT three cards with stock icons. */
@@ -307,14 +306,14 @@ h3{font-size:var(--t1)}
   display:grid;grid-template-columns:auto 1fr;gap:calc(var(--space) * 1.6);
   padding:calc(var(--space) * 1.6) 0;border-bottom:1px solid var(--rule);
 }
-.reason .num{font-family:var(--font-mono);font-size:var(--t-1);color:var(--accent)}
+.reason .num{font-family:var(--font-sans);font-size:var(--t-1);color:var(--accent)}
 
 footer{padding:calc(var(--space) * 3) 0;border-top:1px solid var(--rule)}
 .foot{display:flex;gap:calc(var(--space) * 2);flex-wrap:wrap;align-items:baseline}
 .foot .chant{
   flex-basis:100%;margin-top:calc(var(--space) * 1.6);
   padding-top:calc(var(--space) * 1.2);border-top:1px solid var(--rule);
-  font-family:var(--font-mono);font-size:var(--t-1);color:var(--accent);letter-spacing:.04em;
+  font-family:var(--font-sans);font-size:var(--t-1);color:var(--accent);letter-spacing:.04em;
 }
 
 /* ============================================================
@@ -329,11 +328,11 @@ body.flags .ph:not(.btn){background:color-mix(in srgb, var(--flag) 11%, transpar
 body.flags .vf{position:relative}
 body.flags .vf::after{
   content:"?";position:absolute;top:-.15em;right:-.85em;
-  font-family:var(--font-mono);font-size:.5em;color:var(--flag);
+  font-family:var(--font-sans);font-size:.5em;color:var(--flag);
 }
 .ph-tag{display:none}
 body.flags .ph-tag{
-  display:inline-block;font-family:var(--font-mono);font-size:9px;
+  display:inline-block;font-family:var(--font-sans);font-size:9px;
   letter-spacing:.1em;text-transform:uppercase;
   color:var(--ground);background:var(--flag);
   padding:1px 5px;margin-left:.5em;vertical-align:2px;border-radius:2px;
@@ -351,7 +350,7 @@ body.flags .ph-tag{
 #tune{
   position:fixed;top:0;right:0;bottom:0;z-index:100;width:300px;
   background:#0a0b0c;border-left:1px solid rgba(255,255,255,.14);
-  font-family:var(--font-mono);font-size:11px;color:#cfd2d4;
+  font-family:var(--font-sans);font-size:11px;color:#cfd2d4;
   overflow-y:auto;padding:14px;
   transform:translateX(100%);transition:transform 220ms var(--ease);
 }
@@ -375,7 +374,7 @@ body.flags .ph-tag{
 #tune .note{font-size:9px;line-height:1.5;color:#6e7276;margin-top:10px}
 #tuneBtn{
   position:fixed;right:14px;bottom:14px;z-index:101;
-  font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  font-family:var(--font-sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
   background:#0a0b0c;color:#21c7c1;border:1px solid #21c7c1;
   padding:9px 13px;cursor:pointer;
 }
@@ -516,7 +515,7 @@ body.flags .ph-tag{
     <div class="wrap split flip">
       <div>
         <h3 class="label">The 2027 ask</h3>
-        <div style="font-family:var(--font-mono);font-size:var(--t4);line-height:1;letter-spacing:-.05em;color:var(--accent)">$10,000</div>
+        <div style="font-family:var(--font-sans);font-size:var(--t4);line-height:1;letter-spacing:-.05em;color:var(--accent)">$10,000</div>
         <p class="body" style="margin-top:calc(var(--space) * 1.2)">That is the gap between the season we can run and the season we planned. Gifts go to the team's gift fund, held in the school's robotics account.</p>
         <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6)">
           <a class="btn solid" href="#sponsors" data-view="sponsors">See tiers and benefits</a>
@@ -728,10 +727,10 @@ const CONTROLS = [
 ];
 
 const FONTS = {
-  'Inter + JetBrains Mono': ["'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif", "'JetBrains Mono', ui-monospace, Menlo, monospace"],
-  'System (no webfonts)':   ["-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", "ui-monospace, 'SF Mono', Menlo, monospace"],
-  'Helvetica + Courier':    ["'Helvetica Neue', Helvetica, Arial, sans-serif", "'Courier New', Courier, monospace"],
-  'Georgia + JetBrains':    ["Georgia, 'Times New Roman', serif", "'JetBrains Mono', ui-monospace, Menlo, monospace"],
+  'Inter': ["'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif"],
+  'System (no webfonts)':   ["-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"],
+  'Helvetica':    ["'Helvetica Neue', Helvetica, Arial, sans-serif"],
+  'Georgia':    ["Georgia, 'Times New Roman', serif"],
 };
 
 const root = document.documentElement;
@@ -779,9 +778,8 @@ function build(){
   });
 
   document.getElementById('fontSel').addEventListener('change', e => {
-    const [s,m] = FONTS[e.target.value];
+    const [s] = FONTS[e.target.value];
     root.style.setProperty('--font-sans', s);
-    root.style.setProperty('--font-mono', m);
     save();
   });
 
@@ -811,8 +809,7 @@ function download(){
   let out = '/* Team 812 design tokens. Generated from the tuning panel. */\n:root{\n';
   CONTROLS.filter(c => c.v).forEach(c =>
     out += `  ${c.v}: ${cs.getPropertyValue(c.v).trim()};\n`);
-  out += `  --font-sans: ${cs.getPropertyValue('--font-sans').trim()};\n`;
-  out += `  --font-mono: ${cs.getPropertyValue('--font-mono').trim()};\n}\n`;
+  out += `  --font-sans: ${cs.getPropertyValue('--font-sans').trim()};\n}\n`;
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([out], {type:'text/css'}));
   a.download = 'tokens.css';

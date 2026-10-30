@@ -123,17 +123,24 @@ test('normal built pages self-host DM Sans with a readable fallback', async () =
     }
   }
 
-  const css = (
+  let css = (
     await Promise.all(
       [...localStylesheets].map((href) => readFile(path.join(dist, href), 'utf8')),
     )
   ).join('\n');
 
+  for (const route of routes) {
+    const html = await readFile(path.join(dist, route.output), 'utf8');
+    for (const block of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)) {
+      css += `\n${block[1]}`;
+    }
+  }
+
   assert.match(css, /@font-face/);
   assert.match(css, /font-family:["']?DM Sans["']?/);
   assert.match(css, /font-display:swap/);
   assert.match(css, /--font-sans:["']DM Sans Variable["'][^;}]*sans-serif/);
-  assert.match(css, /--font-mono:["']DM Sans Variable["'][^;}]*sans-serif/);
+  assert.doesNotMatch(css, /--font-mono:/);
 
   const fontUrls = [...css.matchAll(/url\(["']?([^"')]+\.woff2)["']?\)/g)].map(
     ([, url]) => url,

@@ -22,12 +22,7 @@
 
   /* type */
   --font-sans:     'DM Sans Variable', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono:     'DM Sans Variable', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   --font-display:  'Barlow Condensed', 'DM Sans Variable', sans-serif;
-  --mono-weight:   400;      /* retained as a separate tuning hook for figures */
-
-  /* Keep the chrome and figures on the same sans family for now. The separate
-     tokens remain so the tuning panel can still preview alternatives. */
   --font-chrome:   var(--font-sans);
   --chrome-track:  .07em;    /* nav, buttons, section labels: lighter track */
   --figure-track:  .11em;    /* captions, stat labels, footer meta: wider track.

@@ -44,24 +44,6 @@
        available face]. Remote experiments load only when explicitly picked. */
     type Face = [string, string, string | null];
 
-    const MONOS: Face[] = [
-      ['DM Sans (current)',        "'DM Sans Variable', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", null],
-      ['JetBrains Mono',           "'JetBrains Mono', ui-monospace, Menlo, monospace", 'JetBrains+Mono:wght@400;500;600;700'],
-      ['IBM Plex Mono',            "'IBM Plex Mono', ui-monospace, Menlo, monospace",  'IBM+Plex+Mono:wght@400;500;600;700'],
-      ['Azeret Mono',              "'Azeret Mono', ui-monospace, Menlo, monospace",    'Azeret+Mono:wght@300..700'],
-      ['Space Mono',               "'Space Mono', ui-monospace, Menlo, monospace",     'Space+Mono:wght@400;700'],
-      ['Martian Mono',             "'Martian Mono', ui-monospace, Menlo, monospace",   'Martian+Mono:wght@300..700'],
-      ['Sono (rounded, softest)',  "'Sono', ui-monospace, Menlo, monospace",           'Sono:wght@300..800'],
-      ['Spline Sans Mono',         "'Spline Sans Mono', ui-monospace, Menlo, monospace",'Spline+Sans+Mono:wght@300..700'],
-      ['Geist Mono',               "'Geist Mono', ui-monospace, Menlo, monospace",     'Geist+Mono:wght@300..700'],
-      ['DM Mono',                  "'DM Mono', ui-monospace, Menlo, monospace",        'DM+Mono:wght@300;400;500'],
-      ['Reddit Mono',              "'Reddit Mono', ui-monospace, Menlo, monospace",    'Reddit+Mono:wght@300..800'],
-      ['Kode Mono',                "'Kode Mono', ui-monospace, Menlo, monospace",      'Kode+Mono:wght@400..700'],
-      ['Courier Prime (typewriter)',"'Courier Prime', Courier, monospace",             'Courier+Prime:wght@400;700'],
-      ['Fragment Mono',            "'Fragment Mono', ui-monospace, Menlo, monospace",  'Fragment+Mono'],
-      ['System mono (no webfont)',  "ui-monospace, 'SF Mono', Menlo, monospace",        null],
-    ];
-
     const SANS: Face[] = [
       ['DM Sans (current)',    "'DM Sans Variable', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif", null],
       ['Inter',               "'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif", 'Inter:wght@400;500;600;700'],
@@ -115,13 +97,7 @@
       });
 
       h += `<h4>Typefaces</h4>
-            <div class="row"><div class="lab"><span>Mono (labels, nav, numbers)</span></div>
-            <select id="monoSel">${MONOS.map((f, i) => `<option value="${i}">${f[0]}</option>`).join('')}</select></div>
-            <div class="row"><div class="lab"><span>Mono weight</span><i>${getComputedStyle(root).getPropertyValue('--mono-weight').trim()}</i></div>
-            <input type="range" data-v="--mono-weight" min="300" max="700" step="100"
-              value="${num(getComputedStyle(root).getPropertyValue('--mono-weight'))}"></div>
-            <label class="tog"><input type="checkbox" id="chromeTog"> Mono on nav, buttons and labels (the all-mono look)</label>
-            <div class="row"><div class="lab"><span>Sans (headlines, body)</span></div>
+            <div class="row"><div class="lab"><span>Sans (headlines, body, labels)</span></div>
             <select id="sansSel">${SANS.map((f, i) => `<option value="${i}">${f[0]}</option>`).join('')}</select></div>`;
 
       h += `<h4>Review</h4>
@@ -152,7 +128,6 @@
           root.style.setProperty(token, stack);
           save();
         });
-      pick('#monoSel', MONOS, '--font-mono');
       pick('#sansSel', SANS, '--font-sans');
 
       /* A reload restores the saved stack, but the webfont is not loaded yet and
@@ -164,18 +139,7 @@
         loadFace(list[i][2]);
         panel.querySelector<HTMLSelectElement>(sel)!.value = String(i);
       };
-      sync('#monoSel', MONOS, '--font-mono');
       sync('#sansSel', SANS, '--font-sans');
-
-      const chromeTog = panel.querySelector<HTMLInputElement>('#chromeTog')!;
-      chromeTog.checked = getComputedStyle(root).getPropertyValue('--font-chrome').trim()
-                          === getComputedStyle(root).getPropertyValue('--font-mono').trim();
-      chromeTog.addEventListener('change', e => {
-        const on = (e.target as HTMLInputElement).checked;
-        root.style.setProperty('--font-chrome', on ? 'var(--font-mono)' : 'var(--font-sans)');
-        root.style.setProperty('--chrome-track', on ? '.11em' : '.07em');
-        save();
-      });
 
       panel.querySelector<HTMLInputElement>('#flagTog')!.addEventListener('change', e =>
         document.body.classList.toggle('flags', (e.target as HTMLInputElement).checked));
@@ -204,9 +168,7 @@
       CONTROLS.filter(c => c.v).forEach(c =>
         out += `  ${c.v}: ${cs.getPropertyValue(c.v!).trim()};\n`);
       out += `  --font-sans: ${cs.getPropertyValue('--font-sans').trim()};\n`;
-      out += `  --font-mono: ${cs.getPropertyValue('--font-mono').trim()};\n`;
-      out += `  --mono-weight: ${cs.getPropertyValue('--mono-weight').trim()};\n`;
-      out += `  --font-chrome: ${(root.style.getPropertyValue('--font-chrome') || 'var(--font-sans)').trim()};\n`;
+      out += `  --font-chrome: var(--font-sans);\n`;
       out += `  --chrome-track: ${cs.getPropertyValue('--chrome-track').trim()};\n}\n`;
       const a = document.createElement('a');
       a.href = URL.createObjectURL(new Blob([out], { type: 'text/css' }));
@@ -215,10 +177,17 @@
       URL.revokeObjectURL(a.href);
     }
 
-    /* Your drags survive a page reload. */
+    /* Your drags survive a page reload. Drop retired mono tokens so a
+       saved all-mono look cannot come back. */
     function save() { localStorage.setItem('t812', root.getAttribute('style') || ''); }
     const saved = localStorage.getItem('t812');
-    if (saved) root.setAttribute('style', saved);
+    if (saved) {
+      const cleaned = saved
+        .replace(/--font-mono\s*:[^;]*;?/g, '')
+        .replace(/--mono-weight\s*:[^;]*;?/g, '')
+        .replace(/--font-chrome\s*:[^;]*;?/g, '');
+      root.setAttribute('style', cleaned);
+    }
 
     build();
 
