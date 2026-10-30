@@ -3,7 +3,7 @@
 Drop a portrait here named after the mentor's `id` in `src/data/mentors.yaml`:
 
     dan-rupert.jpg
-    shaoni-bandy.jpg
+    dave-harry.jpg
     dan-oneill.jpg
 
 `src/components/Mentors.astro` picks the file up by name — no code change needed.

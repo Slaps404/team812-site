@@ -29,25 +29,8 @@
     Gracious Professionalism at the same time, and he has stayed with 812 through
     retirement.
 
-- id: "shaoni-bandy"
-  order: 2
-  name: "Shaoni Bandy"
-  role: "Business and outreach"
-  tenure: "Over six years on the team"
-  knownFor: ["Business", "Outreach", "Team culture"]
-  credentials: "B.S. Biology and Human Development, UC San Diego; M.Ed."
-  honor: "Woodie Flowers Finalist Award — 2019 Orange County Regional"
-  featured: true
-  placeholder: false
-  bio: >-
-    Advises the half of the team that never appears on the field: sponsors, community
-    work, award submissions, and the story students tell about their own season. She
-    double majored in Biology and Human Development at UC San Diego and holds a master's
-    in education. An invitation from another mentor brought her into FIRST. In 2019 the
-    students nominated her for the Woodie Flowers Finalist Award, and the judges agreed.
-
 - id: "dan-oneill"
-  order: 3
+  order: 2
   name: "Dan O'Neill"
   role: "Software and technology"
   tenure: "Industry mentor"
@@ -65,21 +48,21 @@
     Distinguished Engineering Alumnus in 2009.
 
 - id: "dave-harry"
-  order: 4
+  order: 3
   name: "Dave Harry"
   role: "Mentor"
   featured: false
   placeholder: true
 
 - id: "tom-lafleur"
-  order: 5
+  order: 4
   name: "Tom Lafleur"
   role: "Mentor"
   featured: false
   placeholder: true
 
 - id: "mr-huang"
-  order: 6
+  order: 5
   name: "Mr. Huang"
   role: "Mentor"
   featured: false
