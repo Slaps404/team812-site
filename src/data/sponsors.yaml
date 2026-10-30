@@ -30,8 +30,14 @@
   url: "https://www.baesystems.com/"
   logo: "bae-systems"
   widthClass: "w-bae-systems"
-- id: "cluely"
+- id: "general-atomics"
   order: 5
+  name: "General Atomics"
+  tier: "current"
+  url: "https://www.ga.com/"
+  logo: "general-atomics"
+- id: "cluely"
+  order: 6
   name: "Cluely"
   tier: "past"
   url: "https://cluely.com/"
