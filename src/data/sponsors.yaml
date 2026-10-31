@@ -24,14 +24,14 @@
   logo: "leidos"
   widthClass: "w-leidos"
 - id: "bae-systems"
-  order: 4
+  order: 5
   name: "BAE Systems"
   tier: "current"
   url: "https://www.baesystems.com/"
   logo: "bae-systems"
   widthClass: "w-bae-systems"
 - id: "general-atomics"
-  order: 5
+  order: 4
   name: "General Atomics Sciences Education Foundation"
   tier: "current"
   url: "https://www.sci-ed-ga.org/"
