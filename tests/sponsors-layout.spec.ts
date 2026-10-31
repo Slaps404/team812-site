@@ -14,6 +14,11 @@ for (const route of ['/', '/sponsors/']) {
       const panel = element.closest('.panel')!;
       const panelBox = panel.getBoundingClientRect();
       const wallBox = element.getBoundingClientRect();
+      const cells = [...element.querySelectorAll('.logo')].map(cell => cell.getBoundingClientRect());
+      if (window.innerWidth > 820) {
+        if (!cells.slice(0, 3).every(box => Math.abs(box.top - cells[0].top) < 1)) issues.push('first three sponsors must share the top row');
+        if (cells[3].top <= cells[0].top || Math.abs(cells[3].top - cells[4].top) > 1) issues.push('last two sponsors must share the bottom row');
+      }
       if (document.documentElement.scrollWidth > document.documentElement.clientWidth + 1) issues.push('horizontal page overflow');
       if (wallBox.left < 0 || wallBox.right > document.documentElement.clientWidth + 1) issues.push('wall outside viewport');
       for (const cell of element.querySelectorAll('.logo')) {
