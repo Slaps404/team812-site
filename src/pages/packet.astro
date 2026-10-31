@@ -10,6 +10,7 @@ import badge from '../assets/logos/team812-badge.png';
 import qualcomm from '../assets/logos/qualcomm.svg?url';
 import nordson from '../assets/logos/nordson.svg?url';
 import leidos from '../assets/logos/leidos.svg?url';
+import generalAtomics from '../assets/logos/general-atomics-foundation.jpg?url';
 
 const packet = (await getCollection('packet'))[0].data;
 const stats = (await getCollection('stats')).sort((a, b) => a.data.order - b.data.order);
@@ -22,7 +23,7 @@ const sponsors = (await getCollection('sponsors'))
   .filter((s) => s.data.tier === 'current')
   .sort((a, b) => a.data.order - b.data.order);
 
-const logoSrc: Record<string, string> = { qualcomm, nordson, leidos };
+const logoSrc: Record<string, string> = { qualcomm, nordson, leidos, 'general-atomics': generalAtomics };
 
 function plain(html: string) {
   return html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
@@ -236,7 +237,7 @@ const siteHost = new URL(packet.site).host.replace(/^www\./, '');
     <div class="logos">
       {sponsors.map((s) => (
         s.data.logo && logoSrc[s.data.logo] ? (
-          <img src={logoSrc[s.data.logo]} alt={s.data.name} />
+          <img class:list={{ 'foundation-logo': s.data.logo === 'general-atomics' }} src={logoSrc[s.data.logo]} alt={s.data.name} />
         ) : (
           <span>{s.data.name}</span>
         )

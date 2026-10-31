@@ -642,6 +642,7 @@ h1, h2, h3 {
   max-height: 0.42in;
   object-fit: contain;
 }
+.logos .foundation-logo { grid-column: span 2; }
 
 .contact-row {
   display: grid;

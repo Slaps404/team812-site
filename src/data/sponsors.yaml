@@ -36,6 +36,7 @@
   tier: "current"
   url: "https://www.sci-ed-ga.org/"
   logo: "general-atomics"
+  widthClass: "w-general-atomics"
 - id: "cluely"
   order: 6
   name: "Cluely"
