@@ -5,7 +5,12 @@
    BASE
    ============================================================ */
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{
+  -webkit-text-size-adjust:100%;
+  /* Keep iOS rubber-band scrolling from exposing the canvas below the footer.
+     Apply this to the root viewport, while preserving normal page scrolling. */
+  overscroll-behavior-y:none;
+}
 body{
   margin:0;
   overflow-x:clip;          /* a single wide child must not widen the document */

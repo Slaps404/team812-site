@@ -7,7 +7,6 @@ export default defineConfig({
   reporter: 'line',
   use: {
     baseURL: 'http://127.0.0.1:4516',
-    channel: 'chrome',
     trace: 'retain-on-failure',
   },
   webServer: {
@@ -19,16 +18,16 @@ export default defineConfig({
   projects: [
     {
       name: 'mobile-safari',
-      testMatch: 'sponsors-layout.spec.ts',
+      testMatch: ['sponsors-layout.spec.ts', 'page-bottom.spec.ts'],
       use: { ...devices['iPhone 13'], channel: undefined },
     },
     {
       name: 'mobile',
-      use: { ...devices['Desktop Chrome'], viewport: { width: 390, height: 844 } },
+      use: { ...devices['Desktop Chrome'], channel: 'chrome', viewport: { width: 390, height: 844 } },
     },
     {
       name: 'desktop',
-      use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } },
+      use: { ...devices['Desktop Chrome'], channel: 'chrome', viewport: { width: 1440, height: 900 } },
     },
   ],
 });
