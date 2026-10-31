@@ -2,7 +2,6 @@
 import { ClientRouter } from 'astro:transitions';
 import '../styles/tokens.css';
 import '../styles/global.css';
-import favicon from '../assets/logos/team812-badge.png';
 import socialImage from '../assets/photos/2026-states-IMG_1045.jpg';
 import ImageViewer from '../components/ImageViewer.astro';
 
@@ -21,7 +20,10 @@ const socialImageUrl = new URL(socialImage.src, Astro.site ?? Astro.url);
 <title>{title}</title>
 <meta name="description" content={description}>
 <link rel="canonical" href={canonicalUrl}>
-<link rel="icon" href={favicon.src} type="image/png">
+<link rel="icon" href="/favicon.ico?v=812-badge" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/team812-icon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/team812-icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Midnight Mechanics">
