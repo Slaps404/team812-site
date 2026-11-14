@@ -643,7 +643,6 @@ h1, h2, h3 {
   max-height: 0.42in;
   object-fit: contain;
 }
-.logos > :nth-child(n + 4) { grid-column: span 3; }
 
 .contact-row {
   display: grid;

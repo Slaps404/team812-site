@@ -5,11 +5,13 @@ for (const route of ['/', '/sponsors/']) {
     await page.goto(route);
     const wall = page.locator('.wall');
     await wall.scrollIntoViewIfNeeded();
-    await expect(wall.locator('.logo')).toHaveCount(5);
+    await expect(wall.locator('.logo')).toHaveCount(6);
     await expect(wall.locator('.logo img').nth(3)).toHaveAttribute('alt', 'General Atomics Sciences Education Foundation');
     await expect(wall.locator('.logo img').nth(4)).toHaveAttribute('alt', 'BAE Systems');
+    await expect(wall.locator('.logo img').nth(5)).toHaveAttribute('alt', 'Molex');
     await expect(wall.getByRole('link', { name: 'General Atomics Sciences Education Foundation', exact: true })).toHaveAttribute('href', 'https://www.sci-ed-ga.org/');
     await expect(wall.getByRole('link', { name: 'BAE Systems' })).toHaveAttribute('href', 'https://www.baesystems.com/');
+    await expect(wall.getByRole('link', { name: 'Molex' })).toHaveAttribute('href', 'https://www.molex.com/');
 
     const issues = await wall.evaluate((element) => {
       const issues: string[] = [];
@@ -19,7 +21,7 @@ for (const route of ['/', '/sponsors/']) {
       const cells = [...element.querySelectorAll('.logo')].map(cell => cell.getBoundingClientRect());
       if (window.innerWidth > 820) {
         if (!cells.slice(0, 3).every(box => Math.abs(box.top - cells[0].top) < 1)) issues.push('first three sponsors must share the top row');
-        if (cells[3].top <= cells[0].top || Math.abs(cells[3].top - cells[4].top) > 1) issues.push('last two sponsors must share the bottom row');
+        if (cells[3].top <= cells[0].top || Math.abs(cells[3].top - cells[4].top) > 1 || Math.abs(cells[4].top - cells[5].top) > 1) issues.push('last three sponsors must share the bottom row');
       }
       if (document.documentElement.scrollWidth > document.documentElement.clientWidth + 1) issues.push('horizontal page overflow');
       if (wallBox.left < 0 || wallBox.right > document.documentElement.clientWidth + 1) issues.push('wall outside viewport');

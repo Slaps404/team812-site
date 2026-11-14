@@ -37,8 +37,15 @@
   url: "https://www.sci-ed-ga.org/"
   logo: "general-atomics"
   widthClass: "w-general-atomics"
-- id: "cluely"
+- id: "molex"
   order: 6
+  name: "Molex"
+  tier: "current"
+  url: "https://www.molex.com/"
+  logo: "molex"
+  widthClass: "w-molex"
+- id: "cluely"
+  order: 7
   name: "Cluely"
   tier: "past"
   url: "https://cluely.com/"

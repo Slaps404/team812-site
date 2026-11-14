@@ -12,6 +12,7 @@ import nordson from '../assets/logos/nordson.svg?url';
 import leidos from '../assets/logos/leidos.svg?url';
 import baeSystems from '../assets/logos/bae-systems.svg?url';
 import generalAtomics from '../assets/logos/general-atomics-foundation.jpg?url';
+import molex from '../assets/logos/molex.svg?url';
 
 const packet = (await getCollection('packet'))[0].data;
 const stats = (await getCollection('stats')).sort((a, b) => a.data.order - b.data.order);
@@ -24,7 +25,7 @@ const sponsors = (await getCollection('sponsors'))
   .filter((s) => s.data.tier === 'current')
   .sort((a, b) => a.data.order - b.data.order);
 
-const logoSrc: Record<string, string> = { qualcomm, nordson, leidos, 'bae-systems': baeSystems, 'general-atomics': generalAtomics };
+const logoSrc: Record<string, string> = { qualcomm, nordson, leidos, 'bae-systems': baeSystems, 'general-atomics': generalAtomics, molex };
 
 function plain(html: string) {
   return html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
