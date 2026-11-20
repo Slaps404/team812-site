@@ -7,31 +7,31 @@
 # are still unconfirmed, which is why the sponsors page carries a "Rough
 # estimate, not final" note. See the open issue on verifying these numbers
 # and adding an outreach / community events line.
-- id: "registration"
+- id: "travel"
   order: 1
-  label: "Registration and event fees"
-  amount: "$4,000"
+  label: "Travel to competitions"
+  amount: "$7,000"
   flagged: true
   tag: "estimate"
+  total: false
+- id: "swerve"
+  order: 2
+  label: "New swerve drivetrain"
+  amount: "$5,500"
+  flagged: false
+  tag: ""
   total: false
 - id: "parts"
-  order: 2
-  label: "Robot parts and materials"
-  amount: "$3,000"
-  flagged: true
-  tag: "estimate"
-  total: false
-- id: "travel"
   order: 3
-  label: "Travel to competitions"
-  amount: "$3,000"
+  label: "Robot parts and materials"
+  amount: "$2,500"
   flagged: true
   tag: "estimate"
   total: false
 - id: "total"
   order: 4
   label: "Total"
-  amount: "$10,000"
+  amount: "$15,000"
   flagged: false
   tag: ""
   total: true

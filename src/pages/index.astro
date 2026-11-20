@@ -90,7 +90,7 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=f84b6f44-4eb5-4
 
   <section data-reveal>
     <div class="wrap">
-      <h2>Close the <span id="gap-amount">$10,000</span> gap.</h2>
+      <h2>Close the <span id="gap-amount">$15,000</span> gap.</h2>
       <p class="body" style="margin-top:calc(var(--space) * 1.2)">Help fund Team 812’s 2027 season at The Preuss School.</p>
       <div class="cta" style="display:flex;gap:calc(var(--space) * .7);margin-top:calc(var(--space) * 1.6);flex-wrap:wrap">
         <a class="btn solid" href={donationUrl} target="_blank" rel="noopener noreferrer">Give to Team 812</a>
@@ -109,7 +109,7 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=f84b6f44-4eb5-4
           if (entry.isIntersecting) {
             observer.unobserve(entry.target);
 
-            const target = 10000;
+            const target = 15000;
             const duration = 1350;
             const startTime = performance.now();
 
