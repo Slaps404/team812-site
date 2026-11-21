@@ -44,8 +44,15 @@
   url: "https://www.molex.com/"
   logo: "molex"
   widthClass: "w-molex"
-- id: "cluely"
+- id: "rotary-del-mar"
   order: 7
+  name: "Rotary Club of Del Mar"
+  tier: "current"
+  url: "https://delmarrotary.org/"
+  logo: "rotary-del-mar"
+  widthClass: "w-rotary-del-mar"
+- id: "cluely"
+  order: 8
   name: "Cluely"
   tier: "past"
   url: "https://cluely.com/"
