@@ -793,12 +793,10 @@ h3{font-size:var(--t1)}
 .logo.w-bae-systems img{max-width:16rem}
 .logo.w-general-atomics{padding:calc(var(--space) * 1.2)}
 .logo.w-general-atomics img{max-width:44rem;mix-blend-mode:multiply}
-.logo.w-rotary-del-mar img{max-width:68%}
-/* A sponsor left alone on the last row sits in the middle column instead of
-   hanging off the left edge. Desktop only: on phones every logo is full width. */
-@media (min-width:821px){
-  .wall .logo:last-child:nth-child(3n+1){grid-column:3 / span 2}
-}
+.logo.w-rotary-del-mar{padding:calc(var(--space) * 1.2)}
+/* A sponsor left alone on the last row spans the whole row, so the row has no
+   empty grey cells beside it and the logo sits centred. */
+.wall .logo:last-child:nth-child(3n+1){grid-column:1 / -1}
 .logo .wordmark{
   font-size:var(--t1);font-weight:600;letter-spacing:-.02em;
   color:color-mix(in srgb, var(--panel-ink) 78%, transparent);
