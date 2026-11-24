@@ -8,6 +8,7 @@ import Reasons from '../components/Reasons.astro';
 import Tiers from '../components/Tiers.astro';
 import Funds from '../components/Funds.astro';
 import LogoWall from '../components/LogoWall.astro';
+import Supporters from '../components/Supporters.astro';
 
 import rosterImg from '../assets/photos/2026-states-IMG_1011.jpg';
 
@@ -46,7 +47,8 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=f84b6f44-4eb5-4
     <div class="wrap">
       <h2>Sponsor tiers</h2>
       <Tiers />
-        <p class="body" style="max-width:none;margin-top:calc(var(--space) * 2);opacity:.62;font-size:var(--t-1)">Tiers stack, so a $5,000 sponsor gets all ten items. Under $1,000, we list your name on this page as a Supporter.</p>
+        <p class="body" style="max-width:none;margin-top:calc(var(--space) * 2);opacity:.62;font-size:var(--t-1)">Tiers stack, so each one includes everything in the tier before it. Under $1,000, we list your name on this page as a Supporter.</p>
+        <p class="body" style="max-width:none;margin-top:calc(var(--space) * .6);opacity:.62;font-size:var(--t-1)">Families, mentors, and alumni can give at any level, and anyone can ask to be listed anonymously. Parts, tools, machining, shop time, and team meals count toward a tier at their fair market value.</p>
     </div>
   </section>
 
@@ -76,6 +78,7 @@ const donationUrl = 'https://giveto.ucsd.edu/giving/home/?linkId=f84b6f44-4eb5-4
     <div class="wrap">
       <h2 class="label">Sponsors</h2>
       <LogoWall />
+      <Supporters />
     </div>
   </div>
 

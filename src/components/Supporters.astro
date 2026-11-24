@@ -1,0 +1,43 @@
+---
+// People and groups who give, listed by name with no logo: families, mentors,
+// alumni, and anyone who asked to stay anonymous. Renders nothing when the
+// list is empty, so the sponsor panel never shows an empty heading.
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const supporters = (await getCollection('sponsors'))
+  .filter((s: CollectionEntry<'sponsors'>) => s.data.tier === 'supporter')
+  .sort((a, b) => a.data.order - b.data.order);
+---
+{supporters.length > 0 && (
+  <div class="supporters">
+    <h3 class="label">Supporters</h3>
+    <ul>
+      {supporters.map((s: CollectionEntry<'sponsors'>) => (
+        <li class:list={{ ph: s.data.flagged }}>{s.data.name}</li>
+      ))}
+    </ul>
+  </div>
+)}
+
+<style>
+  .supporters {
+    margin-top: calc(var(--space) * 2);
+    text-align: center;
+  }
+
+  .supporters h3 {
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .supporters ul {
+    list-style: none;
+    margin: calc(var(--space) * .8) 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: calc(var(--space) * .5) calc(var(--space) * 1.6);
+    color: var(--panel-ink);
+  }
+</style>
