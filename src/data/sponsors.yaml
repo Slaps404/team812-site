@@ -56,3 +56,14 @@
   name: "Cluely"
   tier: "past"
   url: "https://cluely.com/"
+# Supporters are people and groups, not companies. They are listed by name
+# under the logo wall on the sponsors page, with no logo. Anyone who asks to
+# stay anonymous is listed as "Anon. Team 812 Member" or similar.
+- id: "team-812-mentors"
+  order: 9
+  name: "Team 812 Mentors"
+  tier: "supporter"
+- id: "anon-team-812-member"
+  order: 10
+  name: "Anon. Team 812 Member"
+  tier: "supporter"

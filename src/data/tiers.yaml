@@ -5,11 +5,11 @@
   name: "Midnight"
   image: "midnight_milky_way_lake.avif"
   precede: "Includes the $2,500 benefits, plus"
-  amount: "$5,000"
+  amount: "$5,000+"
   top: true
   items:
-    - "Logo decal <b>on the robot</b>"
-    - "Logo on team shirts"
+    - "<b>Large</b> logo decal on the robot"
+    - "<b>Large</b> logo on team shirts"
     - "Robot demo at your office"
     - "Logo on this site's homepage"
 - id: "2500"
@@ -17,18 +17,19 @@
   name: "Starlight"
   image: "starlight_city.avif"
   precede: "Includes the $1,000 benefits, plus"
-  amount: "$2,500"
+  amount: "$2,500+"
   top: false
   items:
     - "Logo decal <b>on the robot</b>"
     - "Logo on team shirts"
+    - "Thank-you plaque from the team"
     - "Thank-you post on our social accounts"
 - id: "1000"
   order: 3
   name: "Twilight"
   image: "starlight_clouds.avif"
   precede: ""
-  amount: "$1,000"
+  amount: "$1,000+"
   top: false
   items:
     - "Logo on the pit banner"
